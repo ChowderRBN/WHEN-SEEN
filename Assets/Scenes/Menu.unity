@@ -650,6 +650,9 @@ PrefabInstance:
       addedObject: {fileID: 332378888}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5d991d4c516073c42b415803dac734db, type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 2078065707}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5d991d4c516073c42b415803dac734db, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2078065705}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5d991d4c516073c42b415803dac734db, type: 3}
@@ -789,20 +792,44 @@ MonoBehaviour:
   m_GameObject: {fileID: 2078065698}
   m_Enabled: 1
   m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30a8e981a22ff1440a3ac08132a752ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerEcholocation
+  fpController: {fileID: 0}
+  echolocationLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  echolocationEffectPrefab: {fileID: 0}
+  maxPingCharges: 3
+  pingRechargeTime: 25
+  stepEchoDistance: 0.25
+  maxCrouchTime: 10
+  crouchRecoveryRate: 2
+  heartbeatThreshold: 5
+  adrenalineDuration: 10
+  maxScreams: 2
+  screamCooldown: 60
+  resonates: []
+  echoforms: []
+--- !u!114 &2078065707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2078065698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1407d696b8b924442aebf03fbf0b679d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FirstPersonController
-  walkSpeed: 5
-  sprintSpeed: 10
-  crouchSpeed: 2.5
-  gravity: -9.81
   crouchHeight: 1
   standingHeight: 2
   crouchTransitionSpeed: 5
   playerCamera: {fileID: 330585546}
-  mouseSensitivity: 500
-  useStamina: 0
-  maxStamina: 5
+  mouseSensitivity: 550
+  walkSpeed: 2
+  runSpeed: 5
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

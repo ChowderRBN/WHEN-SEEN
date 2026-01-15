@@ -2,13 +2,6 @@ using UnityEngine;
 
 public class FirstPersonController : MonoBehaviour
 {
-    [Header("Movement")]
-    public float walkSpeed = 5f;
-    public float sprintSpeed = 10f;
-    public float crouchSpeed = 2.5f;
-    public float gravity = -9.81f;
-    private Vector3 velocity;
-
     [Header("Crouch Settings")]
     public float crouchHeight = 1f;
     public float standingHeight = 2f;
@@ -19,13 +12,17 @@ public class FirstPersonController : MonoBehaviour
     public float mouseSensitivity = 100f;
     private float xRotation = 0f;
 
-    [Header("Stamina (Optional)")]
-    public bool useStamina = false;
-    public float maxStamina = 5f; // seconds of sprint
-    private float currentStamina;
+    [Header("Movement Settings")]
+    public float walkSpeed = 2f;       // normal speed
+    public float runSpeed = 5f;        // normal run speed
+    private float currentSpeed;
 
     private CharacterController controller;
     private bool isCrouching = false;
+
+    // **PUBLIC PROPERTIES**
+    public bool IsCrouching => isCrouching; // read-only access for other scripts
+    public float CurrentSpeed => currentSpeed; // current movement speed
 
     void Start()
     {
@@ -33,42 +30,14 @@ public class FirstPersonController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        currentStamina = maxStamina;
+        currentSpeed = walkSpeed;
     }
 
     void Update()
     {
-        Move();
         LookAround();
         HandleCrouch();
-        HandleSprint();
-    }
-
-    void Move()
-    {
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
-
-        float currentSpeed = walkSpeed;
-        if (Input.GetKey(KeyCode.LeftShift) && !isCrouching)
-        {
-            currentSpeed = sprintSpeed;
-        }
-        else if (isCrouching)
-        {
-            currentSpeed = crouchSpeed;
-        }
-
-        Vector3 move = transform.right * x + transform.forward * z;
-        controller.Move(move * currentSpeed * Time.deltaTime);
-
-        // Apply gravity
-        velocity.y += gravity * Time.deltaTime;
-        controller.Move(velocity * Time.deltaTime);
-
-        // Reset velocity when grounded
-        if (controller.isGrounded && velocity.y < 0)
-            velocity.y = -2f;
+        HandleMovement();
     }
 
     void LookAround()
@@ -98,21 +67,32 @@ public class FirstPersonController : MonoBehaviour
         playerCamera.localPosition = camPos;
     }
 
-    void HandleSprint()
+    void HandleMovement()
     {
-        if (!useStamina) return;
+        float moveZ = Input.GetAxis("Vertical");
+        float moveX = Input.GetAxis("Horizontal");
 
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            if (currentStamina > 0)
-                currentStamina -= Time.deltaTime;
-            else
-                sprintSpeed = walkSpeed; // stop sprinting when out
-        }
-        else
-        {
-            currentStamina += Time.deltaTime;
-            currentStamina = Mathf.Clamp(currentStamina, 0, maxStamina);
-        }
+        Vector3 move = transform.right * moveX + transform.forward * moveZ;
+        move *= currentSpeed * Time.deltaTime;
+
+        controller.Move(move);
+    }
+
+    // **METHOD TO SET SPEED** (for adrenaline boost)
+    public void SetSpeedMultiplier(float multiplier)
+    {
+        currentSpeed = runSpeed * multiplier;
+    }
+
+    // **METHOD TO RESET SPEED** (after adrenaline ends)
+    public void ResetSpeed()
+    {
+        currentSpeed = walkSpeed;
+    }
+
+    // **NEW METHOD: Force player to stand**
+    public void ForceStand()
+    {
+        isCrouching = false;
     }
 }
