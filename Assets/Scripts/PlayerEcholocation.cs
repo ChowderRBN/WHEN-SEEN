@@ -1,27 +1,42 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
 public class PlayerEcholocation : MonoBehaviour
 {
     [Header("References")]
-    public FirstPersonController fpController; // Reference to your movement/crouch script
-    public LayerMask echolocationLayerMask;
-    public GameObject echolocationEffectPrefab;
+    public FirstPersonController fpController;
 
-    [Header("Echolocation Settings")]
+    [Header("Echolocation")]
+    public GameObject echoWavePrefab;       // Big manual wave prefab
+    public GameObject miniStepWavePrefab;   // Small step wave prefab
+
+    [Header("Ground Detection")]
+    public LayerMask groundMask;
+    public float groundCheckDistance = 3f;
+    public float forwardOffset = 0.6f;
+
+    [Header("Manual Wave Settings")]
     public int maxPingCharges = 3;
     public float pingRechargeTime = 25f;
+    public float manualWaveRadius = 12f;
+    public float manualWaveDuration = 1f;      // How long manual wave stays
+    public float manualWaveSpeed = 6f;         // How fast the wave expands
+
+    [Header("Step Wave Settings")]
+    public float stepWaveDistance = 0.25f;     // Distance per step
+    public float stepWaveRadius = 1.2f;        // Step wave max radius
+    public float stepWaveDuration = 0.5f;      // How long the step wave stays
+    public float stepWaveSpeed = 4f;           // How fast step wave expands
+
     private int currentPingCharges;
     private bool canPing = true;
-    public float stepEchoDistance = 0.25f;
     private Vector3 lastStepPosition;
 
     [Header("Crouch Meter")]
     public float maxCrouchTime = 10f;
     public float crouchRecoveryRate = 2f;
     private float crouchMeter;
-    private bool crouchTired = false;
 
     [Header("Heartbeat & Adrenaline")]
     public float heartbeatThreshold = 5f;
@@ -39,63 +54,85 @@ public class PlayerEcholocation : MonoBehaviour
 
     void Start()
     {
-        currentPingCharges = maxPingCharges;
-        currentScreams = maxScreams;
-        lastStepPosition = transform.position;
-        crouchMeter = maxCrouchTime;
-
         if (fpController == null)
             fpController = GetComponent<FirstPersonController>();
+
+        currentPingCharges = maxPingCharges;
+        currentScreams = maxScreams;
+        crouchMeter = maxCrouchTime;
+        lastStepPosition = transform.position;
     }
 
     void Update()
     {
-        HandleStepEcho();
         HandleManualPing();
+        HandleStepEcho();
         HandleSonicScream();
         HandleAdrenaline();
         HandleCrouchMeter();
     }
 
-    #region Echolocation
-    void HandleStepEcho()
-    {
-        float distanceMoved = Vector3.Distance(transform.position, lastStepPosition);
-        if (distanceMoved >= stepEchoDistance)
-        {
-            EmitEcho(0.5f); // small step echo radius
-            lastStepPosition = transform.position;
-        }
-    }
-
+    // =========================
+    // MANUAL ECHOLOCATION (E key)
+    // =========================
     void HandleManualPing()
     {
         if (Input.GetKeyDown(KeyCode.E) && currentPingCharges > 0 && canPing)
         {
-            EmitEcho(5f); // large ping radius
+            StartCoroutine(SpawnEchoWave(manualWaveRadius, echoWavePrefab, manualWaveDuration, manualWaveSpeed));
             currentPingCharges--;
             StartCoroutine(RechargePing());
         }
     }
 
-    void EmitEcho(float radius)
+    // =========================
+    // STEP ECHO (small waves while walking)
+    // =========================
+    void HandleStepEcho()
     {
-        // Visual effect
-        if (echolocationEffectPrefab != null)
-            Instantiate(echolocationEffectPrefab, transform.position, Quaternion.identity);
+        if (fpController.IsCrouching)
+            return; // no step echoes while crouching
 
-        // Detect objects/enemies
-        Collider[] hits = Physics.OverlapSphere(transform.position, radius, echolocationLayerMask);
-        foreach (Collider hit in hits)
+        float moved = Vector3.Distance(transform.position, lastStepPosition);
+        if (moved >= stepWaveDistance)
         {
-            hit.GetComponent<EchoformAI>()?.Reveal();
+            StartCoroutine(SpawnEchoWave(stepWaveRadius, miniStepWavePrefab, stepWaveDuration, stepWaveSpeed));
+            lastStepPosition = transform.position;
+        }
+    }
+
+    // =========================
+    // SPAWN ECHO WAVE
+    // =========================
+    IEnumerator SpawnEchoWave(float maxRadius, GameObject wavePrefab, float duration, float speed)
+    {
+        if (!Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, groundCheckDistance, groundMask))
+            yield break;
+
+        Vector3 origin = hit.point + transform.forward * forwardOffset + Vector3.up * 0.05f;
+
+        GameObject wave = Instantiate(wavePrefab, origin, Quaternion.identity);
+        wave.transform.localScale = Vector3.zero;
+
+        float radius = 0f;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            radius += speed * Time.deltaTime;
+            wave.transform.localScale = new Vector3(Mathf.Min(radius, maxRadius), 0.05f, Mathf.Min(radius, maxRadius));
+            elapsed += Time.deltaTime;
+            yield return null;
         }
 
-        // Alert Resonate based on loudness
+        Destroy(wave);
+
+        // Alert monsters
         foreach (ResonateAI r in resonates)
-        {
-            r.Alert(transform.position, radius);
-        }
+            r.Alert(origin, maxRadius);
+
+        foreach (EchoformAI e in echoforms)
+            e.Reveal();
     }
 
     IEnumerator RechargePing()
@@ -105,9 +142,10 @@ public class PlayerEcholocation : MonoBehaviour
         currentPingCharges = Mathf.Min(currentPingCharges + 1, maxPingCharges);
         canPing = true;
     }
-    #endregion
 
-    #region Sonic Screams
+    // =========================
+    // SONIC SCREAM
+    // =========================
     void HandleSonicScream()
     {
         if (Input.GetKeyDown(KeyCode.Q) && currentScreams > 0)
@@ -125,17 +163,21 @@ public class PlayerEcholocation : MonoBehaviour
         yield return new WaitForSeconds(screamCooldown);
         currentScreams = Mathf.Min(currentScreams + 1, maxScreams);
     }
-    #endregion
 
-    #region Adrenaline
+    // =========================
+    // HEARTBEAT & ADRENALINE
+    // =========================
     void HandleAdrenaline()
     {
+        if (adrenalineActive) return;
+
         foreach (ResonateAI r in resonates)
         {
             float dist = Vector3.Distance(transform.position, r.transform.position);
-            if (dist <= heartbeatThreshold && !adrenalineActive)
+            if (dist <= heartbeatThreshold)
             {
                 StartCoroutine(ActivateAdrenaline());
+                break;
             }
         }
     }
@@ -143,33 +185,27 @@ public class PlayerEcholocation : MonoBehaviour
     IEnumerator ActivateAdrenaline()
     {
         adrenalineActive = true;
-        fpController.SetSpeedMultiplier(1.65f); // boost speed
+        StartCoroutine(SpawnEchoWave(manualWaveRadius + 3f, echoWavePrefab, manualWaveDuration, manualWaveSpeed)); // bigger LONG wave
+        fpController.SetSpeedMultiplier(1.65f);
         yield return new WaitForSeconds(adrenalineDuration);
+        fpController.ResetSpeed();
         adrenalineActive = false;
-        fpController.ResetSpeed(); // reset speed
     }
-    #endregion
 
-    #region Crouch Meter
+    // =========================
+    // CROUCH METER
+    // =========================
     void HandleCrouchMeter()
     {
         if (fpController.IsCrouching)
         {
             crouchMeter -= Time.deltaTime;
-            if (crouchMeter <= 0)
-            {
-                crouchTired = true;
-                fpController.ForceStand(); // force player to stand safely
-            }
+            if (crouchMeter <= 0f)
+                fpController.ForceStand();
         }
         else
         {
-            if (crouchMeter < maxCrouchTime)
-                crouchMeter += crouchRecoveryRate * Time.deltaTime;
-
-            if (crouchMeter >= maxCrouchTime)
-                crouchTired = false;
+            crouchMeter = Mathf.Min(crouchMeter + crouchRecoveryRate * Time.deltaTime, maxCrouchTime);
         }
     }
-    #endregion
 }
