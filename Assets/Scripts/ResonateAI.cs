@@ -1,18 +1,52 @@
 using UnityEngine;
+using System.Collections;
 
 public class ResonateAI : MonoBehaviour
 {
-    public void Alert(Vector3 playerPosition, float loudness)
+    [Header("Movement")]
+    public float moveSpeed = 3f;
+    public Transform target; // player
+
+    private bool alerted = false;
+    private bool fleeing = false;
+    private Vector3 fleeDirection;
+
+    void Update()
     {
-        // This is called when the player makes noise
-        // TODO: Add AI logic to move towards player
-        Debug.Log($"{name} alerted by noise at {playerPosition} with loudness {loudness}");
+        if (alerted && !fleeing && target != null)
+        {
+            Vector3 dir = (target.position - transform.position).normalized;
+            transform.position += dir * moveSpeed * Time.deltaTime;
+        }
+
+        if (fleeing)
+        {
+            transform.position += fleeDirection * moveSpeed * Time.deltaTime;
+        }
     }
 
-    public void Flee(Vector3 sourcePosition)
+    public void Alert(Vector3 waveOrigin, float waveRadius)
     {
-        // Called when player uses sonic scream
-        // TODO: Add flee AI logic
-        Debug.Log($"{name} flees from scream at {sourcePosition}");
+        float dist = Vector3.Distance(transform.position, waveOrigin);
+        if (dist <= waveRadius)
+        {
+            alerted = true;
+            fleeing = false;
+        }
+    }
+
+    public void Flee(Vector3 screamOrigin)
+    {
+        fleeing = true;
+        alerted = false;
+        fleeDirection = (transform.position - screamOrigin).normalized;
+        StartCoroutine(CalmDownAfterSeconds(5f));
+    }
+
+    private IEnumerator CalmDownAfterSeconds(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        fleeing = false;
+        alerted = false;
     }
 }

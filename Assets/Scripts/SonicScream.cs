@@ -6,7 +6,6 @@ public class PlayerSonicScream : MonoBehaviour
 {
     public AudioSource source;
     public AudioClip clip;
-
     public int maxScreams = 2;
     public float cooldown = 60f;
 
@@ -14,16 +13,14 @@ public class PlayerSonicScream : MonoBehaviour
 
     int screams;
 
-    void Start()
-    {
-        screams = maxScreams;
-    }
+    void Start() => screams = maxScreams;
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Q) && screams > 0)
         {
-            source.PlayOneShot(clip);
+            if (source != null && clip != null)
+                source.PlayOneShot(clip);
 
             foreach (var r in resonates)
                 if (r != null) r.Flee(transform.position);

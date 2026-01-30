@@ -4,7 +4,6 @@ using System.Collections;
 public class PlayerManualEcholocation : MonoBehaviour
 {
     public EchoWaveSpawner spawner;
-
     public int maxPingCharges = 3;
     public float pingRechargeTime = 25f;
     public float radius = 12f;
@@ -14,22 +13,13 @@ public class PlayerManualEcholocation : MonoBehaviour
     int charges;
     bool canPing = true;
 
-    void Start()
-    {
-        charges = maxPingCharges;
-    }
+    void Start() => charges = maxPingCharges;
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.E) && charges > 0 && canPing)
         {
-            StartCoroutine(spawner.SpawnEchoWave(
-                radius,
-                spawner.echoWavePrefab,
-                duration,
-                speed
-            ));
-
+            StartCoroutine(spawner.SpawnEchoWave(radius, spawner.echoWavePrefab, duration, speed));
             charges--;
             StartCoroutine(Recharge());
         }
