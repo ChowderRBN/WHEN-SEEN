@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class PlayerAdrenaline : MonoBehaviour
 {
     public FirstPersonController controller;
-    public EchoWaveSpawner spawner;
+    public TerrainScanner terrainScanner;
 
     public float triggerDistance = 5f;
     public float duration = 10f;
@@ -35,12 +35,11 @@ public class PlayerAdrenaline : MonoBehaviour
     {
         active = true;
 
-        StartCoroutine(spawner.SpawnEchoWave(
-            15f,
-            spawner.echoWavePrefab,
-            1f,
-            6f
-        ));
+        // Use TerrainScanner instead of EchoWaveSpawner
+        if (terrainScanner != null)
+        {
+            terrainScanner.SpawnTerrainScanner();
+        }
 
         controller.SetSpeedMultiplier(speedMultiplier);
 
