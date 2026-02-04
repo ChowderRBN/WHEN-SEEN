@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class MenuNavigator : MonoBehaviour
 {
@@ -21,18 +22,18 @@ public class MenuNavigator : MonoBehaviour
     public Slider volumeSlider;
     public Slider sensitivitySlider;
     public Toggle fullscreenToggle;
-    public Dropdown qualityDropdown;
-    public Dropdown resolutionDropdown;
+    public TMP_Dropdown qualityDropdown;
+    public TMP_Dropdown resolutionDropdown;
 
     private Resolution[] resolutions;
 
     void Start()
     {
+        // Setup settings first (even if panel is disabled)
+        SetupSettings();
+
         // Show main menu at start
         ShowMainMenu();
-
-        // Setup settings
-        SetupSettings();
 
         // Load saved settings
         LoadSettings();
@@ -40,6 +41,11 @@ public class MenuNavigator : MonoBehaviour
 
     void SetupSettings()
     {
+        // Temporarily enable settings panel to set it up
+        bool wasActive = settingsPanel.activeSelf;
+        if (!wasActive)
+            settingsPanel.SetActive(true);
+
         // Setup resolutions
         resolutions = Screen.resolutions;
         resolutionDropdown.ClearOptions();
@@ -67,6 +73,10 @@ public class MenuNavigator : MonoBehaviour
         qualityDropdown.ClearOptions();
         qualityDropdown.AddOptions(new List<string>(QualitySettings.names));
         qualityDropdown.value = QualitySettings.GetQualityLevel();
+
+        // Restore original state
+        if (!wasActive)
+            settingsPanel.SetActive(false);
     }
 
     // ===== MAIN MENU BUTTONS =====
@@ -75,7 +85,7 @@ public class MenuNavigator : MonoBehaviour
     {
         PlayButtonClick();
         // Load your first game scene
-        SceneManager.LoadScene("GameScene"); // Change to your game scene name
+        SceneManager.LoadScene("Game1"); // Change to your game scene name
     }
 
     public void LoadGame()
@@ -89,6 +99,9 @@ public class MenuNavigator : MonoBehaviour
     {
         PlayButtonClick();
         ShowPanel(settingsPanel);
+
+        // Reload settings when opening settings panel
+        LoadSettings();
     }
 
     public void ShowCredits()
@@ -105,7 +118,7 @@ public class MenuNavigator : MonoBehaviour
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else
-            Application.Quit();
+        Application.Quit();
 #endif
     }
 
@@ -141,6 +154,7 @@ public class MenuNavigator : MonoBehaviour
     {
         // Save sensitivity for use in-game
         PlayerPrefs.SetFloat("Sensitivity", sensitivity);
+        Debug.Log("Sensitivity set to: " + sensitivity);
     }
 
     public void SetFullscreen(bool isFullscreen)
@@ -171,42 +185,82 @@ public class MenuNavigator : MonoBehaviour
 
     void LoadSettings()
     {
-        // Load volume
+        // Temporarily disable slider events to prevent them from saving while loading
+        if (volumeSlider != null)
+            volumeSlider.onValueChanged.RemoveAllListeners();
+        if (sensitivitySlider != null)
+            sensitivitySlider.onValueChanged.RemoveAllListeners();
+
+        // Load volume (default to 0.75 if not saved)
         if (PlayerPrefs.HasKey("Volume"))
         {
             float volume = PlayerPrefs.GetFloat("Volume");
-            volumeSlider.value = volume;
+            if (volumeSlider != null) volumeSlider.value = volume;
             AudioListener.volume = volume;
         }
-
-        // Load sensitivity
-        if (PlayerPrefs.HasKey("Sensitivity"))
+        else
         {
-            sensitivitySlider.value = PlayerPrefs.GetFloat("Sensitivity");
+            if (volumeSlider != null) volumeSlider.value = 0.75f;
+            AudioListener.volume = 0.75f;
         }
 
-        // Load fullscreen
+        // Load sensitivity (default to 2.0 if not saved)
+        if (PlayerPrefs.HasKey("Sensitivity"))
+        {
+            float sensitivity = PlayerPrefs.GetFloat("Sensitivity");
+            if (sensitivitySlider != null) sensitivitySlider.value = sensitivity;
+            Debug.Log("Loaded sensitivity: " + sensitivity);
+        }
+        else
+        {
+            if (sensitivitySlider != null) sensitivitySlider.value = 2.0f;
+        }
+
+        // Load fullscreen (default to true if not saved)
         if (PlayerPrefs.HasKey("Fullscreen"))
         {
             bool isFullscreen = PlayerPrefs.GetInt("Fullscreen") == 1;
-            fullscreenToggle.isOn = isFullscreen;
+            if (fullscreenToggle != null) fullscreenToggle.isOn = isFullscreen;
             Screen.fullScreen = isFullscreen;
         }
+        else
+        {
+            if (fullscreenToggle != null) fullscreenToggle.isOn = true;
+            Screen.fullScreen = true;
+        }
 
-        // Load quality
+        // Load quality (default to highest if not saved)
         if (PlayerPrefs.HasKey("Quality"))
         {
             int quality = PlayerPrefs.GetInt("Quality");
-            qualityDropdown.value = quality;
+            if (qualityDropdown != null) qualityDropdown.value = quality;
             QualitySettings.SetQualityLevel(quality);
+        }
+        else
+        {
+            int defaultQuality = QualitySettings.names.Length - 1;
+            if (qualityDropdown != null) qualityDropdown.value = defaultQuality;
+            QualitySettings.SetQualityLevel(defaultQuality);
         }
 
         // Load resolution
         if (PlayerPrefs.HasKey("ResolutionIndex"))
         {
             int resIndex = PlayerPrefs.GetInt("ResolutionIndex");
-            resolutionDropdown.value = resIndex;
+            if (resolutionDropdown != null) resolutionDropdown.value = resIndex;
         }
+
+        // Re-add the listeners after loading
+        if (volumeSlider != null)
+            volumeSlider.onValueChanged.AddListener(SetVolume);
+        if (sensitivitySlider != null)
+            sensitivitySlider.onValueChanged.AddListener(SetSensitivity);
+
+        // Ensure sliders are interactable
+        if (volumeSlider != null) volumeSlider.interactable = true;
+        if (sensitivitySlider != null) sensitivitySlider.interactable = true;
+
+        Debug.Log("Settings loaded. Sensitivity slider interactable: " + (sensitivitySlider != null ? sensitivitySlider.interactable.ToString() : "null"));
     }
 
     // ===== LOAD GAME FUNCTIONS =====

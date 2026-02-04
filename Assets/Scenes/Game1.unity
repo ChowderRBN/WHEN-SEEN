@@ -119,6 +119,954 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &1132792
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1132794}
+  - component: {fileID: 1132793}
+  m_Layer: 0
+  m_Name: CutsceneManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1132793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1132792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9389a1e33d0792498c3a73df5f22eb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CutsceneManager
+  cutscenePanel: {fileID: 1441111652}
+  dialogueText: {fileID: 557325639}
+  speakerNameText: {fileID: 1363018960}
+  fadePanel: {fileID: 342059395}
+  flashEffect: {fileID: 2100806928}
+  voiceSource: {fileID: 215696049}
+  sfxSource: {fileID: 1924354363}
+  musicSource: {fileID: 1072431654}
+  ambientDarkness: {fileID: 8300000, guid: e3ff76263e5d154419447ccbf21cdeb0, type: 3}
+  textSpeed: 0.02
+  nextSceneName: Game2
+  dialogueLines:
+  - speakerName: MISSION LOG - DAY 247
+    dialogueText: 'En route to Colony Osiris via Astra Linear wormhole. ETA: 6 hours.'
+    voiceClip: {fileID: 0}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0.02
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Trish
+    dialogueText: Rudy, wake up. We're approaching the wormhole. Need you at your
+      station.
+    voiceClip: {fileID: 8300000, guid: 004adde9237f82f439627c63494e3cee, type: 3}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Rudy
+    dialogueText: ...Copy that, Captain. On my way.
+    voiceClip: {fileID: 0}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Carter
+    dialogueText: Morning, sunshine. Sleep well?
+    voiceClip: {fileID: 8300000, guid: 7a067cbe95286b54c853afb9db9d1a70, type: 3}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Rudy
+    dialogueText: Like a rock. What's our status?
+    voiceClip: {fileID: 0}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Casey
+    dialogueText: All systems greener than my 3's. Should be a smooth jump through
+      Astra Linear.
+    voiceClip: {fileID: 8300000, guid: 295aa24b39bb9824ea073bc889419284, type: 3}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Trish
+    dialogueText: 'You''ve never made a three in your LIFE! '
+    voiceClip: {fileID: 8300000, guid: f0b23780913b9a34b894357eec3ab75f, type: 3}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Trish
+    dialogueText: Anyways. Casey, did you finish the equipment check?
+    voiceClip: {fileID: 8300000, guid: f0b23780913b9a34b894357eec3ab75f, type: 3}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Casey
+    dialogueText: Oh! Yes, Captain. All... equipment is ready.
+    voiceClip: {fileID: 8300000, guid: bd5e561a577cd5e419c98c8e7abefb22, type: 3}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.05
+  - speakerName: Carter
+    dialogueText: I'd like to say. I believe him.
+    voiceClip: {fileID: 8300000, guid: 7a067cbe95286b54c853afb9db9d1a70, type: 3}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Trish
+    dialogueText: Then you can go help him check.
+    voiceClip: {fileID: 8300000, guid: f0b23780913b9a34b894357eec3ab75f, type: 3}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Carter
+    dialogueText: ... He didn't do a thing.
+    voiceClip: {fileID: 8300000, guid: 7a067cbe95286b54c853afb9db9d1a70, type: 3}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Casey
+    dialogueText: Bruh
+    voiceClip: {fileID: 8300000, guid: f731a9cb36394e8498b1d47609d54e1d, type: 3}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Trish
+    dialogueText: Go check the equipment.
+    voiceClip: {fileID: 8300000, guid: 56746de8321fd4f4781f2c08a6595ffb, type: 3}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Casey
+    dialogueText: Yes ma'am...
+    voiceClip: {fileID: 8300000, guid: f731a9cb36394e8498b1d47609d54e1d, type: 3}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Trish
+    dialogueText: Rudy. Head to the kitchen and prepare breakfast.
+    voiceClip: {fileID: 8300000, guid: f0b23780913b9a34b894357eec3ab75f, type: 3}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Rudy
+    dialogueText: Yes ma'am.
+    voiceClip: {fileID: 0}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: 
+    dialogueText: ...
+    voiceClip: {fileID: 0}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: 
+    dialogueText: ...
+    voiceClip: {fileID: 0}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Rudy
+    dialogueText: No way.
+    voiceClip: {fileID: 0}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Everyone
+    dialogueText: Surprise!!!
+    voiceClip: {fileID: 8300000, guid: 067b13a4b860b1e458c64f169e211fe9, type: 3}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Trish
+    dialogueText: Happy Birthday, Rudy.
+    voiceClip: {fileID: 8300000, guid: 56746de8321fd4f4781f2c08a6595ffb, type: 3}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Casey
+    dialogueText: Yeah! Happy Birthday Man.
+    voiceClip: {fileID: 8300000, guid: f731a9cb36394e8498b1d47609d54e1d, type: 3}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Carter
+    dialogueText: 'It was MY idea to get you that cake. '
+    voiceClip: {fileID: 8300000, guid: 7a067cbe95286b54c853afb9db9d1a70, type: 3}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Rudy
+    dialogueText: Thank you so much guys.
+    voiceClip: {fileID: 0}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Trish
+    dialogueText: You deserve it.
+    voiceClip: {fileID: 8300000, guid: 56746de8321fd4f4781f2c08a6595ffb, type: 3}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: 
+    dialogueText: 
+    voiceClip: {fileID: 8300000, guid: 75446a74f7b8f124fa41770c52580ab6, type: 3}
+    soundEffect: {fileID: 8300000, guid: 75446a74f7b8f124fa41770c52580ab6, type: 3}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 2
+    useScreenShake: 1
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 1
+    flashIntensity: 0.5
+  - speakerName: Carter
+    dialogueText: Why are the sirens going off? We're not supposed to be near anything
+      yet?!?
+    voiceClip: {fileID: 8300000, guid: 4aea144b62450c34daa04737953dd223, type: 3}
+    soundEffect: {fileID: 8300000, guid: 75446a74f7b8f124fa41770c52580ab6, type: 3}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 2.5
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 1
+    flashIntensity: 0.5
+  - speakerName: Trish
+    dialogueText: What the-everyone get to the bridge, NOW!
+    voiceClip: {fileID: 8300000, guid: f0b23780913b9a34b894357eec3ab75f, type: 3}
+    soundEffect: {fileID: 8300000, guid: 75446a74f7b8f124fa41770c52580ab6, type: 3}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 1
+    flashIntensity: 0.5
+  - speakerName: Rudy
+    dialogueText: Captain, what's happening?!
+    voiceClip: {fileID: 0}
+    soundEffect: {fileID: 8300000, guid: 75446a74f7b8f124fa41770c52580ab6, type: 3}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 1
+    flashIntensity: 0.5
+  - speakerName: Casey
+    dialogueText: We are about to hit an unmarked wormhole!
+    voiceClip: {fileID: 8300000, guid: bd5e561a577cd5e419c98c8e7abefb22, type: 3}
+    soundEffect: {fileID: 8300000, guid: 75446a74f7b8f124fa41770c52580ab6, type: 3}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 1
+    flashIntensity: 0.5
+  - speakerName: Trish
+    dialogueText: Can you change course!?!
+    voiceClip: {fileID: 8300000, guid: 56746de8321fd4f4781f2c08a6595ffb, type: 3}
+    soundEffect: {fileID: 8300000, guid: 75446a74f7b8f124fa41770c52580ab6, type: 3}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 1
+    flashIntensity: 0.5
+  - speakerName: Carter
+    dialogueText: No shot! We're going in!
+    voiceClip: {fileID: 8300000, guid: bafe720a90525974aa02a2841a69215b, type: 3}
+    soundEffect: {fileID: 8300000, guid: 75446a74f7b8f124fa41770c52580ab6, type: 3}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 1
+    flashIntensity: 0.5
+  - speakerName: Trish
+    dialogueText: Activate crash contingencies!
+    voiceClip: {fileID: 8300000, guid: 56746de8321fd4f4781f2c08a6595ffb, type: 3}
+    soundEffect: {fileID: 8300000, guid: 75446a74f7b8f124fa41770c52580ab6, type: 3}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 1
+    flashIntensity: 0.5
+  - speakerName: 
+    dialogueText: 
+    voiceClip: {fileID: 8300000, guid: 5ccf1d5abbfb2b84286df5728d52c4f6, type: 3}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 1
+    shakeIntensity: 10
+    shakeDuration: 10
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: 
+    dialogueText: 
+    voiceClip: {fileID: 0}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: 
+    dialogueText: 
+    voiceClip: {fileID: 0}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Trish
+    dialogueText: '"Eveyroen okae?! Cratrer?'
+    voiceClip: {fileID: 8300000, guid: bafe720a90525974aa02a2841a69215b, type: 3}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Carter
+    dialogueText: Bruisde but avile. Casye?
+    voiceClip: {fileID: 8300000, guid: 56746de8321fd4f4781f2c08a6595ffb, type: 3}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Casey
+    dialogueText: I'm hree...
+    voiceClip: {fileID: 8300000, guid: bafe720a90525974aa02a2841a69215b, type: 3}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Rudy
+    dialogueText: Wat Hgappened?
+    voiceClip: {fileID: 0}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Trish
+    dialogueText: Rudy are you okay? We crashed!
+    voiceClip: {fileID: 8300000, guid: f0b23780913b9a34b894357eec3ab75f, type: 3}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Carter
+    dialogueText: There is something absorbing light...
+    voiceClip: {fileID: 8300000, guid: bafe720a90525974aa02a2841a69215b, type: 3}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Trish
+    dialogueText: Absorbing light???
+    voiceClip: {fileID: 8300000, guid: f0b23780913b9a34b894357eec3ab75f, type: 3}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Trish
+    dialogueText: Does everyone have their echolocation modules installed?
+    voiceClip: {fileID: 8300000, guid: f0b23780913b9a34b894357eec3ab75f, type: 3}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Casey
+    dialogueText: Yes.
+    voiceClip: {fileID: 8300000, guid: f731a9cb36394e8498b1d47609d54e1d, type: 3}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Carter
+    dialogueText: Me too.
+    voiceClip: {fileID: 8300000, guid: bafe720a90525974aa02a2841a69215b, type: 3}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Trish
+    dialogueText: Rudy?
+    voiceClip: {fileID: 8300000, guid: 56746de8321fd4f4781f2c08a6595ffb, type: 3}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Rudy
+    dialogueText: ...
+    voiceClip: {fileID: 0}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Trish
+    dialogueText: Got it. Start installing it and stick close to me.
+    voiceClip: {fileID: 8300000, guid: f0b23780913b9a34b894357eec3ab75f, type: 3}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Rudy
+    dialogueText: Thank you, Captain
+    voiceClip: {fileID: 0}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Trish
+    dialogueText: Of course.
+    voiceClip: {fileID: 8300000, guid: 56746de8321fd4f4781f2c08a6595ffb, type: 3}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: 
+    dialogueText: 
+    voiceClip: {fileID: 0}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Casey
+    dialogueText: Are communication's working?
+    voiceClip: {fileID: 8300000, guid: f731a9cb36394e8498b1d47609d54e1d, type: 3}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Trish
+    dialogueText: '"Fraid not'
+    voiceClip: {fileID: 8300000, guid: 56746de8321fd4f4781f2c08a6595ffb, type: 3}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Casey
+    dialogueText: ...We HAVE seen horror movies right?
+    voiceClip: {fileID: 8300000, guid: f731a9cb36394e8498b1d47609d54e1d, type: 3}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Carter
+    dialogueText: Relax. I'm starting the echolocation testing
+    voiceClip: {fileID: 8300000, guid: 7a067cbe95286b54c853afb9db9d1a70, type: 3}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: 
+    dialogueText: 
+    voiceClip: {fileID: 8300000, guid: 10400d61dc44cd64c805e23cc12a57a4, type: 3}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Carter
+    dialogueText: Echolocation works perfectly.
+    voiceClip: {fileID: 8300000, guid: 7a067cbe95286b54c853afb9db9d1a70, type: 3}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 0
+    autoAdvanceDelay: 2
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: SYSTEM
+    dialogueText: 'ECHOLOCATION MODULE: 67%... 84%... 98%...'
+    voiceClip: {fileID: 8300000, guid: 7a067cbe95286b54c853afb9db9d1a70, type: 3}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 2
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Rudy
+    dialogueText: So how do I use it?
+    voiceClip: {fileID: 0}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Trish
+    dialogueText: It's linked to your brainwaves. It's like in a video games. Think
+      of it as activating a skill using "E"
+    voiceClip: {fileID: 8300000, guid: 004adde9237f82f439627c63494e3cee, type: 3}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 2
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Casey
+    dialogueText: Do we just camp out until someone find's us?
+    voiceClip: {fileID: 8300000, guid: bd5e561a577cd5e419c98c8e7abefb22, type: 3}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Carter
+    dialogueText: Look's like it
+    voiceClip: {fileID: 8300000, guid: bafe720a90525974aa02a2841a69215b, type: 3}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Casey
+    dialogueText: 'Looks like we''re gonna have a grand '
+    voiceClip: {fileID: 8300000, guid: f731a9cb36394e8498b1d47609d54e1d, type: 3}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Casey
+    dialogueText: AHHHHHH!
+    voiceClip: {fileID: 8300000, guid: 0e3ec3ab0996a65469b338ab44792cb3, type: 3}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Trish
+    dialogueText: CASEY!?!
+    voiceClip: {fileID: 8300000, guid: 56746de8321fd4f4781f2c08a6595ffb, type: 3}
+    soundEffect: {fileID: 8300000, guid: 2a94b8d8ee20cae4fb85ebc55cbc4e76, type: 3}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Trish
+    dialogueText: Get inside!
+    voiceClip: {fileID: 8300000, guid: 56746de8321fd4f4781f2c08a6595ffb, type: 3}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 1
+    shakeIntensity: 10
+    shakeDuration: 0.2
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Trish
+    dialogueText: We need to-!
+    voiceClip: {fileID: 8300000, guid: 56746de8321fd4f4781f2c08a6595ffb, type: 3}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Trish
+    dialogueText: 
+    voiceClip: {fileID: 8300000, guid: 75d9dcc5cb53d6543a77294e42d42a3d, type: 3}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Shotgun
+    dialogueText: 
+    voiceClip: {fileID: 8300000, guid: 92533640e2df33d449e958a08aa7ae40, type: 3}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Carter
+    dialogueText: I'M TAKIN ONE OF YOU TO THE GRAVE! RUN, RUDY!
+    voiceClip: {fileID: 8300000, guid: 7a067cbe95286b54c853afb9db9d1a70, type: 3}
+    soundEffect: {fileID: 8300000, guid: 92533640e2df33d449e958a08aa7ae40, type: 3}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: 
+    dialogueText: 
+    voiceClip: {fileID: 0}
+    soundEffect: {fileID: 8300000, guid: 92533640e2df33d449e958a08aa7ae40, type: 3}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: 
+    dialogueText: 
+    voiceClip: {fileID: 0}
+    soundEffect: {fileID: 8300000, guid: 92533640e2df33d449e958a08aa7ae40, type: 3}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+--- !u!4 &1132794
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1132792}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1447.5338, y: 563.0033, z: 989.99176}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &59806822
 GameObject:
   m_ObjectHideFlags: 0
@@ -129,6 +1077,7 @@ GameObject:
   m_Component:
   - component: {fileID: 59806824}
   - component: {fileID: 59806823}
+  - component: {fileID: 59806825}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -216,6 +1165,559 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &59806825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 59806822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalLightData
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_CustomShadowLayers: 0
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
+  m_RenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_ShadowRenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_Version: 4
+  m_LightLayerMask: 1
+  m_ShadowLayerMask: 1
+  m_RenderingLayers: 1
+  m_ShadowRenderingLayers: 1
+--- !u!1 &215696048
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 215696050}
+  - component: {fileID: 215696049}
+  m_Layer: 0
+  m_Name: Voice
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!82 &215696049
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 215696048}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!4 &215696050
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 215696048}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1282.3334, y: 0, z: 1403.9207}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &342059393
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 342059394}
+  - component: {fileID: 342059396}
+  - component: {fileID: 342059395}
+  m_Layer: 5
+  m_Name: FadePanel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &342059394
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 342059393}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 879011801}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &342059395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 342059393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &342059396
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 342059393}
+  m_CullTransparentMesh: 1
+--- !u!1 &362589513
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 362589516}
+  - component: {fileID: 362589515}
+  - component: {fileID: 362589514}
+  m_Layer: 0
+  m_Name: EventSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &362589514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 362589513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.UI.InputSystemUIInputModule
+  m_SendPointerHoverToParent: 1
+  m_MoveRepeatDelay: 0.5
+  m_MoveRepeatRate: 0.1
+  m_XRTrackingOrigin: {fileID: 0}
+  m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_PointAction: {fileID: -1654692200621890270, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_MoveAction: {fileID: -8784545083839296357, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_SubmitAction: {fileID: 392368643174621059, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_CancelAction: {fileID: 7727032971491509709, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_LeftClickAction: {fileID: 3001919216989983466, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_MiddleClickAction: {fileID: -2185481485913320682, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_RightClickAction: {fileID: -4090225696740746782, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_ScrollWheelAction: {fileID: 6240969308177333660, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_TrackedDevicePositionAction: {fileID: 6564999863303420839, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_TrackedDeviceOrientationAction: {fileID: 7970375526676320489, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_DeselectOnBackgroundClick: 1
+  m_PointerBehavior: 0
+  m_CursorLockBehavior: 0
+  m_ScrollDeltaPerTick: 6
+--- !u!114 &362589515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 362589513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventSystem
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 10
+--- !u!4 &362589516
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 362589513}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &557325637
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 557325638}
+  - component: {fileID: 557325640}
+  - component: {fileID: 557325639}
+  m_Layer: 5
+  m_Name: Dialogue
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &557325638
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 557325637}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1441111653}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -468, y: -252}
+  m_SizeDelta: {x: 200, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &557325639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 557325637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: ' '
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
+  m_sharedMaterial: {fileID: 2147374, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 20
+  m_fontSizeBase: 20
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 1
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: -941.86066, w: -138.20818}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &557325640
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 557325637}
+  m_CullTransparentMesh: 1
+--- !u!1 &879011797
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 879011801}
+  - component: {fileID: 879011800}
+  - component: {fileID: 879011799}
+  - component: {fileID: 879011798}
+  m_Layer: 5
+  m_Name: Canvas
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &879011798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 879011797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.GraphicRaycaster
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+--- !u!114 &879011799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 879011797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
+  m_UiScaleMode: 0
+  m_ReferencePixelsPerUnit: 100
+  m_ScaleFactor: 1
+  m_ReferenceResolution: {x: 800, y: 600}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
+--- !u!223 &879011800
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 879011797}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 0
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 25
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
+--- !u!224 &879011801
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 879011797}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1441111653}
+  - {fileID: 1274843916}
+  - {fileID: 342059394}
+  - {fileID: 2100806927}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0, y: 0}
 --- !u!1 &1043165594
 GameObject:
   m_ObjectHideFlags: 0
@@ -227,6 +1729,7 @@ GameObject:
   - component: {fileID: 1043165597}
   - component: {fileID: 1043165596}
   - component: {fileID: 1043165595}
+  - component: {fileID: 1043165598}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -308,9 +1811,680 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1043165598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1043165594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalCameraData
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
+  m_UseScreenCoordOverride: 0
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_TaaSettings:
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
+  m_Version: 2
+--- !u!1 &1072431653
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1072431655}
+  - component: {fileID: 1072431654}
+  m_Layer: 0
+  m_Name: Music
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!82 &1072431654
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1072431653}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!4 &1072431655
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1072431653}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1282.3334, y: 0, z: 1403.9207}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1274843915
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1274843916}
+  - component: {fileID: 1274843918}
+  - component: {fileID: 1274843917}
+  m_Layer: 5
+  m_Name: DialogueBox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1274843916
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1274843915}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.66, y: 0.2, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 879011801}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: -356}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1274843917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1274843915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1274843918
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1274843915}
+  m_CullTransparentMesh: 1
+--- !u!1 &1363018958
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1363018959}
+  - component: {fileID: 1363018961}
+  - component: {fileID: 1363018960}
+  m_Layer: 5
+  m_Name: Name
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1363018959
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1363018958}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1441111653}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 5, y: -136}
+  m_SizeDelta: {x: 200, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1363018960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1363018958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: MISSION LOG - DAY 247
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
+  m_sharedMaterial: {fileID: 2147374, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 36
+  m_fontSizeBase: 36
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1363018961
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1363018958}
+  m_CullTransparentMesh: 1
+--- !u!1 &1441111652
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1441111653}
+  - component: {fileID: 1441111655}
+  - component: {fileID: 1441111654}
+  m_Layer: 5
+  m_Name: Cutscene Dialogue
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1441111653
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1441111652}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.1, y: 1.1, z: 1.1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 557325638}
+  - {fileID: 1363018959}
+  m_Father: {fileID: 879011801}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1441111654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1441111652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1441111655
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1441111652}
+  m_CullTransparentMesh: 1
+--- !u!1 &1924354362
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1924354364}
+  - component: {fileID: 1924354363}
+  m_Layer: 0
+  m_Name: SFX
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!82 &1924354363
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1924354362}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!4 &1924354364
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1924354362}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1282.3334, y: 0, z: 1403.9207}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2100806926
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2100806927}
+  - component: {fileID: 2100806929}
+  - component: {fileID: 2100806928}
+  m_Layer: 5
+  m_Name: FlashEffect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2100806927
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2100806926}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 879011801}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -1031.2947, y: -284}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 1, y: 0}
+--- !u!114 &2100806928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2100806926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &2100806929
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2100806926}
+  m_CullTransparentMesh: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1043165597}
   - {fileID: 59806824}
+  - {fileID: 1132794}
+  - {fileID: 215696050}
+  - {fileID: 1072431655}
+  - {fileID: 1924354364}
+  - {fileID: 879011801}
+  - {fileID: 362589516}
