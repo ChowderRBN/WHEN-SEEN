@@ -27,6 +27,11 @@ public class MenuNavigator : MonoBehaviour
 
     private Resolution[] resolutions;
 
+    [Header("Save Slot UI")]
+    public SaveSlotUI saveSlot1;
+    public SaveSlotUI saveSlot2;
+    public SaveSlotUI saveSlot3;
+
     void Start()
     {
         // Setup settings first (even if panel is disabled)
@@ -37,6 +42,11 @@ public class MenuNavigator : MonoBehaviour
 
         // Load saved settings
         LoadSettings();
+
+        // Initialize save slots
+        if (saveSlot1 != null) saveSlot1.Initialize(1);
+        if (saveSlot2 != null) saveSlot2.Initialize(2);
+        if (saveSlot3 != null) saveSlot3.Initialize(3);
     }
 
     void SetupSettings()
@@ -85,14 +95,18 @@ public class MenuNavigator : MonoBehaviour
     {
         PlayButtonClick();
         // Load your first game scene
-        SceneManager.LoadScene("Game1"); // Change to your game scene name
+        SceneManager.LoadScene("IntroScene"); // Changed to load cutscene first
     }
 
     public void LoadGame()
     {
         PlayButtonClick();
         ShowPanel(loadGamePanel);
-        // You can implement save file loading here
+
+        // Refresh all save slots
+        if (saveSlot1 != null) saveSlot1.RefreshDisplay();
+        if (saveSlot2 != null) saveSlot2.RefreshDisplay();
+        if (saveSlot3 != null) saveSlot3.RefreshDisplay();
     }
 
     public void ShowSettings()
@@ -268,18 +282,21 @@ public class MenuNavigator : MonoBehaviour
     public void LoadSaveSlot(int slotNumber)
     {
         PlayButtonClick();
-        // Implement your save loading logic here
-        Debug.Log("Loading save slot: " + slotNumber);
-        // Example: SaveSystem.LoadGame(slotNumber);
-        // SceneManager.LoadScene("GameScene");
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.LoadGame(slotNumber);
+        }
     }
 
     public void DeleteSaveSlot(int slotNumber)
     {
         PlayButtonClick();
-        // Implement your save deletion logic here
-        Debug.Log("Deleting save slot: " + slotNumber);
-        // Example: SaveSystem.DeleteSave(slotNumber);
+        SaveSystem.DeleteSave(slotNumber);
+
+        // Refresh the save slot display
+        if (slotNumber == 1 && saveSlot1 != null) saveSlot1.RefreshDisplay();
+        if (slotNumber == 2 && saveSlot2 != null) saveSlot2.RefreshDisplay();
+        if (slotNumber == 3 && saveSlot3 != null) saveSlot3.RefreshDisplay();
     }
 
     // ===== AUDIO =====
