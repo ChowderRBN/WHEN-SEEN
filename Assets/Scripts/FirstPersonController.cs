@@ -10,7 +10,8 @@ public class FirstPersonController : MonoBehaviour
 
     [Header("Mouse Look")]
     public Transform playerCamera;
-    public float mouseSensitivity = 100f;
+    public float baseSensitivity = 100f; // Base sensitivity (you can adjust this)
+    private float mouseSensitivity; // Actual sensitivity used (loaded from settings)
     private float xRotation = 0f;
 
     [Header("Movement Settings")]
@@ -29,6 +30,9 @@ public class FirstPersonController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         currentSpeed = walkSpeed;
+
+        // Load sensitivity from PlayerPrefs
+        LoadSensitivity();
     }
 
     void Update()
@@ -45,6 +49,7 @@ public class FirstPersonController : MonoBehaviour
 
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+
         playerCamera.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         transform.Rotate(Vector3.up * mouseX);
     }
@@ -70,6 +75,24 @@ public class FirstPersonController : MonoBehaviour
 
         Vector3 move = transform.right * moveX + transform.forward * moveZ;
         controller.Move(move * currentSpeed * Time.deltaTime);
+    }
+
+    // Load sensitivity from PlayerPrefs
+    void LoadSensitivity()
+    {
+        // Get saved sensitivity (default 2.0 if not set)
+        float savedSensitivity = PlayerPrefs.GetFloat("Sensitivity", 2.0f);
+
+        // Apply to mouse sensitivity
+        mouseSensitivity = baseSensitivity * savedSensitivity;
+
+        Debug.Log("Mouse sensitivity loaded: " + mouseSensitivity + " (Base: " + baseSensitivity + " x Multiplier: " + savedSensitivity + ")");
+    }
+
+    // Call this to update sensitivity without restarting
+    public void UpdateSensitivity()
+    {
+        LoadSensitivity();
     }
 
     public void SetSpeedMultiplier(float multiplier) => currentSpeed = runSpeed * multiplier;
