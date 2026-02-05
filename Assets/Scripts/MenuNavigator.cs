@@ -22,71 +22,14 @@ public class MenuNavigator : MonoBehaviour
     public Slider volumeSlider;
     public Slider sensitivitySlider;
     public Toggle fullscreenToggle;
-    public TMP_Dropdown qualityDropdown;
-    public TMP_Dropdown resolutionDropdown;
-
-    private Resolution[] resolutions;
-
-    [Header("Save Slot UI")]
-    public SaveSlotUI saveSlot1;
-    public SaveSlotUI saveSlot2;
-    public SaveSlotUI saveSlot3;
 
     void Start()
     {
-        // Setup settings first (even if panel is disabled)
-        SetupSettings();
-
         // Show main menu at start
         ShowMainMenu();
 
         // Load saved settings
         LoadSettings();
-
-        // Initialize save slots
-        if (saveSlot1 != null) saveSlot1.Initialize(1);
-        if (saveSlot2 != null) saveSlot2.Initialize(2);
-        if (saveSlot3 != null) saveSlot3.Initialize(3);
-    }
-
-    void SetupSettings()
-    {
-        // Temporarily enable settings panel to set it up
-        bool wasActive = settingsPanel.activeSelf;
-        if (!wasActive)
-            settingsPanel.SetActive(true);
-
-        // Setup resolutions
-        resolutions = Screen.resolutions;
-        resolutionDropdown.ClearOptions();
-
-        List<string> options = new List<string>();
-        int currentResolutionIndex = 0;
-
-        for (int i = 0; i < resolutions.Length; i++)
-        {
-            string option = resolutions[i].width + " x " + resolutions[i].height;
-            options.Add(option);
-
-            if (resolutions[i].width == Screen.currentResolution.width &&
-                resolutions[i].height == Screen.currentResolution.height)
-            {
-                currentResolutionIndex = i;
-            }
-        }
-
-        resolutionDropdown.AddOptions(options);
-        resolutionDropdown.value = currentResolutionIndex;
-        resolutionDropdown.RefreshShownValue();
-
-        // Setup quality settings
-        qualityDropdown.ClearOptions();
-        qualityDropdown.AddOptions(new List<string>(QualitySettings.names));
-        qualityDropdown.value = QualitySettings.GetQualityLevel();
-
-        // Restore original state
-        if (!wasActive)
-            settingsPanel.SetActive(false);
     }
 
     // ===== MAIN MENU BUTTONS =====
@@ -94,28 +37,28 @@ public class MenuNavigator : MonoBehaviour
     public void NewGame()
     {
         PlayButtonClick();
-        // Load your first game scene
-        SceneManager.LoadScene("IntroScene"); // Changed to load cutscene first
+
+        // Use GameManager to start new game (default slot 1, or modify as needed)
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.NewGame(1);
+        }
+        else
+        {
+            Debug.LogError("GameManager instance not found!");
+        }
     }
 
     public void LoadGame()
     {
         PlayButtonClick();
         ShowPanel(loadGamePanel);
-
-        // Refresh all save slots
-        if (saveSlot1 != null) saveSlot1.RefreshDisplay();
-        if (saveSlot2 != null) saveSlot2.RefreshDisplay();
-        if (saveSlot3 != null) saveSlot3.RefreshDisplay();
     }
 
     public void ShowSettings()
     {
         PlayButtonClick();
         ShowPanel(settingsPanel);
-
-        // Reload settings when opening settings panel
-        LoadSettings();
     }
 
     public void ShowCredits()
@@ -140,7 +83,6 @@ public class MenuNavigator : MonoBehaviour
 
     public void ShowMainMenu()
     {
-        PlayButtonClick();
         ShowPanel(mainMenuPanel);
     }
 
@@ -166,28 +108,13 @@ public class MenuNavigator : MonoBehaviour
 
     public void SetSensitivity(float sensitivity)
     {
-        // Save sensitivity for use in-game
         PlayerPrefs.SetFloat("Sensitivity", sensitivity);
-        Debug.Log("Sensitivity set to: " + sensitivity);
     }
 
     public void SetFullscreen(bool isFullscreen)
     {
         Screen.fullScreen = isFullscreen;
         PlayerPrefs.SetInt("Fullscreen", isFullscreen ? 1 : 0);
-    }
-
-    public void SetQuality(int qualityIndex)
-    {
-        QualitySettings.SetQualityLevel(qualityIndex);
-        PlayerPrefs.SetInt("Quality", qualityIndex);
-    }
-
-    public void SetResolution(int resolutionIndex)
-    {
-        Resolution resolution = resolutions[resolutionIndex];
-        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
-        PlayerPrefs.SetInt("ResolutionIndex", resolutionIndex);
     }
 
     public void ApplySettings()
@@ -199,104 +126,33 @@ public class MenuNavigator : MonoBehaviour
 
     void LoadSettings()
     {
-        // Temporarily disable slider events to prevent them from saving while loading
-        if (volumeSlider != null)
-            volumeSlider.onValueChanged.RemoveAllListeners();
-        if (sensitivitySlider != null)
-            sensitivitySlider.onValueChanged.RemoveAllListeners();
-
-        // Load volume (default to 0.75 if not saved)
         if (PlayerPrefs.HasKey("Volume"))
         {
             float volume = PlayerPrefs.GetFloat("Volume");
-            if (volumeSlider != null) volumeSlider.value = volume;
+            if (volumeSlider != null)
+            {
+                volumeSlider.value = volume;
+            }
             AudioListener.volume = volume;
         }
-        else
-        {
-            if (volumeSlider != null) volumeSlider.value = 0.75f;
-            AudioListener.volume = 0.75f;
-        }
 
-        // Load sensitivity (default to 2.0 if not saved)
         if (PlayerPrefs.HasKey("Sensitivity"))
         {
-            float sensitivity = PlayerPrefs.GetFloat("Sensitivity");
-            if (sensitivitySlider != null) sensitivitySlider.value = sensitivity;
-            Debug.Log("Loaded sensitivity: " + sensitivity);
-        }
-        else
-        {
-            if (sensitivitySlider != null) sensitivitySlider.value = 2.0f;
+            if (sensitivitySlider != null)
+            {
+                sensitivitySlider.value = PlayerPrefs.GetFloat("Sensitivity");
+            }
         }
 
-        // Load fullscreen (default to true if not saved)
         if (PlayerPrefs.HasKey("Fullscreen"))
         {
             bool isFullscreen = PlayerPrefs.GetInt("Fullscreen") == 1;
-            if (fullscreenToggle != null) fullscreenToggle.isOn = isFullscreen;
+            if (fullscreenToggle != null)
+            {
+                fullscreenToggle.isOn = isFullscreen;
+            }
             Screen.fullScreen = isFullscreen;
         }
-        else
-        {
-            if (fullscreenToggle != null) fullscreenToggle.isOn = true;
-            Screen.fullScreen = true;
-        }
-
-        // Load quality (default to highest if not saved)
-        if (PlayerPrefs.HasKey("Quality"))
-        {
-            int quality = PlayerPrefs.GetInt("Quality");
-            if (qualityDropdown != null) qualityDropdown.value = quality;
-            QualitySettings.SetQualityLevel(quality);
-        }
-        else
-        {
-            int defaultQuality = QualitySettings.names.Length - 1;
-            if (qualityDropdown != null) qualityDropdown.value = defaultQuality;
-            QualitySettings.SetQualityLevel(defaultQuality);
-        }
-
-        // Load resolution
-        if (PlayerPrefs.HasKey("ResolutionIndex"))
-        {
-            int resIndex = PlayerPrefs.GetInt("ResolutionIndex");
-            if (resolutionDropdown != null) resolutionDropdown.value = resIndex;
-        }
-
-        // Re-add the listeners after loading
-        if (volumeSlider != null)
-            volumeSlider.onValueChanged.AddListener(SetVolume);
-        if (sensitivitySlider != null)
-            sensitivitySlider.onValueChanged.AddListener(SetSensitivity);
-
-        // Ensure sliders are interactable
-        if (volumeSlider != null) volumeSlider.interactable = true;
-        if (sensitivitySlider != null) sensitivitySlider.interactable = true;
-
-        Debug.Log("Settings loaded. Sensitivity slider interactable: " + (sensitivitySlider != null ? sensitivitySlider.interactable.ToString() : "null"));
-    }
-
-    // ===== LOAD GAME FUNCTIONS =====
-
-    public void LoadSaveSlot(int slotNumber)
-    {
-        PlayButtonClick();
-        if (GameManager.Instance != null)
-        {
-            GameManager.Instance.LoadGame(slotNumber);
-        }
-    }
-
-    public void DeleteSaveSlot(int slotNumber)
-    {
-        PlayButtonClick();
-        SaveSystem.DeleteSave(slotNumber);
-
-        // Refresh the save slot display
-        if (slotNumber == 1 && saveSlot1 != null) saveSlot1.RefreshDisplay();
-        if (slotNumber == 2 && saveSlot2 != null) saveSlot2.RefreshDisplay();
-        if (slotNumber == 3 && saveSlot3 != null) saveSlot3.RefreshDisplay();
     }
 
     // ===== AUDIO =====

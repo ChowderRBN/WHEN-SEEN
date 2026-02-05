@@ -13,7 +13,16 @@ public class SaveData
 
     // Game progress data
     public Vector3 playerPosition;
+    public Quaternion playerRotation;
     public float playTime;
+
+    // Cutscene flag
+    public bool hasSeenIntroCutscene = false;
+
+    // Add any other game state data you need
+    public int currentLevel;
+    public float health;
+    public float stamina;
 }
 
 public class SaveSystem : MonoBehaviour
@@ -28,10 +37,10 @@ public class SaveSystem : MonoBehaviour
     {
         data.saveSlot = slot;
         data.saveDate = DateTime.Now.ToString("MM/dd/yyyy HH:mm");
+        data.hasSeenIntroCutscene = true; // Mark cutscene as seen when saving
 
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(GetSavePath(slot), json);
-
         Debug.Log("Game saved to slot " + slot);
     }
 
@@ -39,7 +48,6 @@ public class SaveSystem : MonoBehaviour
     public static SaveData LoadGame(int slot)
     {
         string path = GetSavePath(slot);
-
         if (File.Exists(path))
         {
             string json = File.ReadAllText(path);
@@ -64,7 +72,6 @@ public class SaveSystem : MonoBehaviour
     public static void DeleteSave(int slot)
     {
         string path = GetSavePath(slot);
-
         if (File.Exists(path))
         {
             File.Delete(path);
@@ -76,7 +83,6 @@ public class SaveSystem : MonoBehaviour
     public static List<SaveData> GetAllSaves()
     {
         List<SaveData> saves = new List<SaveData>();
-
         for (int i = 1; i <= 3; i++) // Check slots 1-3
         {
             if (SaveExists(i))
@@ -84,7 +90,12 @@ public class SaveSystem : MonoBehaviour
                 saves.Add(LoadGame(i));
             }
         }
-
         return saves;
+    }
+
+    // Get save info without loading entire game (for UI display)
+    public static SaveData GetSaveInfo(int slot)
+    {
+        return LoadGame(slot);
     }
 }

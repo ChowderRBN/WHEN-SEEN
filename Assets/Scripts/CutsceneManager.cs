@@ -24,7 +24,7 @@ public class CutsceneManager : MonoBehaviour
 
     [Header("Cutscene Settings")]
     public float textSpeed = 0.02f; // Changed default to faster
-    public string nextSceneName = "GameScene";
+    public string nextSceneName = "Game2"; // Default to Game2, but GameManager can override this
 
     [Header("Dialogue Lines")]
     public DialogueLine[] dialogueLines;
