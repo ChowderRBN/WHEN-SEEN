@@ -12,6 +12,8 @@ public class Credits : MonoBehaviour
             "Created By\n" +
             "ChowderRBN\n\n" +
             "—\n\n" +
+             "Environment Models  \r\nEvgenia  \r\n\r\nAsset Pack: Lowpoly Piece of Nature\r\n" +
+             "—\n\n" +
             "In Loving Memory\n\n" +
             "Richard Bryan \"Pa\" Notley\n" +
             " \n\n" +

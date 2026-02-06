@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     public FirstPersonController playerController;
 
     private bool isLoadingFromSave = false;
+    private bool isPlayingGame = false; // NEW: Track if we're actually in gameplay
 
     void Awake()
     {
@@ -57,21 +58,29 @@ public class GameManager : MonoBehaviour
             FindPlayerInScene();
             LoadPlayerPosition();
             isLoadingFromSave = false;
+            isPlayingGame = true; // Start tracking time
         }
         // When game scene (Game2) loads from new game (after cutscene)
         else if (scene.name == gameScene && !isLoadingFromSave)
         {
             FindPlayerInScene();
             hasSeenIntroCutscene = true;
+            isPlayingGame = true; // Start tracking time
         }
         // When cutscene scene (Game1) loads, update the CutsceneManager's next scene
         else if (scene.name == cutsceneScene)
         {
+            isPlayingGame = false; // Don't track time during cutscene
             CutsceneManager cutsceneManager = FindObjectOfType<CutsceneManager>();
             if (cutsceneManager != null)
             {
                 cutsceneManager.nextSceneName = gameScene;
             }
+        }
+        else
+        {
+            // In menu or other scenes, don't track time
+            isPlayingGame = false;
         }
     }
 
@@ -100,8 +109,8 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        // Track play time
-        if (currentSaveSlot != -1)
+        // Track play time only when in gameplay scene AND have an active save slot
+        if (isPlayingGame && currentSaveSlot != -1)
         {
             playTime += Time.deltaTime;
         }
@@ -118,10 +127,10 @@ public class GameManager : MonoBehaviour
     public void NewGame(int slot)
     {
         currentSaveSlot = slot;
-        playTime = 0f;
+        playTime = 0f; // Reset play time for new game
         playerPosition = Vector3.zero;
         playerRotation = Quaternion.identity;
-        hasSeenIntroCutscene = false; // Reset this flag for new game
+        hasSeenIntroCutscene = false;
         isLoadingFromSave = false;
 
         // Check if this save slot already exists
@@ -132,6 +141,7 @@ public class GameManager : MonoBehaviour
             // If save exists and cutscene was seen, skip cutscene
             Debug.Log("Save exists with cutscene already seen, skipping to game");
             hasSeenIntroCutscene = true;
+            playTime = existingData.playTime; // Continue from saved time
             SceneManager.LoadScene(gameScene);
         }
         else
@@ -139,9 +149,11 @@ public class GameManager : MonoBehaviour
             // Brand new game, play cutscene
             Debug.Log("Brand new game, playing cutscene");
             hasSeenIntroCutscene = false;
+            playTime = 0f; // Fresh start
             SceneManager.LoadScene(cutsceneScene);
         }
     }
+
 
     // Save current game state
     public void SaveGame()
@@ -156,11 +168,11 @@ public class GameManager : MonoBehaviour
         data.saveName = "Save " + currentSaveSlot;
         data.playerPosition = playerPosition;
         data.playerRotation = playerRotation;
-        data.playTime = playTime;
-        data.hasSeenIntroCutscene = true; // Mark cutscene as seen
+        data.playTime = playTime; // Save current play time
+        data.hasSeenIntroCutscene = true;
 
         SaveSystem.SaveGame(currentSaveSlot, data);
-        Debug.Log("Game saved to slot " + currentSaveSlot);
+        Debug.Log($"Game saved to slot {currentSaveSlot} with play time: {playTime}");
     }
 
     // Load game from a specific slot
@@ -173,12 +185,11 @@ public class GameManager : MonoBehaviour
             currentSaveSlot = slot;
             playerPosition = data.playerPosition;
             playerRotation = data.playerRotation;
-            playTime = data.playTime;
+            playTime = data.playTime; // Load the saved play time
             hasSeenIntroCutscene = data.hasSeenIntroCutscene;
             isLoadingFromSave = true;
 
-            // Skip Game1 (cutscene) and load directly to Game2 (gameplay)
-            Debug.Log("Loading save - skipping cutscene, going straight to Game2");
+            Debug.Log($"Loading save from slot {slot} with play time: {playTime}");
             SceneManager.LoadScene(gameScene);
         }
         else
