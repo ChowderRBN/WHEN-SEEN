@@ -1683,6 +1683,59 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 262201098}
   m_CullTransparentMesh: 1
+--- !u!1 &265264729
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 265264731}
+  - component: {fileID: 265264730}
+  m_Layer: 0
+  m_Name: MusicManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &265264730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 265264729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19b4619e8f41c9e4f900bba81b5b0c2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MusicManager
+  musicSource: {fileID: 1640884626}
+  mainTrack: {fileID: 8300000, guid: 860fec7f2eed32f4397171d7aecb4d02, type: 3}
+  randomTracks:
+  - {fileID: 8300000, guid: 107fd7e0b0bf76b47803afb29353f3a6, type: 3}
+  - {fileID: 8300000, guid: 12d1b38b31809714a9e53e77f79ac789, type: 3}
+  - {fileID: 8300000, guid: ab63369db59adbf46b2761daeeebe63c, type: 3}
+  - {fileID: 8300000, guid: 93abc65fb0a7d9a47bb2f33a425869bb, type: 3}
+  shuffleMode: 1
+  fadeDuration: 2
+--- !u!4 &265264731
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 265264729}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2802.27, y: 0, z: 1445.3943}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &300852773
 GameObject:
   m_ObjectHideFlags: 0
@@ -3849,7 +3902,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 31, y: -1098}
+  m_AnchoredPosition: {x: 31, y: -1069}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &858598008
@@ -3899,8 +3952,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -5507,7 +5560,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1329083092
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5579,8 +5632,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ScrollingCredits
   creditsTransform: {fileID: 858598007}
+  creditsPanel: {fileID: 1329083091}
+  mainMenuPanel: {fileID: 1103789695}
   scrollSpeed: 100
-  endYPosition: 740
+  endYPosition: 1300
+  startYPosition: -1069
 --- !u!114 &1329083096
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6741,7 +6797,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: dc7b3d1c5a060e84d8dc7a28912a545d, type: 3}
+  m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 0.166
   m_Pitch: 1
@@ -9270,3 +9326,4 @@ SceneRoots:
   - {fileID: 870217899}
   - {fileID: 1640884627}
   - {fileID: 761613295}
+  - {fileID: 265264731}

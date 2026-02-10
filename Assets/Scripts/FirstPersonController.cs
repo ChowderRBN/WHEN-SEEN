@@ -74,6 +74,7 @@ public class FirstPersonController : MonoBehaviour
         float moveX = Input.GetAxis("Horizontal");
 
         Vector3 move = transform.right * moveX + transform.forward * moveZ;
+        move.y = - 2.81f; // Simple gravity
         controller.Move(move * currentSpeed * Time.deltaTime);
     }
 
