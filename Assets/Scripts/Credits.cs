@@ -12,8 +12,7 @@ public class Credits : MonoBehaviour
             "Created By\n" +
             "ChowderRBN\n\n" +
             "—\n\n" +
-            "Cave System\n"+ 
-            "Mine\n\n" +
+            "Mine\n" +
             "Gregory Seguru\n\n" +
             "—\n\n" +
             "Environment Models\n" +
@@ -24,6 +23,8 @@ public class Credits : MonoBehaviour
             "Audio\n" +
             "Horror Elements\n" +
             "By Anthon\n\n" +
+            "Zombie Massacre Sound Effects Starter Pack\n" +
+            "By TerrorByte Games\n\n" +
             "—\n\n" +
             "In Loving Memory\n\n" +
             "Richard Bryan \"Pa\" Notley\n\n" +

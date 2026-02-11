@@ -959,7 +959,7 @@ MonoBehaviour:
   - speakerName: Trish
     dialogueText: CASEY!?!
     voiceClip: {fileID: 8300000, guid: 56746de8321fd4f4781f2c08a6595ffb, type: 3}
-    soundEffect: {fileID: 8300000, guid: 2a94b8d8ee20cae4fb85ebc55cbc4e76, type: 3}
+    soundEffect: {fileID: 8300000, guid: 6fc8f8b4df4c29841a99596578235268, type: 3}
     customTextSpeed: 0
     autoAdvance: 1
     autoAdvanceDelay: 1
