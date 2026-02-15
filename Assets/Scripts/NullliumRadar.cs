@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using TMPro;
 
 public class NulliumRadar : MonoBehaviour
 {
@@ -8,12 +9,12 @@ public class NulliumRadar : MonoBehaviour
     public RectTransform radarPanel; // The circular radar background
     public GameObject radarBlipPrefab; // Dot that represents Nullium
     public Image radarBackground;
-    public Text coreCountText; // "Cores: 3/5"
-    public Text distanceText; // Distance to nearest core
+    public TMP_Text coreCountText; // "Cores: 3/5"
 
     [Header("Radar Settings")]
     public float radarRadius = 100f; // Visual radius of radar in pixels
-    public float detectionRange = 200f; // How far radar can detect (in meters)
+    public float maxDistance = 200f; // Maximum detection distance
+    public float minDistance = 5f; // When core is this close, blip is at center
     public Color blipColor = new Color(0.3f, 1f, 0.3f); // Green blip
     public float blipSize = 10f; // Size of blip dots
     public float blipPulseSpeed = 2f; // How fast blips pulse
@@ -61,9 +62,6 @@ public class NulliumRadar : MonoBehaviour
             }
             nextPingTime = Time.time + pingInterval;
         }
-
-        // Update distance to closest core
-        UpdateDistanceText();
     }
 
     void UpdateRadarBlips()
@@ -84,24 +82,21 @@ public class NulliumRadar : MonoBehaviour
             Vector3 offset = core.transform.position - player.position;
             float distance = offset.magnitude;
 
-            // Only show if within detection range
-            if (distance > detectionRange) continue;
-
             // Flatten to 2D (top-down view)
-            Vector2 radarPosition = new Vector2(offset.x, offset.z);
+            Vector2 direction = new Vector2(offset.x, offset.z).normalized;
 
             // Rotate based on player's forward direction
             float playerAngle = Mathf.Atan2(player.forward.x, player.forward.z) * Mathf.Rad2Deg;
-            radarPosition = RotateVector2(radarPosition, -playerAngle);
+            direction = RotateVector2(direction, -playerAngle);
 
-            // Scale to radar size
-            radarPosition = radarPosition / detectionRange * radarRadius;
+            // Calculate distance from center based on actual distance
+            // Far away = edge of radar (radarRadius)
+            // Very close = center (0)
+            float normalizedDistance = Mathf.InverseLerp(minDistance, maxDistance, distance);
+            float radarDistance = normalizedDistance * radarRadius;
 
-            // Clamp to radar bounds (circular)
-            if (radarPosition.magnitude > radarRadius)
-            {
-                radarPosition = radarPosition.normalized * radarRadius;
-            }
+            // Calculate final position
+            Vector2 radarPosition = direction * radarDistance;
 
             // Create blip
             GameObject blip = Instantiate(radarBlipPrefab, radarPanel);
@@ -116,40 +111,13 @@ public class NulliumRadar : MonoBehaviour
                 blipImage.color = blipColor;
             }
 
-            // Pulse effect
-            float pulse = (Mathf.Sin(Time.time * blipPulseSpeed) + 1f) * 0.5f;
+            // Pulse effect (faster when closer)
+            float pulseSpeed = Mathf.Lerp(blipPulseSpeed * 2f, blipPulseSpeed, normalizedDistance);
+            float pulse = (Mathf.Sin(Time.time * pulseSpeed) + 1f) * 0.5f;
             float scale = Mathf.Lerp(0.8f, 1.2f, pulse);
             blipRect.localScale = Vector3.one * scale;
 
             radarBlips.Add(blip);
-        }
-    }
-
-    void UpdateDistanceText()
-    {
-        if (distanceText == null) return;
-
-        // Find closest core
-        float closestDistance = Mathf.Infinity;
-
-        foreach (NulliumCore core in activeCores)
-        {
-            if (core == null) continue;
-
-            float distance = Vector3.Distance(player.position, core.transform.position);
-            if (distance < closestDistance)
-            {
-                closestDistance = distance;
-            }
-        }
-
-        if (closestDistance < Mathf.Infinity)
-        {
-            distanceText.text = $"{Mathf.RoundToInt(closestDistance)}m";
-        }
-        else
-        {
-            distanceText.text = "---";
         }
     }
 

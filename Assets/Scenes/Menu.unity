@@ -4017,7 +4017,7 @@ GameObject:
   - component: {fileID: 870217897}
   - component: {fileID: 870217896}
   m_Layer: 0
-  m_Name: Batman
+  m_Name: Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5250,7 +5250,7 @@ MonoBehaviour:
   TerrainScannerPrefab: {fileID: 2506941607934164900, guid: 7b84cdc4aeb986f4da4f06b4aca604c8, type: 3}
   duration: 3
   size: 500
-  expansionSpeed: 50
+  noiseDetection: {fileID: 0}
 --- !u!4 &1176646320
 Transform:
   m_ObjectHideFlags: 0

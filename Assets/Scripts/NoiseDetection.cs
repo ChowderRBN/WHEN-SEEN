@@ -16,8 +16,13 @@ public class NoiseDetection : MonoBehaviour
     public float echolocationNoise = 8f;
     public float sonicScreamNoise = 10f; // Instant max detection
 
-    [Header("UI")]
-    public Slider noiseSlider;
+    [Header("UI - Noise Meter")]
+    public Image noiseMeterFill; // The fill bar
+    public Image noiseMeterBackground; // Background bar
+    public Color lowNoiseColor = Color.green; // Safe
+    public Color mediumNoiseColor = Color.yellow; // Caution
+    public Color highNoiseColor = Color.red; // Danger
+    public Text noiseText; // Optional: Shows "3/10" or "DANGER"
 
     [Header("References")]
     public FirstPersonController playerController;
@@ -29,12 +34,7 @@ public class NoiseDetection : MonoBehaviour
     void Start()
     {
         lastPosition = transform.position;
-
-        if (noiseSlider != null)
-        {
-            noiseSlider.maxValue = maxNoise;
-            noiseSlider.value = 0;
-        }
+        UpdateNoiseUI();
     }
 
     void Update()
@@ -98,9 +98,39 @@ public class NoiseDetection : MonoBehaviour
 
     void UpdateNoiseUI()
     {
-        if (noiseSlider != null)
+        if (noiseMeterFill != null)
         {
-            noiseSlider.value = currentNoise;
+            // Update fill amount (0 to 1)
+            noiseMeterFill.fillAmount = currentNoise / maxNoise;
+
+            // Change color based on noise level
+            if (currentNoise < maxNoise * 0.33f) // 0-3.3
+            {
+                noiseMeterFill.color = lowNoiseColor;
+            }
+            else if (currentNoise < maxNoise * 0.66f) // 3.3-6.6
+            {
+                noiseMeterFill.color = mediumNoiseColor;
+            }
+            else // 6.6-10
+            {
+                noiseMeterFill.color = highNoiseColor;
+            }
+        }
+
+        // Optional: Update text
+        if (noiseText != null)
+        {
+            if (currentNoise >= maxNoise * 0.8f)
+            {
+                noiseText.text = "DANGER!";
+                noiseText.color = highNoiseColor;
+            }
+            else
+            {
+                noiseText.text = $"{Mathf.RoundToInt(currentNoise)}/{Mathf.RoundToInt(maxNoise)}";
+                noiseText.color = Color.white;
+            }
         }
     }
 
