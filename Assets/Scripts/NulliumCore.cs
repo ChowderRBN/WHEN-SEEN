@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class NulliumCore : MonoBehaviour
 {
+    [Header("Core ID")]
+    public string coreID; // Unique ID for this core
+
     [Header("Audio")]
     public AudioSource audioSource;
     public AudioClip pickupSound;
@@ -10,6 +13,19 @@ public class NulliumCore : MonoBehaviour
 
     void Start()
     {
+        // Generate ID if not set
+        if (string.IsNullOrEmpty(coreID))
+        {
+            coreID = transform.position.ToString(); // Use position as unique ID
+        }
+
+        // Check if already collected
+        if (GameManager.Instance != null && GameManager.Instance.IsCoreCollected(coreID))
+        {
+            Destroy(gameObject); // Already collected, don't spawn
+            return;
+        }
+
         // Register with radar
         radar = FindObjectOfType<NulliumRadar>();
         if (radar != null)
@@ -38,7 +54,13 @@ public class NulliumCore : MonoBehaviour
         NulliumInventory inventory = player.GetComponent<NulliumInventory>();
         if (inventory != null)
         {
-            inventory.AddNulliumCore();
+            inventory.AddNulliumCore(coreID);
+        }
+
+        // Mark as collected in GameManager
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.MarkCoreCollected(coreID);
         }
 
         // Unregister from radar

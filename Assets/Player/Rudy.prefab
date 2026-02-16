@@ -138,7 +138,7 @@ MonoBehaviour:
   standingHeight: 2
   crouchTransitionSpeed: 5
   playerCamera: {fileID: 536695748376489628}
-  mouseSensitivity: 550
+  baseSensitivity: 100
   walkSpeed: 2
   runSpeed: 9
 --- !u!114 &7132285359663648928
@@ -156,7 +156,7 @@ MonoBehaviour:
   TerrainScannerPrefab: {fileID: 2506941607934164900, guid: 7b84cdc4aeb986f4da4f06b4aca604c8, type: 3}
   duration: 10
   size: 150
-  expansionSpeed: 12
+  noiseDetection: {fileID: 0}
 --- !u!114 &2196938065491473944
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,6 +173,8 @@ MonoBehaviour:
   clip: {fileID: 8300000, guid: 64ea4bab71a7b10409ab26e270ab6def, type: 3}
   maxScreams: 2
   cooldown: 60
+  fleeDistance: 50
+  noiseDetection: {fileID: 0}
   resonates:
   - {fileID: 0}
 --- !u!114 &7950372644735358262
@@ -209,6 +211,7 @@ MonoBehaviour:
   controller: {fileID: 3181273992282559981}
   maxTime: 10
   recoveryRate: 0.5
+  noiseDetection: {fileID: 0}
 --- !u!82 &8652538422550106443
 AudioSource:
   m_ObjectHideFlags: 0

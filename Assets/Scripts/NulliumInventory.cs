@@ -9,7 +9,16 @@ public class NulliumInventory : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip coreCollectedSound;
 
-    public void AddNulliumCore()
+    void Start()
+    {
+        // Load from GameManager if available
+        if (GameManager.Instance != null)
+        {
+            nulliumCores = GameManager.Instance.nulliumCores;
+        }
+    }
+
+    public void AddNulliumCore(string coreID)
     {
         if (nulliumCores < maxCores)
         {
@@ -21,6 +30,12 @@ public class NulliumInventory : MonoBehaviour
             }
 
             Debug.Log($"Nullium core collected! Total: {nulliumCores}/{maxCores}");
+
+            // Update GameManager
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.nulliumCores = nulliumCores;
+            }
 
             // Update radar display
             NulliumRadar radar = FindObjectOfType<NulliumRadar>();

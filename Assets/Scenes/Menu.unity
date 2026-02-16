@@ -3564,6 +3564,8 @@ MonoBehaviour:
   playerRotation: {x: 0, y: 0, z: 0, w: 0}
   playTime: 0
   hasSeenIntroCutscene: 0
+  nulliumCores: 0
+  collectedCoreIDs: []
   cutsceneScene: Game1
   gameScene: Game2
   player: {fileID: 2166637234256388862, guid: d24d0812d83a40c48b74da31bb0081ad, type: 3}
@@ -3599,7 +3601,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &821968820
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5303,7 +5305,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -241, y: 91}
+  m_AnchoredPosition: {x: -13, y: 91}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1301891549

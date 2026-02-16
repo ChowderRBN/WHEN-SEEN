@@ -82,12 +82,19 @@ public class NulliumRadar : MonoBehaviour
             Vector3 offset = core.transform.position - player.position;
             float distance = offset.magnitude;
 
-            // Flatten to 2D (top-down view)
-            Vector2 direction = new Vector2(offset.x, offset.z).normalized;
+            // Get direction to core (flatten to 2D)
+            Vector3 toCore = offset.normalized;
 
-            // Rotate based on player's forward direction
-            float playerAngle = Mathf.Atan2(player.forward.x, player.forward.z) * Mathf.Rad2Deg;
-            direction = RotateVector2(direction, -playerAngle);
+            // Calculate angle relative to player's forward direction
+            // When facing the target, angle should be 0 (pointing forward/up on radar)
+            float angle = Mathf.Atan2(toCore.x, toCore.z) * Mathf.Rad2Deg; // Target angle in world
+            float playerAngle = Mathf.Atan2(player.forward.x, player.forward.z) * Mathf.Rad2Deg; // Player facing angle
+
+            // Relative angle (0 = straight ahead, 90 = right, -90 = left, 180 = behind)
+            float relativeAngle = angle - playerAngle;
+
+            // Convert to radians for positioning
+            float radians = relativeAngle * Mathf.Deg2Rad;
 
             // Calculate distance from center based on actual distance
             // Far away = edge of radar (radarRadius)
@@ -95,8 +102,13 @@ public class NulliumRadar : MonoBehaviour
             float normalizedDistance = Mathf.InverseLerp(minDistance, maxDistance, distance);
             float radarDistance = normalizedDistance * radarRadius;
 
-            // Calculate final position
-            Vector2 radarPosition = direction * radarDistance;
+            // Calculate radar position
+            // X = left/right (sin gives horizontal position)
+            // Y = up/down (cos gives vertical position - forward is UP)
+            float x = Mathf.Sin(radians) * radarDistance;
+            float y = Mathf.Cos(radians) * radarDistance; // Cos for Y makes forward = top
+
+            Vector2 radarPosition = new Vector2(x, y);
 
             // Create blip
             GameObject blip = Instantiate(radarBlipPrefab, radarPanel);
@@ -131,18 +143,6 @@ public class NulliumRadar : MonoBehaviour
                 coreCountText.text = $"Cores: {inventory.GetCoreCount()}/{inventory.maxCores}";
             }
         }
-    }
-
-    Vector2 RotateVector2(Vector2 v, float degrees)
-    {
-        float radians = degrees * Mathf.Deg2Rad;
-        float sin = Mathf.Sin(radians);
-        float cos = Mathf.Cos(radians);
-
-        float tx = v.x;
-        float ty = v.y;
-
-        return new Vector2(cos * tx - sin * ty, sin * tx + cos * ty);
     }
 
     public void RegisterNulliumCore(NulliumCore core)

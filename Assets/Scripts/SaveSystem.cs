@@ -11,7 +11,7 @@ public class SaveData
     public string saveDate;
     public int saveSlot;
 
-    // Game progress data
+    // Player data
     public Vector3 playerPosition;
     public Quaternion playerRotation;
     public float playTime;
@@ -19,7 +19,13 @@ public class SaveData
     // Cutscene flag
     public bool hasSeenIntroCutscene = false;
 
-    // Add any other game state data you need
+    // Nullium cores
+    public int nulliumCores = 0;
+
+    // Collected core IDs (so they don't respawn)
+    public List<string> collectedCoreIDs = new List<string>();
+
+    // Optional: Other game state
     public int currentLevel;
     public float health;
     public float stamina;
@@ -37,7 +43,7 @@ public class SaveSystem : MonoBehaviour
     {
         data.saveSlot = slot;
         data.saveDate = DateTime.Now.ToString("MM/dd/yyyy HH:mm");
-        data.hasSeenIntroCutscene = true; // Mark cutscene as seen when saving
+        data.hasSeenIntroCutscene = true;
 
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(GetSavePath(slot), json);
@@ -83,7 +89,7 @@ public class SaveSystem : MonoBehaviour
     public static List<SaveData> GetAllSaves()
     {
         List<SaveData> saves = new List<SaveData>();
-        for (int i = 1; i <= 3; i++) // Check slots 1-3
+        for (int i = 1; i <= 3; i++)
         {
             if (SaveExists(i))
             {
