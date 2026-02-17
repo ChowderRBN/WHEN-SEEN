@@ -153,12 +153,17 @@ MonoBehaviour:
   speakerNameText: {fileID: 1363018960}
   fadePanel: {fileID: 342059395}
   flashEffect: {fileID: 2100806928}
+  nameInputPanel: {fileID: 1028919370}
+  nameInputField: {fileID: 357165032}
+  confirmNameButton: {fileID: 649615820}
+  namePromptText: {fileID: 157550071}
   voiceSource: {fileID: 215696049}
   sfxSource: {fileID: 1924354363}
   musicSource: {fileID: 1072431654}
   ambientDarkness: {fileID: 8300000, guid: e3ff76263e5d154419447ccbf21cdeb0, type: 3}
   textSpeed: 0.02
   nextSceneName: Game2
+  defaultPlayerName: Survivor
   dialogueLines:
   - speakerName: MISSION LOG - DAY 247
     dialogueText: 'En route to Colony Osiris via Astra Linear wormhole. ETA: 6 hours.'
@@ -173,20 +178,7 @@ MonoBehaviour:
     useRedFlash: 0
     flashIntensity: 0.5
   - speakerName: Trish
-    dialogueText: Rudy, wake up. We're approaching the wormhole. Need you at your
-      station.
-    voiceClip: {fileID: 8300000, guid: 004adde9237f82f439627c63494e3cee, type: 3}
-    soundEffect: {fileID: 0}
-    customTextSpeed: 0
-    autoAdvance: 1
-    autoAdvanceDelay: 1
-    useScreenShake: 0
-    shakeIntensity: 10
-    shakeDuration: 0.5
-    useRedFlash: 0
-    flashIntensity: 0.5
-  - speakerName: Rudy
-    dialogueText: ...Copy that, Captain. On my way.
+    dialogueText: "Up. C\u2019mon. You\u2019re burning daylight, kid."
     voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
@@ -197,20 +189,9 @@ MonoBehaviour:
     shakeDuration: 0.5
     useRedFlash: 0
     flashIntensity: 0.5
-  - speakerName: Carter
-    dialogueText: Morning, sunshine. Sleep well?
-    voiceClip: {fileID: 8300000, guid: 7a067cbe95286b54c853afb9db9d1a70, type: 3}
-    soundEffect: {fileID: 0}
-    customTextSpeed: 0
-    autoAdvance: 1
-    autoAdvanceDelay: 1
-    useScreenShake: 0
-    shakeIntensity: 10
-    shakeDuration: 0.5
-    useRedFlash: 0
-    flashIntensity: 0.5
-  - speakerName: Rudy
-    dialogueText: Like a rock. What's our status?
+  - speakerName: Trish
+    dialogueText: We hit the anomaly belt in six hours. I need you functional, not
+      cocooned.
     voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
@@ -221,10 +202,9 @@ MonoBehaviour:
     shakeDuration: 0.5
     useRedFlash: 0
     flashIntensity: 0.5
-  - speakerName: Casey
-    dialogueText: All systems greener than my 3's. Should be a smooth jump through
-      Astra Linear.
-    voiceClip: {fileID: 8300000, guid: 295aa24b39bb9824ea073bc889419284, type: 3}
+  - speakerName: '{PLAYER} '
+    dialogueText: "Copy that\u2026 five more minutes and I\u2019m combat-ready."
+    voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
     autoAdvance: 1
@@ -235,8 +215,20 @@ MonoBehaviour:
     useRedFlash: 0
     flashIntensity: 0.5
   - speakerName: Trish
-    dialogueText: 'You''ve never made a three in your LIFE! '
-    voiceClip: {fileID: 8300000, guid: f0b23780913b9a34b894357eec3ab75f, type: 3}
+    dialogueText: You said that yesterday. And the day before.
+    voiceClip: {fileID: 0}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: '{PLAYER}'
+    dialogueText: "Yeah, well. Today feels\u2026 important."
+    voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
     autoAdvance: 1
@@ -247,8 +239,8 @@ MonoBehaviour:
     useRedFlash: 0
     flashIntensity: 0.5
   - speakerName: Trish
-    dialogueText: Anyways. Casey, did you finish the equipment check?
-    voiceClip: {fileID: 8300000, guid: f0b23780913b9a34b894357eec3ab75f, type: 3}
+    dialogueText: Important how?
+    voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
     autoAdvance: 1
@@ -258,9 +250,22 @@ MonoBehaviour:
     shakeDuration: 0.5
     useRedFlash: 0
     flashIntensity: 0.5
-  - speakerName: Casey
-    dialogueText: Oh! Yes, Captain. All... equipment is ready.
-    voiceClip: {fileID: 8300000, guid: bd5e561a577cd5e419c98c8e7abefb22, type: 3}
+  - speakerName: '{PLAYER}'
+    dialogueText: "...Never mind. I\u2019ll get up."
+    voiceClip: {fileID: 0}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Trish
+    dialogueText: "Good. You\u2019re on breakfast duty. Casey already tried to microwave
+      protein paste."
+    voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
     autoAdvance: 1
@@ -270,9 +275,9 @@ MonoBehaviour:
     shakeDuration: 0.5
     useRedFlash: 0
     flashIntensity: 0.05
-  - speakerName: Carter
-    dialogueText: I'd like to say. I believe him.
-    voiceClip: {fileID: 8300000, guid: 7a067cbe95286b54c853afb9db9d1a70, type: 3}
+  - speakerName: '{PLAYER}'
+    dialogueText: "That\u2019s a war crime."
+    voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
     autoAdvance: 1
@@ -283,20 +288,8 @@ MonoBehaviour:
     useRedFlash: 0
     flashIntensity: 0.5
   - speakerName: Trish
-    dialogueText: Then you can go help him check.
-    voiceClip: {fileID: 8300000, guid: f0b23780913b9a34b894357eec3ab75f, type: 3}
-    soundEffect: {fileID: 0}
-    customTextSpeed: 0
-    autoAdvance: 1
-    autoAdvanceDelay: 1
-    useScreenShake: 0
-    shakeIntensity: 10
-    shakeDuration: 0.5
-    useRedFlash: 0
-    flashIntensity: 0.5
-  - speakerName: Carter
-    dialogueText: ... He didn't do a thing.
-    voiceClip: {fileID: 8300000, guid: 7a067cbe95286b54c853afb9db9d1a70, type: 3}
+    dialogueText: Exactly. Move it.
+    voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
     autoAdvance: 1
@@ -307,8 +300,8 @@ MonoBehaviour:
     useRedFlash: 0
     flashIntensity: 0.5
   - speakerName: Casey
-    dialogueText: Bruh
-    voiceClip: {fileID: 8300000, guid: f731a9cb36394e8498b1d47609d54e1d, type: 3}
+    dialogueText: Oh wow. Look who decided to join the living.
+    voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
     autoAdvance: 1
@@ -318,8 +311,20 @@ MonoBehaviour:
     shakeDuration: 0.5
     useRedFlash: 0
     flashIntensity: 0.5
-  - speakerName: Trish
-    dialogueText: Go check the equipment.
+  - speakerName: '{PLAYER}'
+    dialogueText: "You\u2019re loud for someone this close to being spaced."
+    voiceClip: {fileID: 0}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Casey
+    dialogueText: Love you too!
     voiceClip: {fileID: 8300000, guid: 56746de8321fd4f4781f2c08a6595ffb, type: 3}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
@@ -330,8 +335,8 @@ MonoBehaviour:
     shakeDuration: 0.5
     useRedFlash: 0
     flashIntensity: 0.5
-  - speakerName: Casey
-    dialogueText: Yes ma'am...
+  - speakerName: Carter
+    dialogueText: "Vitals look good. Ship doesn\u2019t, but we do."
     voiceClip: {fileID: 8300000, guid: f731a9cb36394e8498b1d47609d54e1d, type: 3}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
@@ -342,8 +347,8 @@ MonoBehaviour:
     shakeDuration: 0.5
     useRedFlash: 0
     flashIntensity: 0.5
-  - speakerName: Trish
-    dialogueText: Rudy. Head to the kitchen and prepare breakfast.
+  - speakerName: '{PLAYER}'
+    dialogueText: Low bar.
     voiceClip: {fileID: 8300000, guid: f0b23780913b9a34b894357eec3ab75f, type: 3}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
@@ -354,8 +359,8 @@ MonoBehaviour:
     shakeDuration: 0.5
     useRedFlash: 0
     flashIntensity: 0.5
-  - speakerName: Rudy
-    dialogueText: Yes ma'am.
+  - speakerName: Casey
+    dialogueText: "So what\u2019s the occasion? You look\u2026 weirdly reflective."
     voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
@@ -366,8 +371,8 @@ MonoBehaviour:
     shakeDuration: 0.5
     useRedFlash: 0
     flashIntensity: 0.5
-  - speakerName: 
-    dialogueText: ...
+  - speakerName: '{PLAYER}'
+    dialogueText: Do I?
     voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
@@ -378,8 +383,8 @@ MonoBehaviour:
     shakeDuration: 0.5
     useRedFlash: 0
     flashIntensity: 0.5
-  - speakerName: 
-    dialogueText: ...
+  - speakerName: Carter
+    dialogueText: "You do. Heart rate\u2019s elevated too."
     voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
@@ -390,8 +395,68 @@ MonoBehaviour:
     shakeDuration: 0.5
     useRedFlash: 0
     flashIntensity: 0.5
-  - speakerName: Rudy
-    dialogueText: No way.
+  - speakerName: '{PLAYER}'
+    dialogueText: Cool. Love being medically perceived.
+    voiceClip: {fileID: 0}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Trish
+    dialogueText: '{PLAYER}, eggs. Now.'
+    voiceClip: {fileID: 8300000, guid: 067b13a4b860b1e458c64f169e211fe9, type: 3}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: '{PLAYER}'
+    dialogueText: "Right. Eggs. Just\u2026 eggs."
+    voiceClip: {fileID: 8300000, guid: 56746de8321fd4f4781f2c08a6595ffb, type: 3}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Carter
+    dialogueText: Yes. Just eggs. You're learning.
+    voiceClip: {fileID: 8300000, guid: f731a9cb36394e8498b1d47609d54e1d, type: 3}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Casey
+    dialogueText: Definitely not.
+    voiceClip: {fileID: 8300000, guid: 7a067cbe95286b54c853afb9db9d1a70, type: 3}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: '{PLAYER}'
+    dialogueText: Getting to it.
     voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
@@ -403,19 +468,7 @@ MonoBehaviour:
     useRedFlash: 0
     flashIntensity: 0.5
   - speakerName: Everyone
-    dialogueText: Surprise!!!
-    voiceClip: {fileID: 8300000, guid: 067b13a4b860b1e458c64f169e211fe9, type: 3}
-    soundEffect: {fileID: 0}
-    customTextSpeed: 0
-    autoAdvance: 1
-    autoAdvanceDelay: 1
-    useScreenShake: 0
-    shakeIntensity: 10
-    shakeDuration: 0.5
-    useRedFlash: 0
-    flashIntensity: 0.5
-  - speakerName: Trish
-    dialogueText: Happy Birthday, Rudy.
+    dialogueText: SURPRISE!
     voiceClip: {fileID: 8300000, guid: 56746de8321fd4f4781f2c08a6595ffb, type: 3}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
@@ -426,56 +479,8 @@ MonoBehaviour:
     shakeDuration: 0.5
     useRedFlash: 0
     flashIntensity: 0.5
-  - speakerName: Casey
-    dialogueText: Yeah! Happy Birthday Man.
-    voiceClip: {fileID: 8300000, guid: f731a9cb36394e8498b1d47609d54e1d, type: 3}
-    soundEffect: {fileID: 0}
-    customTextSpeed: 0
-    autoAdvance: 1
-    autoAdvanceDelay: 1
-    useScreenShake: 0
-    shakeIntensity: 10
-    shakeDuration: 0.5
-    useRedFlash: 0
-    flashIntensity: 0.5
-  - speakerName: Carter
-    dialogueText: 'It was MY idea to get you that cake. '
-    voiceClip: {fileID: 8300000, guid: 7a067cbe95286b54c853afb9db9d1a70, type: 3}
-    soundEffect: {fileID: 0}
-    customTextSpeed: 0
-    autoAdvance: 1
-    autoAdvanceDelay: 1
-    useScreenShake: 0
-    shakeIntensity: 10
-    shakeDuration: 0.5
-    useRedFlash: 0
-    flashIntensity: 0.5
-  - speakerName: Rudy
-    dialogueText: Thank you so much guys.
-    voiceClip: {fileID: 0}
-    soundEffect: {fileID: 0}
-    customTextSpeed: 0
-    autoAdvance: 1
-    autoAdvanceDelay: 1
-    useScreenShake: 0
-    shakeIntensity: 10
-    shakeDuration: 0.5
-    useRedFlash: 0
-    flashIntensity: 0.5
-  - speakerName: Trish
-    dialogueText: You deserve it.
-    voiceClip: {fileID: 8300000, guid: 56746de8321fd4f4781f2c08a6595ffb, type: 3}
-    soundEffect: {fileID: 0}
-    customTextSpeed: 0
-    autoAdvance: 1
-    autoAdvanceDelay: 1
-    useScreenShake: 0
-    shakeIntensity: 10
-    shakeDuration: 0.5
-    useRedFlash: 0
-    flashIntensity: 0.5
-  - speakerName: 
-    dialogueText: 
+  - speakerName: '{PLAYER}'
+    dialogueText: "Thank you all! But, You didn\u2019t have to\u2014"
     voiceClip: {fileID: 8300000, guid: 75446a74f7b8f124fa41770c52580ab6, type: 3}
     soundEffect: {fileID: 8300000, guid: 75446a74f7b8f124fa41770c52580ab6, type: 3}
     customTextSpeed: 0
@@ -486,9 +491,8 @@ MonoBehaviour:
     shakeDuration: 0.5
     useRedFlash: 1
     flashIntensity: 0.5
-  - speakerName: Carter
-    dialogueText: Why are the sirens going off? We're not supposed to be near anything
-      yet?!?
+  - speakerName: Trish
+    dialogueText: Yeah. We did.
     voiceClip: {fileID: 8300000, guid: 4aea144b62450c34daa04737953dd223, type: 3}
     soundEffect: {fileID: 8300000, guid: 75446a74f7b8f124fa41770c52580ab6, type: 3}
     customTextSpeed: 0
@@ -499,8 +503,8 @@ MonoBehaviour:
     shakeDuration: 0.5
     useRedFlash: 1
     flashIntensity: 0.5
-  - speakerName: Trish
-    dialogueText: What the-everyone get to the bridge, NOW!
+  - speakerName: Casey
+    dialogueText: Cake's a little... dense.
     voiceClip: {fileID: 8300000, guid: f0b23780913b9a34b894357eec3ab75f, type: 3}
     soundEffect: {fileID: 8300000, guid: 75446a74f7b8f124fa41770c52580ab6, type: 3}
     customTextSpeed: 0
@@ -511,8 +515,8 @@ MonoBehaviour:
     shakeDuration: 0.5
     useRedFlash: 1
     flashIntensity: 0.5
-  - speakerName: Rudy
-    dialogueText: Captain, what's happening?!
+  - speakerName: Carter
+    dialogueText: It will not collapse
     voiceClip: {fileID: 0}
     soundEffect: {fileID: 8300000, guid: 75446a74f7b8f124fa41770c52580ab6, type: 3}
     customTextSpeed: 0
@@ -523,8 +527,8 @@ MonoBehaviour:
     shakeDuration: 0.5
     useRedFlash: 1
     flashIntensity: 0.5
-  - speakerName: Casey
-    dialogueText: We are about to hit an unmarked wormhole!
+  - speakerName: '{PLAYER}'
+    dialogueText: Best birthday I've had.
     voiceClip: {fileID: 8300000, guid: bd5e561a577cd5e419c98c8e7abefb22, type: 3}
     soundEffect: {fileID: 8300000, guid: 75446a74f7b8f124fa41770c52580ab6, type: 3}
     customTextSpeed: 0
@@ -536,7 +540,7 @@ MonoBehaviour:
     useRedFlash: 1
     flashIntensity: 0.5
   - speakerName: Trish
-    dialogueText: Can you change course!?!
+    dialogueText: Alright, let's sing happy birthday and let's get back to work.
     voiceClip: {fileID: 8300000, guid: 56746de8321fd4f4781f2c08a6595ffb, type: 3}
     soundEffect: {fileID: 8300000, guid: 75446a74f7b8f124fa41770c52580ab6, type: 3}
     customTextSpeed: 0
@@ -547,8 +551,8 @@ MonoBehaviour:
     shakeDuration: 0.5
     useRedFlash: 1
     flashIntensity: 0.5
-  - speakerName: Carter
-    dialogueText: No shot! We're going in!
+  - speakerName: Everyone
+    dialogueText: Happy Birthday to you!
     voiceClip: {fileID: 8300000, guid: bafe720a90525974aa02a2841a69215b, type: 3}
     soundEffect: {fileID: 8300000, guid: 75446a74f7b8f124fa41770c52580ab6, type: 3}
     customTextSpeed: 0
@@ -559,8 +563,8 @@ MonoBehaviour:
     shakeDuration: 0.5
     useRedFlash: 1
     flashIntensity: 0.5
-  - speakerName: Trish
-    dialogueText: Activate crash contingencies!
+  - speakerName: Everyone
+    dialogueText: Happy Birthday to you!
     voiceClip: {fileID: 8300000, guid: 56746de8321fd4f4781f2c08a6595ffb, type: 3}
     soundEffect: {fileID: 8300000, guid: 75446a74f7b8f124fa41770c52580ab6, type: 3}
     customTextSpeed: 0
@@ -571,8 +575,8 @@ MonoBehaviour:
     shakeDuration: 0.5
     useRedFlash: 1
     flashIntensity: 0.5
-  - speakerName: 
-    dialogueText: 
+  - speakerName: 'Everyone '
+    dialogueText: Happy Birthday dear {PLAYER}!
     voiceClip: {fileID: 8300000, guid: 5ccf1d5abbfb2b84286df5728d52c4f6, type: 3}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
@@ -583,8 +587,20 @@ MonoBehaviour:
     shakeDuration: 10
     useRedFlash: 0
     flashIntensity: 0.5
-  - speakerName: 
-    dialogueText: 
+  - speakerName: Everyone
+    dialogueText: Happy Birthday to youuu!
+    voiceClip: {fileID: 0}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Trish
+    dialogueText: "No candles to blow out\u2026 but you get the point."
     voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
@@ -596,19 +612,7 @@ MonoBehaviour:
     useRedFlash: 0
     flashIntensity: 0.5
   - speakerName: 
-    dialogueText: 
-    voiceClip: {fileID: 0}
-    soundEffect: {fileID: 0}
-    customTextSpeed: 0
-    autoAdvance: 1
-    autoAdvanceDelay: 1
-    useScreenShake: 0
-    shakeIntensity: 10
-    shakeDuration: 0.5
-    useRedFlash: 0
-    flashIntensity: 0.5
-  - speakerName: Trish
-    dialogueText: '"Eveyroen okae?! Cratrer?'
+    dialogueText: A few hours later.
     voiceClip: {fileID: 8300000, guid: bafe720a90525974aa02a2841a69215b, type: 3}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
@@ -619,8 +623,8 @@ MonoBehaviour:
     shakeDuration: 0.5
     useRedFlash: 0
     flashIntensity: 0.5
-  - speakerName: Carter
-    dialogueText: Bruisde but avile. Casye?
+  - speakerName: '{PLAYER}'
+    dialogueText: That was awesome guys.
     voiceClip: {fileID: 8300000, guid: 56746de8321fd4f4781f2c08a6595ffb, type: 3}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
@@ -632,7 +636,7 @@ MonoBehaviour:
     useRedFlash: 0
     flashIntensity: 0.5
   - speakerName: Casey
-    dialogueText: I'm hree...
+    dialogueText: That cake was... VERY dense. I couldn't move an inch!
     voiceClip: {fileID: 8300000, guid: bafe720a90525974aa02a2841a69215b, type: 3}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
@@ -643,8 +647,9 @@ MonoBehaviour:
     shakeDuration: 0.5
     useRedFlash: 0
     flashIntensity: 0.5
-  - speakerName: Rudy
-    dialogueText: Wat Hgappened?
+  - speakerName: SHIP AI
+    dialogueText: '"*ALERT* Spatial anomaly detected. Distance: 200 kilometers and
+      closing.'
     voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
@@ -653,10 +658,10 @@ MonoBehaviour:
     useScreenShake: 0
     shakeIntensity: 10
     shakeDuration: 0.5
-    useRedFlash: 0
+    useRedFlash: 1
     flashIntensity: 0.5
   - speakerName: Trish
-    dialogueText: Rudy are you okay? We crashed!
+    dialogueText: What? That can't be right. There's nothing on the charts?
     voiceClip: {fileID: 8300000, guid: f0b23780913b9a34b894357eec3ab75f, type: 3}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
@@ -665,10 +670,11 @@ MonoBehaviour:
     useScreenShake: 0
     shakeIntensity: 10
     shakeDuration: 0.5
-    useRedFlash: 0
+    useRedFlash: 1
     flashIntensity: 0.5
-  - speakerName: Carter
-    dialogueText: There is something absorbing light...
+  - speakerName: SHIP AI
+    dialogueText: '*WARNING* Gravitational distortion increasing. Recommend immediate
+      course correction.'
     voiceClip: {fileID: 8300000, guid: bafe720a90525974aa02a2841a69215b, type: 3}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
@@ -677,10 +683,23 @@ MonoBehaviour:
     useScreenShake: 0
     shakeIntensity: 10
     shakeDuration: 0.5
-    useRedFlash: 0
+    useRedFlash: 1
     flashIntensity: 0.5
   - speakerName: Trish
-    dialogueText: Absorbing light???
+    dialogueText: Everyone to stations! NOW!
+    voiceClip: {fileID: 8300000, guid: f0b23780913b9a34b894357eec3ab75f, type: 3}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: SHIP AI
+    dialogueText: '*CRITICAL* Wormhole event detected. Destination: Unknown. Impact
+      in ten seconds.'
     voiceClip: {fileID: 8300000, guid: f0b23780913b9a34b894357eec3ab75f, type: 3}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
@@ -692,19 +711,7 @@ MonoBehaviour:
     useRedFlash: 0
     flashIntensity: 0.5
   - speakerName: Trish
-    dialogueText: Does everyone have their echolocation modules installed?
-    voiceClip: {fileID: 8300000, guid: f0b23780913b9a34b894357eec3ab75f, type: 3}
-    soundEffect: {fileID: 0}
-    customTextSpeed: 0
-    autoAdvance: 1
-    autoAdvanceDelay: 1
-    useScreenShake: 0
-    shakeIntensity: 10
-    shakeDuration: 0.5
-    useRedFlash: 0
-    flashIntensity: 0.5
-  - speakerName: Casey
-    dialogueText: Yes.
+    dialogueText: Carter get us out of here!
     voiceClip: {fileID: 8300000, guid: f731a9cb36394e8498b1d47609d54e1d, type: 3}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
@@ -716,7 +723,7 @@ MonoBehaviour:
     useRedFlash: 0
     flashIntensity: 0.5
   - speakerName: Carter
-    dialogueText: Me too.
+    dialogueText: I'm trying! It's pulling us in!
     voiceClip: {fileID: 8300000, guid: bafe720a90525974aa02a2841a69215b, type: 3}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
@@ -727,56 +734,8 @@ MonoBehaviour:
     shakeDuration: 0.5
     useRedFlash: 0
     flashIntensity: 0.5
-  - speakerName: Trish
-    dialogueText: Rudy?
-    voiceClip: {fileID: 8300000, guid: 56746de8321fd4f4781f2c08a6595ffb, type: 3}
-    soundEffect: {fileID: 0}
-    customTextSpeed: 0
-    autoAdvance: 1
-    autoAdvanceDelay: 1
-    useScreenShake: 0
-    shakeIntensity: 10
-    shakeDuration: 0.5
-    useRedFlash: 0
-    flashIntensity: 0.5
-  - speakerName: Rudy
-    dialogueText: ...
-    voiceClip: {fileID: 0}
-    soundEffect: {fileID: 0}
-    customTextSpeed: 0
-    autoAdvance: 1
-    autoAdvanceDelay: 1
-    useScreenShake: 0
-    shakeIntensity: 10
-    shakeDuration: 0.5
-    useRedFlash: 0
-    flashIntensity: 0.5
-  - speakerName: Trish
-    dialogueText: Got it. Start installing it and stick close to me.
-    voiceClip: {fileID: 8300000, guid: f0b23780913b9a34b894357eec3ab75f, type: 3}
-    soundEffect: {fileID: 0}
-    customTextSpeed: 0
-    autoAdvance: 1
-    autoAdvanceDelay: 1
-    useScreenShake: 0
-    shakeIntensity: 10
-    shakeDuration: 0.5
-    useRedFlash: 0
-    flashIntensity: 0.5
-  - speakerName: Rudy
-    dialogueText: Thank you, Captain
-    voiceClip: {fileID: 0}
-    soundEffect: {fileID: 0}
-    customTextSpeed: 0
-    autoAdvance: 1
-    autoAdvanceDelay: 1
-    useScreenShake: 0
-    shakeIntensity: 10
-    shakeDuration: 0.5
-    useRedFlash: 0
-    flashIntensity: 0.5
-  - speakerName: Trish
-    dialogueText: Of course.
+  - speakerName: Casey
+    dialogueText: It's been an honor serving!
     voiceClip: {fileID: 8300000, guid: 56746de8321fd4f4781f2c08a6595ffb, type: 3}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
@@ -788,8 +747,20 @@ MonoBehaviour:
     useRedFlash: 0
     flashIntensity: 0.5
   - speakerName: 
-    dialogueText: 
+    dialogueText: '*CRASH*'
     voiceClip: {fileID: 0}
+    soundEffect: {fileID: 8300000, guid: 5ccf1d5abbfb2b84286df5728d52c4f6, type: 3}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Trish
+    dialogueText: Everyone okay?
+    voiceClip: {fileID: 8300000, guid: f0b23780913b9a34b894357eec3ab75f, type: 3}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
     autoAdvance: 1
@@ -800,7 +771,45 @@ MonoBehaviour:
     useRedFlash: 0
     flashIntensity: 0.5
   - speakerName: Casey
-    dialogueText: Are communication's working?
+    dialogueText: Define 'Okay'. Also what happened to our lights.
+    voiceClip: {fileID: 0}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Trish
+    dialogueText: I'm not sure. Do you know where  we crashed? Any readings?
+    voiceClip: {fileID: 8300000, guid: 56746de8321fd4f4781f2c08a6595ffb, type: 3}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Carter
+    dialogueText: That's the thing, Captain. All external sensors are dead. Radio's
+      dead. Even emergency beacon won't transmit.
+    voiceClip: {fileID: 0}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Carter
+    dialogueText: It's like something's... blocking everything. Never seen interference
+      like this.
     voiceClip: {fileID: 8300000, guid: f731a9cb36394e8498b1d47609d54e1d, type: 3}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
@@ -812,7 +821,7 @@ MonoBehaviour:
     useRedFlash: 0
     flashIntensity: 0.5
   - speakerName: Trish
-    dialogueText: '"Fraid not'
+    dialogueText: '{PLAYER}, grab the scanner rig from locker three.'
     voiceClip: {fileID: 8300000, guid: 56746de8321fd4f4781f2c08a6595ffb, type: 3}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
@@ -823,8 +832,8 @@ MonoBehaviour:
     shakeDuration: 0.5
     useRedFlash: 0
     flashIntensity: 0.5
-  - speakerName: Casey
-    dialogueText: ...We HAVE seen horror movies right?
+  - speakerName: '{PLAYER}'
+    dialogueText: Yes, ma'am
     voiceClip: {fileID: 8300000, guid: f731a9cb36394e8498b1d47609d54e1d, type: 3}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
@@ -835,8 +844,9 @@ MonoBehaviour:
     shakeDuration: 0.5
     useRedFlash: 0
     flashIntensity: 0.5
-  - speakerName: Carter
-    dialogueText: Relax. I'm starting the echolocation testing
+  - speakerName: Trish
+    dialogueText: "It maps space using pulse feedback. You won\u2019t see normally
+      but you\u2019ll know where things are."
     voiceClip: {fileID: 8300000, guid: 7a067cbe95286b54c853afb9db9d1a70, type: 3}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
@@ -847,8 +857,9 @@ MonoBehaviour:
     shakeDuration: 0.5
     useRedFlash: 0
     flashIntensity: 0.5
-  - speakerName: 
-    dialogueText: 
+  - speakerName: Trish
+    dialogueText: "It\u2019ll be connected to your brainwaves. Think of it like pressing
+      \u2018E\u2019 in a video game."
     voiceClip: {fileID: 8300000, guid: 10400d61dc44cd64c805e23cc12a57a4, type: 3}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
@@ -859,8 +870,9 @@ MonoBehaviour:
     shakeDuration: 0.5
     useRedFlash: 0
     flashIntensity: 0.5
-  - speakerName: Carter
-    dialogueText: Echolocation works perfectly.
+  - speakerName: Trish
+    dialogueText: Alright everyone! Put on your suits and let's see what's going
+      on.
     voiceClip: {fileID: 8300000, guid: 7a067cbe95286b54c853afb9db9d1a70, type: 3}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
@@ -871,8 +883,8 @@ MonoBehaviour:
     shakeDuration: 0.5
     useRedFlash: 0
     flashIntensity: 0.5
-  - speakerName: SYSTEM
-    dialogueText: 'ECHOLOCATION MODULE: 67%... 84%... 98%...'
+  - speakerName: Everyone
+    dialogueText: Yes Captain!
     voiceClip: {fileID: 8300000, guid: 7a067cbe95286b54c853afb9db9d1a70, type: 3}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
@@ -883,8 +895,8 @@ MonoBehaviour:
     shakeDuration: 0.5
     useRedFlash: 0
     flashIntensity: 0.5
-  - speakerName: Rudy
-    dialogueText: So how do I use it?
+  - speakerName: 
+    dialogueText: 'The airlock hisses open. Darkness beyond. '
     voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
@@ -895,9 +907,9 @@ MonoBehaviour:
     shakeDuration: 0.5
     useRedFlash: 0
     flashIntensity: 0.5
-  - speakerName: Trish
-    dialogueText: It's linked to your brainwaves. It's like in a video games. Think
-      of it as activating a skill using "E"
+  - speakerName: Casey
+    dialogueText: Okay, it's dark. Like, REALLY dark. can't see my hand in front
+      of my face.
     voiceClip: {fileID: 8300000, guid: 004adde9237f82f439627c63494e3cee, type: 3}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
@@ -908,8 +920,8 @@ MonoBehaviour:
     shakeDuration: 0.5
     useRedFlash: 0
     flashIntensity: 0.5
-  - speakerName: Casey
-    dialogueText: Do we just camp out until someone find's us?
+  - speakerName: Carter
+    dialogueText: Give me a second... trying the echolocation...
     voiceClip: {fileID: 8300000, guid: bd5e561a577cd5e419c98c8e7abefb22, type: 3}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
@@ -920,8 +932,8 @@ MonoBehaviour:
     shakeDuration: 0.5
     useRedFlash: 0
     flashIntensity: 0.5
-  - speakerName: Carter
-    dialogueText: Look's like it
+  - speakerName: Trish
+    dialogueText: How's it looking out there?
     voiceClip: {fileID: 8300000, guid: bafe720a90525974aa02a2841a69215b, type: 3}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
@@ -932,8 +944,8 @@ MonoBehaviour:
     shakeDuration: 0.5
     useRedFlash: 0
     flashIntensity: 0.5
-  - speakerName: Casey
-    dialogueText: 'Looks like we''re gonna have a grand '
+  - speakerName: Carter
+    dialogueText: Still dark Captain. I can't turn on the sun.
     voiceClip: {fileID: 8300000, guid: f731a9cb36394e8498b1d47609d54e1d, type: 3}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
@@ -944,9 +956,21 @@ MonoBehaviour:
     shakeDuration: 0.5
     useRedFlash: 0
     flashIntensity: 0.5
-  - speakerName: Casey
-    dialogueText: AHHHHHH!
+  - speakerName: Trish
+    dialogueText: SHHHH. Listen
     voiceClip: {fileID: 8300000, guid: 0e3ec3ab0996a65469b338ab44792cb3, type: 3}
+    soundEffect: {fileID: 8300000, guid: 2743450c72166a04b94452c699818f0d, type: 3}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Casey
+    dialogueText: 'Oh my God. We''re in a horror movie. '
+    voiceClip: {fileID: 8300000, guid: 56746de8321fd4f4781f2c08a6595ffb, type: 3}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
     autoAdvance: 1
@@ -956,20 +980,8 @@ MonoBehaviour:
     shakeDuration: 0.5
     useRedFlash: 0
     flashIntensity: 0.5
-  - speakerName: Trish
-    dialogueText: CASEY!?!
-    voiceClip: {fileID: 8300000, guid: 56746de8321fd4f4781f2c08a6595ffb, type: 3}
-    soundEffect: {fileID: 8300000, guid: 6fc8f8b4df4c29841a99596578235268, type: 3}
-    customTextSpeed: 0
-    autoAdvance: 1
-    autoAdvanceDelay: 1
-    useScreenShake: 0
-    shakeIntensity: 10
-    shakeDuration: 0.5
-    useRedFlash: 0
-    flashIntensity: 0.5
-  - speakerName: Trish
-    dialogueText: Get inside!
+  - speakerName: Casey
+    dialogueText: Completely dark, ship crashed, we navigate through sound!
     voiceClip: {fileID: 8300000, guid: 56746de8321fd4f4781f2c08a6595ffb, type: 3}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
@@ -980,8 +992,8 @@ MonoBehaviour:
     shakeDuration: 0.2
     useRedFlash: 0
     flashIntensity: 0.5
-  - speakerName: Trish
-    dialogueText: We need to-!
+  - speakerName: Casey
+    dialogueText: Please let it be the horror movie where we all live!
     voiceClip: {fileID: 8300000, guid: 56746de8321fd4f4781f2c08a6595ffb, type: 3}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
@@ -992,9 +1004,9 @@ MonoBehaviour:
     shakeDuration: 0.5
     useRedFlash: 0
     flashIntensity: 0.5
-  - speakerName: Trish
-    dialogueText: 
-    voiceClip: {fileID: 8300000, guid: 75d9dcc5cb53d6543a77294e42d42a3d, type: 3}
+  - speakerName: Casey
+    dialogueText: I'm gonna hide in the ship until help arri-
+    voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
     autoAdvance: 1
@@ -1004,10 +1016,10 @@ MonoBehaviour:
     shakeDuration: 0.5
     useRedFlash: 0
     flashIntensity: 0.5
-  - speakerName: Shotgun
-    dialogueText: 
-    voiceClip: {fileID: 8300000, guid: 92533640e2df33d449e958a08aa7ae40, type: 3}
-    soundEffect: {fileID: 0}
+  - speakerName: Casey
+    dialogueText: "*SCREAMING* GET IT OFF! GET IT OFF M\u2014"
+    voiceClip: {fileID: 0}
+    soundEffect: {fileID: 8300000, guid: 772244e7c1ba34c4e82bcea2b0d1d214, type: 3}
     customTextSpeed: 0
     autoAdvance: 1
     autoAdvanceDelay: 1
@@ -1017,7 +1029,7 @@ MonoBehaviour:
     useRedFlash: 0
     flashIntensity: 0.5
   - speakerName: Carter
-    dialogueText: BRING IT ONNNNN! RUN, RUDY!
+    dialogueText: BRING IT ONNNNN! RUN, {PLAYER}!
     voiceClip: {fileID: 8300000, guid: 7a067cbe95286b54c853afb9db9d1a70, type: 3}
     soundEffect: {fileID: 8300000, guid: 92533640e2df33d449e958a08aa7ae40, type: 3}
     customTextSpeed: 0
@@ -1028,6 +1040,54 @@ MonoBehaviour:
     shakeDuration: 0.5
     useRedFlash: 0
     flashIntensity: 0.5
+  - speakerName: Trish
+    dialogueText: Casey?!? CASEY?!? EVERYONE GET RUN! I'M GONNA HELP CASEY!
+    voiceClip: {fileID: 0}
+    soundEffect: {fileID: 8300000, guid: 92533640e2df33d449e958a08aa7ae40, type: 3}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 1
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Trish
+    dialogueText: I'M COMING CASEY!
+    voiceClip: {fileID: 0}
+    soundEffect: {fileID: 8300000, guid: b33d7e2e777ad3e4dbcb31bfacdd6b51, type: 3}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 1
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Shotgun
+    dialogueText: 
+    voiceClip: {fileID: 0}
+    soundEffect: {fileID: 8300000, guid: 92533640e2df33d449e958a08aa7ae40, type: 3}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 1
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Carter
+    dialogueText: BRING IT ONNNNN! RUN {PLAYER}
+    voiceClip: {fileID: 0}
+    soundEffect: {fileID: 8300000, guid: 92533640e2df33d449e958a08aa7ae40, type: 3}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 1
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
   - speakerName: 
     dialogueText: 
     voiceClip: {fileID: 0}
@@ -1042,7 +1102,7 @@ MonoBehaviour:
     flashIntensity: 0.5
   - speakerName: 
     dialogueText: 
-    voiceClip: {fileID: 0}
+    voiceClip: {fileID: 8300000, guid: 9e91f6b4d22885d4482f895857833f5a, type: 3}
     soundEffect: {fileID: 8300000, guid: 92533640e2df33d449e958a08aa7ae40, type: 3}
     customTextSpeed: 0
     autoAdvance: 1
@@ -1067,6 +1127,142 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &42494545
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 42494546}
+  - component: {fileID: 42494548}
+  - component: {fileID: 42494547}
+  m_Layer: 5
+  m_Name: Text (TMP)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &42494546
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 42494545}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 649615821}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &42494547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 42494545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: Confirm
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
+  m_sharedMaterial: {fileID: 2147374, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4281479730
+  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 24
+  m_fontSizeBase: 24
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &42494548
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 42494545}
+  m_CullTransparentMesh: 1
 --- !u!1 &59806822
 GameObject:
   m_ObjectHideFlags: 0
@@ -1194,6 +1390,142 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!1 &157550069
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 157550070}
+  - component: {fileID: 157550072}
+  - component: {fileID: 157550071}
+  m_Layer: 5
+  m_Name: NamePromptText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &157550070
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 157550069}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1028919371}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 193.24}
+  m_SizeDelta: {x: 200, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &157550071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 157550069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: 'Enter Your Name:'
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
+  m_sharedMaterial: {fileID: 2147374, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 36
+  m_fontSizeBase: 36
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: -47.59851, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &157550072
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 157550069}
+  m_CullTransparentMesh: 1
 --- !u!1 &189768533
 GameObject:
   m_ObjectHideFlags: 0
@@ -1534,6 +1866,184 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 342059393}
   m_CullTransparentMesh: 1
+--- !u!1 &357165030
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 357165031}
+  - component: {fileID: 357165034}
+  - component: {fileID: 357165033}
+  - component: {fileID: 357165032}
+  m_Layer: 5
+  m_Name: NameInputField
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &357165031
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 357165030}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1901831737}
+  m_Father: {fileID: 1028919371}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 29.09, y: 0}
+  m_SizeDelta: {x: 400, y: 60}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &357165032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 357165030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2da0c512f12947e489f739169773d7ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TMP_InputField
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 357165033}
+  m_TextViewport: {fileID: 1901831737}
+  m_TextComponent: {fileID: 1828588013}
+  m_Placeholder: {fileID: 817928342}
+  m_VerticalScrollbar: {fileID: 0}
+  m_VerticalScrollbarEventHandler: {fileID: 0}
+  m_LayoutGroup: {fileID: 0}
+  m_ScrollSensitivity: 1
+  m_ContentType: 0
+  m_InputType: 0
+  m_AsteriskChar: 42
+  m_KeyboardType: 0
+  m_LineType: 0
+  m_HideMobileInput: 0
+  m_HideSoftKeyboard: 0
+  m_CharacterValidation: 0
+  m_RegexValue: 
+  m_GlobalPointSize: 14
+  m_CharacterLimit: 0
+  m_OnEndEdit:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSubmit:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelect:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnDeselect:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnTextSelection:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnEndTextSelection:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnValueChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnTouchScreenKeyboardStatusChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_CustomCaretColor: 0
+  m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
+  m_Text: 
+  m_CaretBlinkRate: 0.85
+  m_CaretWidth: 1
+  m_ReadOnly: 0
+  m_RichText: 1
+  m_GlobalFontAsset: {fileID: 0}
+  m_OnFocusSelectAll: 1
+  m_ResetOnDeActivation: 1
+  m_KeepTextSelectionVisible: 0
+  m_RestoreOriginalTextOnEscape: 1
+  m_isRichTextEditingAllowed: 0
+  m_LineLimit: 0
+  isAlert: 0
+  m_InputValidator: {fileID: 0}
+  m_ShouldActivateOnSelect: 1
+--- !u!114 &357165033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 357165030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &357165034
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 357165030}
+  m_CullTransparentMesh: 1
 --- !u!1 &362589513
 GameObject:
   m_ObjectHideFlags: 0
@@ -1613,6 +2123,139 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &649615820
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 649615821}
+  - component: {fileID: 649615824}
+  - component: {fileID: 649615823}
+  - component: {fileID: 649615822}
+  m_Layer: 5
+  m_Name: ConfirmNameButton
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &649615821
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 649615820}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 42494546}
+  m_Father: {fileID: 1028919371}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 23.31, y: -92.21}
+  m_SizeDelta: {x: 160, y: 30}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &649615822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 649615820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 649615823}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1132793}
+        m_TargetAssemblyTypeName: CutsceneManager, Assembly-CSharp
+        m_MethodName: OnConfirmNameClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &649615823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 649615820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &649615824
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 649615820}
+  m_CullTransparentMesh: 1
 --- !u!1 &730308308
 GameObject:
   m_ObjectHideFlags: 0
@@ -1659,6 +2302,163 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &817928339
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 817928340}
+  - component: {fileID: 817928343}
+  - component: {fileID: 817928342}
+  - component: {fileID: 817928341}
+  m_Layer: 5
+  m_Name: Placeholder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &817928340
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 817928339}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1901831737}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &817928341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 817928339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.LayoutElement
+  m_IgnoreLayout: 1
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: -1
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
+--- !u!114 &817928342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 817928339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: Your name...
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
+  m_sharedMaterial: {fileID: 2147374, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 36
+  m_fontSizeBase: 36
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 3
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 0
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 1
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &817928343
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 817928339}
+  m_CullTransparentMesh: 1
 --- !u!1 &879011797
 GameObject:
   m_ObjectHideFlags: 0
@@ -1758,6 +2558,7 @@ RectTransform:
   - {fileID: 342059394}
   - {fileID: 2100806927}
   - {fileID: 2013409469}
+  - {fileID: 1028919371}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1765,6 +2566,84 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &1028919370
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1028919371}
+  - component: {fileID: 1028919373}
+  - component: {fileID: 1028919372}
+  m_Layer: 5
+  m_Name: NameInputPanel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1028919371
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1028919370}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 157550070}
+  - {fileID: 357165031}
+  - {fileID: 649615821}
+  m_Father: {fileID: 879011801}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1028919372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1028919370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1028919373
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1028919370}
+  m_CullTransparentMesh: 1
 --- !u!1 &1043165594
 GameObject:
   m_ObjectHideFlags: 0
@@ -2455,6 +3334,194 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1441111652}
   m_CullTransparentMesh: 1
+--- !u!1 &1828588011
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1828588012}
+  - component: {fileID: 1828588014}
+  - component: {fileID: 1828588013}
+  m_Layer: 5
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1828588012
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1828588011}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1901831737}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1828588013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1828588011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: 
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
+  m_sharedMaterial: {fileID: 0}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: 0
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 36
+  m_fontSizeBase: 36
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 3
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 3
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 1
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 1
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1828588014
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1828588011}
+  m_CullTransparentMesh: 1
+--- !u!1 &1901831736
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1901831737}
+  - component: {fileID: 1901831738}
+  m_Layer: 5
+  m_Name: Text Area
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1901831737
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1901831736}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 817928340}
+  - {fileID: 1828588012}
+  m_Father: {fileID: 357165031}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: -0.5}
+  m_SizeDelta: {x: -20, y: -13}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1901831738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1901831736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.RectMask2D
+  m_Padding: {x: -8, y: -5, z: -8, w: -5}
+  m_Softness: {x: 0, y: 0}
 --- !u!1 &1924354362
 GameObject:
   m_ObjectHideFlags: 0
@@ -2766,7 +3833,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: 6bbcfd1374a4d314eb439fca728f0822, type: 2}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -2774,8 +3841,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4

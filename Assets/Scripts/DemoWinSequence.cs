@@ -13,73 +13,46 @@ public class DemoWinSequence : MonoBehaviour
     [Header("UI")]
     public GameObject winPanel;
     public RectTransform creditsContainer; // Container that scrolls
+    public RectTransform viewport;         // ADD: viewport for bounds checking
     public TextMeshProUGUI creditsText;
     public TextMeshProUGUI thankYouText;
     public TextMeshProUGUI skipText;
     public RawImage fadePanel;
 
     [Header("Scrolling Settings")]
-    public float scrollSpeed = 50f; // Pixels per second
-    public float creditsStartY = -400f; // Start below screen
-    public float creditsEndY = 1200f; // End above screen
+    public float scrollSpeed = 50f;
+    public float creditsStartY = -400f;
 
     [Header("Credits")]
     [TextArea(15, 30)]
     public string creditsMessage = @"
 
 
-
-
-
-
-
 DEMO COMPLETE
-
 
 
 CREDITS
 
-
-
 Game Design & Programming
 Your Name
-
-
 
 Art & Design
 Artist Name
 
-
-
 Audio & Sound Design
 Sound Designer Name
 
-
-
 Music
 Composer Name
-
-
 
 Special Thanks
 Your Friends
 Your Team
 Your Family
 
-
-
 Created with Unity
 
-
-
 Thank you for playing!
-
-
-
-
-
-
-
 ";
 
     [Header("Thank You Message")]
@@ -111,45 +84,38 @@ Stay tuned for the full release!";
 
     void Start()
     {
-        // Auto-find inventory
         if (inventory == null)
-        {
             inventory = FindObjectOfType<NulliumInventory>();
-        }
 
-        // Hide win panel
         if (winPanel != null)
-        {
             winPanel.SetActive(false);
-        }
     }
 
     void Update()
     {
-        // Check for win condition
-        if (!hasWon && inventory != null)
+        // Win condition
+        if (!hasWon && inventory != null && inventory.GetCoreCount() >= coresNeededToWin)
         {
-            if (inventory.GetCoreCount() >= coresNeededToWin)
-            {
-                StartCoroutine(PlayWinSequence());
-                hasWon = true;
-            }
+            hasWon = true;
+            StartCoroutine(PlayWinSequence());
         }
 
-        // Scroll credits
+        // Scroll credits safely
         if (isScrolling && creditsContainer != null)
         {
-            creditsContainer.anchoredPosition += Vector2.up * scrollSpeed * Time.deltaTime;
+            creditsContainer.anchoredPosition +=
+                Vector2.up * scrollSpeed * Time.deltaTime;
 
-            // Check if scrolling is done
-            if (creditsContainer.anchoredPosition.y >= creditsEndY)
+            // Reliable end check (no magic numbers)
+            if (IsCreditsOffScreen())
             {
+                Debug.Log("Credits finished scrolling");
                 isScrolling = false;
                 StartCoroutine(TransitionToThankYou());
             }
         }
 
-        // Allow skipping
+        // Skip
         if (canSkip && Input.anyKeyDown)
         {
             StopAllCoroutines();
@@ -158,76 +124,76 @@ Stay tuned for the full release!";
         }
     }
 
+    bool IsCreditsOffScreen()
+    {
+        if (viewport == null || creditsContainer == null)
+            return false;
+
+        float creditsBottom =
+            creditsContainer.anchoredPosition.y +
+            creditsContainer.rect.height;
+
+        return creditsBottom >= viewport.rect.height;
+    }
+
     IEnumerator PlayWinSequence()
     {
-        Debug.Log("DEMO COMPLETED!");
+        Debug.Log("DEMO COMPLETED");
 
         canSkip = false;
 
-        // Fade to black
         yield return StartCoroutine(FadeToBlack());
 
-        // Show win panel
         if (winPanel != null)
-        {
             winPanel.SetActive(true);
-        }
 
-        // Setup credits
         if (creditsText != null)
         {
             creditsText.gameObject.SetActive(true);
             creditsText.text = creditsMessage;
         }
-        if (thankYouText != null)
-        {
-            thankYouText.gameObject.SetActive(false);
-        }
-        if (skipText != null)
-        {
-            skipText.text = "Press any key to skip";
-        }
 
-        // Reset credits position
+        if (thankYouText != null)
+            thankYouText.gameObject.SetActive(false);
+
+        if (skipText != null)
+            skipText.text = "Press any key to skip";
+
+        // Preserve X (important)
         if (creditsContainer != null)
         {
-            creditsContainer.anchoredPosition = new Vector2(0, creditsStartY);
+            creditsContainer.anchoredPosition =
+                new Vector2(
+                    creditsContainer.anchoredPosition.x,
+                    creditsStartY
+                );
         }
 
-        // Fade from black
         yield return StartCoroutine(FadeFromBlack());
 
         canSkip = true;
-
-        // Start scrolling
         isScrolling = true;
     }
 
     IEnumerator TransitionToThankYou()
     {
-        // Fade to black
+        Debug.Log("Transitioning to THANK YOU");
+
         yield return StartCoroutine(FadeToBlack());
 
-        // Hide credits
         if (creditsText != null)
-        {
             creditsText.gameObject.SetActive(false);
-        }
 
-        // Show thank you
         if (thankYouText != null)
         {
             thankYouText.gameObject.SetActive(true);
             thankYouText.text = thankYouMessage;
         }
 
-        // Fade from black
         yield return StartCoroutine(FadeFromBlack());
 
-        // Display thank you
         yield return new WaitForSeconds(thankYouDisplayTime);
 
-        // Return to menu
         ReturnToMenu();
     }
 

@@ -18,6 +18,9 @@ public class GameManager : MonoBehaviour
     public int nulliumCores = 0;
     public List<string> collectedCoreIDs = new List<string>();
 
+    [Header("Player Info")]
+    public string playerName = "Survivor";
+
     [Header("Scene Names")]
     public string cutsceneScene = "Game1";
     public string gameScene = "Game2";

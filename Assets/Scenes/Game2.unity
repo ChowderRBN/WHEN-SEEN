@@ -3146,7 +3146,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &867534178
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3156,14 +3156,15 @@ RectTransform:
   m_GameObject: {fileID: 867534177}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.90909094, y: 0.90909094, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 879229056}
+  m_Children:
+  - {fileID: 1918034253}
+  m_Father: {fileID: 1071764779}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 1608.2002}
+  m_AnchoredPosition: {x: 0, y: 1462.0001}
   m_SizeDelta: {x: 1920, y: 2000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &867534179
@@ -3364,7 +3365,6 @@ RectTransform:
   - {fileID: 817874834}
   - {fileID: 319952011}
   - {fileID: 1071764779}
-  - {fileID: 867534178}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3713,7 +3713,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79f440cb873058d47a36f10539d86d80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NulliumInventory
-  nulliumCores: 0
+  nulliumCores: 2
   maxCores: 5
   audioSource: {fileID: 973812190}
   coreCollectedSound: {fileID: 0}
@@ -4024,10 +4024,10 @@ RectTransform:
   m_LocalScale: {x: 1.1, y: 1.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 867534178}
   - {fileID: 250681194}
-  - {fileID: 1918034253}
-  - {fileID: 1225750818}
   - {fileID: 32901874}
+  - {fileID: 1225750818}
   m_Father: {fileID: 879229056}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -4340,13 +4340,13 @@ MonoBehaviour:
   inventory: {fileID: 973812191}
   winPanel: {fileID: 1071764778}
   creditsContainer: {fileID: 867534178}
+  viewport: {fileID: 879229056}
   creditsText: {fileID: 1918034255}
   thankYouText: {fileID: 1225750820}
   skipText: {fileID: 0}
   fadePanel: {fileID: 32901872}
-  scrollSpeed: 100
-  creditsStartY: -1424
-  creditsEndY: 1462
+  scrollSpeed: 0
+  creditsStartY: -1200
   creditsMessage: "CREDITS\r\n\r\nGame Made by ChowderRBN\r\n\nCave System by Gregory
     Seguru\nAsset Pack: Mine\n\nTree Models by Evgenia\nAsset Pack: Lowpoly Piece
     of Nature\n\nMusic by Anthon\nAsset Pack: Horror Elements\n\nSound Effects by
@@ -4378,7 +4378,7 @@ MonoBehaviour:
     Stay tuned for the full release!'
   fadeInDuration: 1.5
   fadeOutDuration: 1.5
-  thankYouDisplayTime: 6
+  thankYouDisplayTime: 8
   menuSceneName: Menu
 --- !u!4 &1171564015
 Transform:
@@ -4599,7 +4599,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1225750817}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4641,7 +4641,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 0}
+  m_fontAsset: {fileID: 11400000, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
   m_sharedMaterial: {fileID: 0}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -4673,8 +4673,8 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -4707,7 +4707,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!4 &1291779452 stripped
@@ -5997,16 +5997,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1918034252}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.1, y: 1.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1071764779}
+  m_Father: {fileID: 867534178}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 1375}
   m_SizeDelta: {x: 800, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1918034254
@@ -6064,8 +6064,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 24
+  m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -6419,7 +6419,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2053361821
 MonoBehaviour:
   m_ObjectHideFlags: 0

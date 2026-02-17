@@ -12,19 +12,26 @@ public class CutsceneManager : MonoBehaviour
     public TextMeshProUGUI dialogueText;
     public TextMeshProUGUI speakerNameText;
     public Image fadePanel;
-    public Image flashEffect; // Optional: for screen flash effects
+    public Image flashEffect;
+
+    [Header("Name Input UI")]
+    public GameObject nameInputPanel;
+    public TMP_InputField nameInputField;
+    public GameObject confirmNameButton;
+    public TextMeshProUGUI namePromptText;
 
     [Header("Audio Sources")]
-    public AudioSource voiceSource; // For voice lines
-    public AudioSource sfxSource; // For sound effects
-    public AudioSource musicSource; // For background music/ambience
+    public AudioSource voiceSource;
+    public AudioSource sfxSource;
+    public AudioSource musicSource;
 
     [Header("Background Audio")]
-    public AudioClip ambientDarkness; // Removed alarmSound
+    public AudioClip ambientDarkness;
 
     [Header("Cutscene Settings")]
-    public float textSpeed = 0.02f; // Changed default to faster
-    public string nextSceneName = "Game2"; // Default to Game2, but GameManager can override this
+    public float textSpeed = 0.02f;
+    public string nextSceneName = "Game2";
+    public string defaultPlayerName = "Survivor";
 
     [Header("Dialogue Lines")]
     public DialogueLine[] dialogueLines;
@@ -32,18 +39,43 @@ public class CutsceneManager : MonoBehaviour
     private int currentLineIndex = 0;
     private bool isTyping = false;
     private bool skipTyping = false;
+    private string playerName = "";
+    private bool nameConfirmed = false;
 
     void Start()
     {
+        // Hide cutscene panel at start
+        if (cutscenePanel != null)
+        {
+            cutscenePanel.SetActive(false);
+        }
+
+        // Make sure fade panel is black at start
+        if (fadePanel != null)
+        {
+            Color color = fadePanel.color;
+            color.a = 1;
+            fadePanel.color = color;
+        }
+
         StartCoroutine(PlayCutscene());
     }
 
     IEnumerator PlayCutscene()
     {
+        // Get player name FIRST
+        yield return StartCoroutine(GetPlayerName());
+
+        // Show cutscene panel
+        if (cutscenePanel != null)
+        {
+            cutscenePanel.SetActive(true);
+        }
+
         // Fade in from black
         yield return StartCoroutine(FadeFromBlack(1f));
 
-        // Start ambient darkness sound immediately (optional)
+        // Start ambient sound
         if (ambientDarkness != null && musicSource != null)
         {
             musicSource.loop = true;
@@ -52,14 +84,128 @@ public class CutsceneManager : MonoBehaviour
             musicSource.Play();
         }
 
-        // Start dialogue IMMEDIATELY after fade
+        // Start dialogue
         yield return StartCoroutine(PlayDialogue());
 
         // Fade to black
         yield return StartCoroutine(FadeToBlack(2f));
 
-        // Load game scene
+        // Save player name
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.playerName = playerName;
+        }
+        else
+        {
+            PlayerPrefs.SetString("PlayerName", playerName);
+        }
+
         SceneManager.LoadScene(nextSceneName);
+    }
+
+    IEnumerator GetPlayerName()
+    {
+        Debug.Log("Showing name input panel...");
+
+        // Show name input panel
+        if (nameInputPanel != null)
+        {
+            nameInputPanel.SetActive(true);
+        }
+
+        if (namePromptText != null)
+        {
+            namePromptText.text = "ENTER YOUR NAME";
+        }
+
+        if (nameInputField != null)
+        {
+            nameInputField.text = "";
+            nameInputField.Select();
+            nameInputField.ActivateInputField();
+        }
+
+        // Reset flag
+        nameConfirmed = false;
+
+        // Wait for player to confirm name
+        while (!nameConfirmed)
+        {
+            // Also allow Enter key to confirm
+            if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && ValidateName())
+            {
+                nameConfirmed = true;
+                Debug.Log("Name confirmed via Enter key!");
+            }
+            yield return null;
+        }
+
+        // Get the entered name
+        if (nameInputField != null && !string.IsNullOrEmpty(nameInputField.text.Trim()))
+        {
+            playerName = nameInputField.text.Trim();
+        }
+        else
+        {
+            playerName = defaultPlayerName;
+        }
+
+        Debug.Log($"Player name set to: {playerName}");
+
+        // Hide name input panel
+        if (nameInputPanel != null)
+        {
+            nameInputPanel.SetActive(false);
+        }
+    }
+
+    // CALL THIS FROM THE BUTTON'S OnClick()
+    public void OnConfirmNameClicked()
+    {
+        Debug.Log("Confirm button clicked!");
+
+        if (ValidateName())
+        {
+            nameConfirmed = true;
+            Debug.Log("Name is valid, confirming...");
+        }
+        else
+        {
+            Debug.Log("Name is invalid (empty)");
+        }
+    }
+
+    bool ValidateName()
+    {
+        if (nameInputField != null && !string.IsNullOrEmpty(nameInputField.text.Trim()))
+        {
+            return true;
+        }
+
+        // Flash input field if empty
+        if (nameInputField != null)
+        {
+            StartCoroutine(FlashInputField());
+        }
+
+        return false;
+    }
+
+    IEnumerator FlashInputField()
+    {
+        Image inputImage = nameInputField.GetComponent<Image>();
+        if (inputImage == null) yield break;
+
+        Color originalColor = inputImage.color;
+        Color flashColor = new Color(1f, 0.5f, 0.5f);
+
+        for (int i = 0; i < 3; i++)
+        {
+            inputImage.color = flashColor;
+            yield return new WaitForSeconds(0.1f);
+            inputImage.color = originalColor;
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 
     IEnumerator PlayDialogue()
@@ -68,19 +214,16 @@ public class CutsceneManager : MonoBehaviour
         {
             DialogueLine line = dialogueLines[currentLineIndex];
 
-            // Play voice line if assigned
             if (line.voiceClip != null && voiceSource != null)
             {
                 voiceSource.PlayOneShot(line.voiceClip);
             }
 
-            // Play sound effect if assigned
             if (line.soundEffect != null && sfxSource != null)
             {
                 sfxSource.PlayOneShot(line.soundEffect);
             }
 
-            // Special visual effects based on line type
             if (line.useScreenShake)
             {
                 StartCoroutine(ScreenShake(line.shakeIntensity, line.shakeDuration));
@@ -91,16 +234,15 @@ public class CutsceneManager : MonoBehaviour
                 StartCoroutine(RedFlash(line.flashIntensity));
             }
 
-            // Set speaker name
             if (speakerNameText != null)
             {
-                speakerNameText.text = line.speakerName;
+                speakerNameText.text = line.speakerName.Replace("{PLAYER}", playerName);
             }
 
-            // Type out dialogue
-            yield return StartCoroutine(TypeText(line.dialogueText, line.customTextSpeed > 0 ? line.customTextSpeed : textSpeed));
+            string processedDialogue = line.dialogueText.Replace("{PLAYER}", playerName);
 
-            // Wait for input or auto-advance
+            yield return StartCoroutine(TypeText(processedDialogue, line.customTextSpeed > 0 ? line.customTextSpeed : textSpeed));
+
             if (line.autoAdvance)
             {
                 yield return new WaitForSeconds(line.autoAdvanceDelay);
@@ -145,16 +287,29 @@ public class CutsceneManager : MonoBehaviour
 
     void Update()
     {
-        // Skip typing animation
         if (isTyping && (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0)))
         {
             skipTyping = true;
         }
 
-        // Press ESC to skip entire cutscene
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             StopAllCoroutines();
+
+            if (string.IsNullOrEmpty(playerName))
+            {
+                playerName = defaultPlayerName;
+            }
+
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.playerName = playerName;
+            }
+            else
+            {
+                PlayerPrefs.SetString("PlayerName", playerName);
+            }
+
             SceneManager.LoadScene(nextSceneName);
         }
     }
@@ -252,7 +407,6 @@ public class CutsceneManager : MonoBehaviour
     }
 }
 
-// Enhanced Dialogue Line class with audio options
 [System.Serializable]
 public class DialogueLine
 {
@@ -262,13 +416,13 @@ public class DialogueLine
     public string dialogueText;
 
     [Header("Audio")]
-    public AudioClip voiceClip; // Voice acting for this line
-    public AudioClip soundEffect; // Sound effect to play with this line
+    public AudioClip voiceClip;
+    public AudioClip soundEffect;
 
     [Header("Timing")]
-    public float customTextSpeed = 0; // Leave at 0 to use default speed
-    public bool autoAdvance = false; // If true, doesn't wait for player input
-    public float autoAdvanceDelay = 2f; // How long to wait before auto-advancing
+    public float customTextSpeed = 0;
+    public bool autoAdvance = false;
+    public float autoAdvanceDelay = 2f;
 
     [Header("Visual Effects")]
     public bool useScreenShake = false;
