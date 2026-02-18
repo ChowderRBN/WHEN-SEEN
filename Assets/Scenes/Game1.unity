@@ -161,9 +161,9 @@ MonoBehaviour:
   sfxSource: {fileID: 1924354363}
   musicSource: {fileID: 1072431654}
   ambientDarkness: {fileID: 8300000, guid: e3ff76263e5d154419447ccbf21cdeb0, type: 3}
-  textSpeed: 0.02
+  textSpeed: 0.05
   nextSceneName: Game2
-  defaultPlayerName: Survivor
+  defaultPlayerName: Melvin
   dialogueLines:
   - speakerName: MISSION LOG - DAY 247
     dialogueText: 'En route to Colony Osiris via Astra Linear wormhole. ETA: 6 hours.'
@@ -183,7 +183,7 @@ MonoBehaviour:
     soundEffect: {fileID: 0}
     customTextSpeed: 0
     autoAdvance: 1
-    autoAdvanceDelay: 1
+    autoAdvanceDelay: 2
     useScreenShake: 0
     shakeIntensity: 10
     shakeDuration: 0.5
@@ -203,7 +203,7 @@ MonoBehaviour:
     useRedFlash: 0
     flashIntensity: 0.5
   - speakerName: '{PLAYER} '
-    dialogueText: "Copy that\u2026 five more minutes and I\u2019m combat-ready."
+    dialogueText: I have plenty of time. Gimme 5 more minutes.
     voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
@@ -227,7 +227,7 @@ MonoBehaviour:
     useRedFlash: 0
     flashIntensity: 0.5
   - speakerName: '{PLAYER}'
-    dialogueText: "Yeah, well. Today feels\u2026 important."
+    dialogueText: Ughhhh. Alright.
     voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
@@ -239,7 +239,7 @@ MonoBehaviour:
     useRedFlash: 0
     flashIntensity: 0.5
   - speakerName: Trish
-    dialogueText: Important how?
+    dialogueText: Oh, quit your whining.
     voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
@@ -251,7 +251,7 @@ MonoBehaviour:
     useRedFlash: 0
     flashIntensity: 0.5
   - speakerName: '{PLAYER}'
-    dialogueText: "...Never mind. I\u2019ll get up."
+    dialogueText: Yes ma'am.
     voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
@@ -324,8 +324,8 @@ MonoBehaviour:
     useRedFlash: 0
     flashIntensity: 0.5
   - speakerName: Casey
-    dialogueText: Love you too!
-    voiceClip: {fileID: 8300000, guid: 56746de8321fd4f4781f2c08a6595ffb, type: 3}
+    dialogueText: Harsh.
+    voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
     autoAdvance: 1
@@ -336,8 +336,9 @@ MonoBehaviour:
     useRedFlash: 0
     flashIntensity: 0.5
   - speakerName: Carter
-    dialogueText: "Vitals look good. Ship doesn\u2019t, but we do."
-    voiceClip: {fileID: 8300000, guid: f731a9cb36394e8498b1d47609d54e1d, type: 3}
+    dialogueText: '{PLAYER} go easy on him. You''re clearly more hard working than
+      him.'
+    voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
     autoAdvance: 1
@@ -349,7 +350,7 @@ MonoBehaviour:
     flashIntensity: 0.5
   - speakerName: '{PLAYER}'
     dialogueText: Low bar.
-    voiceClip: {fileID: 8300000, guid: f0b23780913b9a34b894357eec3ab75f, type: 3}
+    voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
     autoAdvance: 1
@@ -360,7 +361,7 @@ MonoBehaviour:
     useRedFlash: 0
     flashIntensity: 0.5
   - speakerName: Casey
-    dialogueText: "So what\u2019s the occasion? You look\u2026 weirdly reflective."
+    dialogueText: Get a load of this guy.
     voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
@@ -372,7 +373,7 @@ MonoBehaviour:
     useRedFlash: 0
     flashIntensity: 0.5
   - speakerName: '{PLAYER}'
-    dialogueText: Do I?
+    dialogueText: Is that your favorite thing to say?
     voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
@@ -384,7 +385,7 @@ MonoBehaviour:
     useRedFlash: 0
     flashIntensity: 0.5
   - speakerName: Carter
-    dialogueText: "You do. Heart rate\u2019s elevated too."
+    dialogueText: It's all those movies he watched from the 80's.
     voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
@@ -396,7 +397,7 @@ MonoBehaviour:
     useRedFlash: 0
     flashIntensity: 0.5
   - speakerName: '{PLAYER}'
-    dialogueText: Cool. Love being medically perceived.
+    dialogueText: Those old movies? They came out like 200 years ago.
     voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
@@ -409,7 +410,7 @@ MonoBehaviour:
     flashIntensity: 0.5
   - speakerName: Trish
     dialogueText: '{PLAYER}, eggs. Now.'
-    voiceClip: {fileID: 8300000, guid: 067b13a4b860b1e458c64f169e211fe9, type: 3}
+    voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
     autoAdvance: 1
@@ -420,8 +421,8 @@ MonoBehaviour:
     useRedFlash: 0
     flashIntensity: 0.5
   - speakerName: '{PLAYER}'
-    dialogueText: "Right. Eggs. Just\u2026 eggs."
-    voiceClip: {fileID: 8300000, guid: 56746de8321fd4f4781f2c08a6595ffb, type: 3}
+    dialogueText: I can give it a bit of {PLAYER} spice.
+    voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
     autoAdvance: 1
@@ -432,8 +433,8 @@ MonoBehaviour:
     useRedFlash: 0
     flashIntensity: 0.5
   - speakerName: Carter
-    dialogueText: Yes. Just eggs. You're learning.
-    voiceClip: {fileID: 8300000, guid: f731a9cb36394e8498b1d47609d54e1d, type: 3}
+    dialogueText: Quit talking in third person.
+    voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
     autoAdvance: 1
@@ -444,8 +445,8 @@ MonoBehaviour:
     useRedFlash: 0
     flashIntensity: 0.5
   - speakerName: Casey
-    dialogueText: Definitely not.
-    voiceClip: {fileID: 8300000, guid: 7a067cbe95286b54c853afb9db9d1a70, type: 3}
+    dialogueText: Definitely not your style bro.
+    voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
     autoAdvance: 1
@@ -456,7 +457,19 @@ MonoBehaviour:
     useRedFlash: 0
     flashIntensity: 0.5
   - speakerName: '{PLAYER}'
-    dialogueText: Getting to it.
+    dialogueText: Fine. I'll get to it.
+    voiceClip: {fileID: 0}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: 
+    dialogueText: 
     voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
@@ -469,7 +482,7 @@ MonoBehaviour:
     flashIntensity: 0.5
   - speakerName: Everyone
     dialogueText: SURPRISE!
-    voiceClip: {fileID: 8300000, guid: 56746de8321fd4f4781f2c08a6595ffb, type: 3}
+    voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
     autoAdvance: 1
@@ -481,108 +494,108 @@ MonoBehaviour:
     flashIntensity: 0.5
   - speakerName: '{PLAYER}'
     dialogueText: "Thank you all! But, You didn\u2019t have to\u2014"
-    voiceClip: {fileID: 8300000, guid: 75446a74f7b8f124fa41770c52580ab6, type: 3}
-    soundEffect: {fileID: 8300000, guid: 75446a74f7b8f124fa41770c52580ab6, type: 3}
+    voiceClip: {fileID: 0}
+    soundEffect: {fileID: 0}
     customTextSpeed: 0
     autoAdvance: 1
     autoAdvanceDelay: 2
-    useScreenShake: 1
+    useScreenShake: 0
     shakeIntensity: 10
     shakeDuration: 0.5
     useRedFlash: 1
     flashIntensity: 0.5
   - speakerName: Trish
     dialogueText: Yeah. We did.
-    voiceClip: {fileID: 8300000, guid: 4aea144b62450c34daa04737953dd223, type: 3}
-    soundEffect: {fileID: 8300000, guid: 75446a74f7b8f124fa41770c52580ab6, type: 3}
+    voiceClip: {fileID: 0}
+    soundEffect: {fileID: 0}
     customTextSpeed: 0
     autoAdvance: 1
     autoAdvanceDelay: 2.5
     useScreenShake: 0
     shakeIntensity: 10
     shakeDuration: 0.5
-    useRedFlash: 1
+    useRedFlash: 0
     flashIntensity: 0.5
   - speakerName: Casey
     dialogueText: Cake's a little... dense.
-    voiceClip: {fileID: 8300000, guid: f0b23780913b9a34b894357eec3ab75f, type: 3}
-    soundEffect: {fileID: 8300000, guid: 75446a74f7b8f124fa41770c52580ab6, type: 3}
-    customTextSpeed: 0
-    autoAdvance: 1
-    autoAdvanceDelay: 1
-    useScreenShake: 0
-    shakeIntensity: 10
-    shakeDuration: 0.5
-    useRedFlash: 1
-    flashIntensity: 0.5
-  - speakerName: Carter
-    dialogueText: It will not collapse
     voiceClip: {fileID: 0}
-    soundEffect: {fileID: 8300000, guid: 75446a74f7b8f124fa41770c52580ab6, type: 3}
-    customTextSpeed: 0
-    autoAdvance: 1
-    autoAdvanceDelay: 1
-    useScreenShake: 0
-    shakeIntensity: 10
-    shakeDuration: 0.5
-    useRedFlash: 1
-    flashIntensity: 0.5
-  - speakerName: '{PLAYER}'
-    dialogueText: Best birthday I've had.
-    voiceClip: {fileID: 8300000, guid: bd5e561a577cd5e419c98c8e7abefb22, type: 3}
-    soundEffect: {fileID: 8300000, guid: 75446a74f7b8f124fa41770c52580ab6, type: 3}
-    customTextSpeed: 0
-    autoAdvance: 1
-    autoAdvanceDelay: 1
-    useScreenShake: 0
-    shakeIntensity: 10
-    shakeDuration: 0.5
-    useRedFlash: 1
-    flashIntensity: 0.5
-  - speakerName: Trish
-    dialogueText: Alright, let's sing happy birthday and let's get back to work.
-    voiceClip: {fileID: 8300000, guid: 56746de8321fd4f4781f2c08a6595ffb, type: 3}
-    soundEffect: {fileID: 8300000, guid: 75446a74f7b8f124fa41770c52580ab6, type: 3}
-    customTextSpeed: 0
-    autoAdvance: 1
-    autoAdvanceDelay: 1
-    useScreenShake: 0
-    shakeIntensity: 10
-    shakeDuration: 0.5
-    useRedFlash: 1
-    flashIntensity: 0.5
-  - speakerName: Everyone
-    dialogueText: Happy Birthday to you!
-    voiceClip: {fileID: 8300000, guid: bafe720a90525974aa02a2841a69215b, type: 3}
-    soundEffect: {fileID: 8300000, guid: 75446a74f7b8f124fa41770c52580ab6, type: 3}
-    customTextSpeed: 0
-    autoAdvance: 1
-    autoAdvanceDelay: 1
-    useScreenShake: 0
-    shakeIntensity: 10
-    shakeDuration: 0.5
-    useRedFlash: 1
-    flashIntensity: 0.5
-  - speakerName: Everyone
-    dialogueText: Happy Birthday to you!
-    voiceClip: {fileID: 8300000, guid: 56746de8321fd4f4781f2c08a6595ffb, type: 3}
-    soundEffect: {fileID: 8300000, guid: 75446a74f7b8f124fa41770c52580ab6, type: 3}
-    customTextSpeed: 0
-    autoAdvance: 1
-    autoAdvanceDelay: 1
-    useScreenShake: 0
-    shakeIntensity: 10
-    shakeDuration: 0.5
-    useRedFlash: 1
-    flashIntensity: 0.5
-  - speakerName: 'Everyone '
-    dialogueText: Happy Birthday dear {PLAYER}!
-    voiceClip: {fileID: 8300000, guid: 5ccf1d5abbfb2b84286df5728d52c4f6, type: 3}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
     autoAdvance: 1
     autoAdvanceDelay: 1
-    useScreenShake: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Carter
+    dialogueText: Not as dense as you. Fatty.
+    voiceClip: {fileID: 0}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: '{PLAYER}'
+    dialogueText: Best birthday I've had.
+    voiceClip: {fileID: 0}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Trish
+    dialogueText: Alright, let's sing happy birthday!
+    voiceClip: {fileID: 0}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Everyone
+    dialogueText: Happy Birthday to you!
+    voiceClip: {fileID: 0}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Everyone
+    dialogueText: Happy Birthday to you!
+    voiceClip: {fileID: 0}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: 'Everyone '
+    dialogueText: Happy Birthday dear {PLAYER}!
+    voiceClip: {fileID: 0}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
     shakeIntensity: 10
     shakeDuration: 10
     useRedFlash: 0
@@ -613,7 +626,7 @@ MonoBehaviour:
     flashIntensity: 0.5
   - speakerName: 
     dialogueText: A few hours later.
-    voiceClip: {fileID: 8300000, guid: bafe720a90525974aa02a2841a69215b, type: 3}
+    voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
     autoAdvance: 1
@@ -625,7 +638,7 @@ MonoBehaviour:
     flashIntensity: 0.5
   - speakerName: '{PLAYER}'
     dialogueText: That was awesome guys.
-    voiceClip: {fileID: 8300000, guid: 56746de8321fd4f4781f2c08a6595ffb, type: 3}
+    voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
     autoAdvance: 1
@@ -637,19 +650,6 @@ MonoBehaviour:
     flashIntensity: 0.5
   - speakerName: Casey
     dialogueText: That cake was... VERY dense. I couldn't move an inch!
-    voiceClip: {fileID: 8300000, guid: bafe720a90525974aa02a2841a69215b, type: 3}
-    soundEffect: {fileID: 0}
-    customTextSpeed: 0
-    autoAdvance: 1
-    autoAdvanceDelay: 1
-    useScreenShake: 0
-    shakeIntensity: 10
-    shakeDuration: 0.5
-    useRedFlash: 0
-    flashIntensity: 0.5
-  - speakerName: SHIP AI
-    dialogueText: '"*ALERT* Spatial anomaly detected. Distance: 200 kilometers and
-      closing.'
     voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
@@ -658,11 +658,23 @@ MonoBehaviour:
     useScreenShake: 0
     shakeIntensity: 10
     shakeDuration: 0.5
-    useRedFlash: 1
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: SHIP AI
+    dialogueText: 'ALERT Spatial anomaly detected. Distance: 200 kilometers and closing.'
+    voiceClip: {fileID: 0}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 3
+    shakeDuration: 0.5
+    useRedFlash: 0
     flashIntensity: 0.5
   - speakerName: Trish
     dialogueText: What? That can't be right. There's nothing on the charts?
-    voiceClip: {fileID: 8300000, guid: f0b23780913b9a34b894357eec3ab75f, type: 3}
+    voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
     autoAdvance: 1
@@ -670,49 +682,49 @@ MonoBehaviour:
     useScreenShake: 0
     shakeIntensity: 10
     shakeDuration: 0.5
-    useRedFlash: 1
+    useRedFlash: 0
     flashIntensity: 0.5
   - speakerName: SHIP AI
-    dialogueText: '*WARNING* Gravitational distortion increasing. Recommend immediate
-      course correction.'
-    voiceClip: {fileID: 8300000, guid: bafe720a90525974aa02a2841a69215b, type: 3}
+    dialogueText: WARNING Gravitational distortion increasing. Recommend immediate
+      course correction.
+    voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
     autoAdvance: 1
     autoAdvanceDelay: 1
-    useScreenShake: 0
-    shakeIntensity: 10
+    useScreenShake: 1
+    shakeIntensity: 3
     shakeDuration: 0.5
     useRedFlash: 1
     flashIntensity: 0.5
   - speakerName: Trish
     dialogueText: Everyone to stations! NOW!
-    voiceClip: {fileID: 8300000, guid: f0b23780913b9a34b894357eec3ab75f, type: 3}
+    voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
     autoAdvance: 1
     autoAdvanceDelay: 1
-    useScreenShake: 0
-    shakeIntensity: 10
+    useScreenShake: 1
+    shakeIntensity: 3
     shakeDuration: 0.5
     useRedFlash: 0
     flashIntensity: 0.5
   - speakerName: SHIP AI
-    dialogueText: '*CRITICAL* Wormhole event detected. Destination: Unknown. Impact
+    dialogueText: 'CRITICAL Wormhole event detected. Destination: Unknown. Impact
       in ten seconds.'
-    voiceClip: {fileID: 8300000, guid: f0b23780913b9a34b894357eec3ab75f, type: 3}
+    voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
     autoAdvance: 1
     autoAdvanceDelay: 1
-    useScreenShake: 0
-    shakeIntensity: 10
+    useScreenShake: 1
+    shakeIntensity: 3
     shakeDuration: 0.5
     useRedFlash: 0
     flashIntensity: 0.5
   - speakerName: Trish
     dialogueText: Carter get us out of here!
-    voiceClip: {fileID: 8300000, guid: f731a9cb36394e8498b1d47609d54e1d, type: 3}
+    voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
     autoAdvance: 1
@@ -724,7 +736,7 @@ MonoBehaviour:
     flashIntensity: 0.5
   - speakerName: Carter
     dialogueText: I'm trying! It's pulling us in!
-    voiceClip: {fileID: 8300000, guid: bafe720a90525974aa02a2841a69215b, type: 3}
+    voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
     autoAdvance: 1
@@ -736,7 +748,7 @@ MonoBehaviour:
     flashIntensity: 0.5
   - speakerName: Casey
     dialogueText: It's been an honor serving!
-    voiceClip: {fileID: 8300000, guid: 56746de8321fd4f4781f2c08a6595ffb, type: 3}
+    voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
     autoAdvance: 1
@@ -747,12 +759,12 @@ MonoBehaviour:
     useRedFlash: 0
     flashIntensity: 0.5
   - speakerName: 
-    dialogueText: '*CRASH*'
+    dialogueText: 
     voiceClip: {fileID: 0}
     soundEffect: {fileID: 8300000, guid: 5ccf1d5abbfb2b84286df5728d52c4f6, type: 3}
     customTextSpeed: 0
     autoAdvance: 1
-    autoAdvanceDelay: 1
+    autoAdvanceDelay: 3
     useScreenShake: 0
     shakeIntensity: 10
     shakeDuration: 0.5
@@ -760,7 +772,7 @@ MonoBehaviour:
     flashIntensity: 0.5
   - speakerName: Trish
     dialogueText: Everyone okay?
-    voiceClip: {fileID: 8300000, guid: f0b23780913b9a34b894357eec3ab75f, type: 3}
+    voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
     autoAdvance: 1
@@ -771,7 +783,7 @@ MonoBehaviour:
     useRedFlash: 0
     flashIntensity: 0.5
   - speakerName: Casey
-    dialogueText: Define 'Okay'. Also what happened to our lights.
+    dialogueText: Define 'Okay'. Also what happened to our lights?
     voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
@@ -784,7 +796,7 @@ MonoBehaviour:
     flashIntensity: 0.5
   - speakerName: Trish
     dialogueText: I'm not sure. Do you know where  we crashed? Any readings?
-    voiceClip: {fileID: 8300000, guid: 56746de8321fd4f4781f2c08a6595ffb, type: 3}
+    voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
     autoAdvance: 1
@@ -810,7 +822,7 @@ MonoBehaviour:
   - speakerName: Carter
     dialogueText: It's like something's... blocking everything. Never seen interference
       like this.
-    voiceClip: {fileID: 8300000, guid: f731a9cb36394e8498b1d47609d54e1d, type: 3}
+    voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
     autoAdvance: 1
@@ -822,7 +834,7 @@ MonoBehaviour:
     flashIntensity: 0.5
   - speakerName: Trish
     dialogueText: '{PLAYER}, grab the scanner rig from locker three.'
-    voiceClip: {fileID: 8300000, guid: 56746de8321fd4f4781f2c08a6595ffb, type: 3}
+    voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
     autoAdvance: 1
@@ -834,7 +846,7 @@ MonoBehaviour:
     flashIntensity: 0.5
   - speakerName: '{PLAYER}'
     dialogueText: Yes, ma'am
-    voiceClip: {fileID: 8300000, guid: f731a9cb36394e8498b1d47609d54e1d, type: 3}
+    voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
     autoAdvance: 1
@@ -847,7 +859,7 @@ MonoBehaviour:
   - speakerName: Trish
     dialogueText: "It maps space using pulse feedback. You won\u2019t see normally
       but you\u2019ll know where things are."
-    voiceClip: {fileID: 8300000, guid: 7a067cbe95286b54c853afb9db9d1a70, type: 3}
+    voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
     autoAdvance: 1
@@ -860,7 +872,7 @@ MonoBehaviour:
   - speakerName: Trish
     dialogueText: "It\u2019ll be connected to your brainwaves. Think of it like pressing
       \u2018E\u2019 in a video game."
-    voiceClip: {fileID: 8300000, guid: 10400d61dc44cd64c805e23cc12a57a4, type: 3}
+    voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
     autoAdvance: 1
@@ -873,7 +885,7 @@ MonoBehaviour:
   - speakerName: Trish
     dialogueText: Alright everyone! Put on your suits and let's see what's going
       on.
-    voiceClip: {fileID: 8300000, guid: 7a067cbe95286b54c853afb9db9d1a70, type: 3}
+    voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
     autoAdvance: 0
@@ -885,7 +897,7 @@ MonoBehaviour:
     flashIntensity: 0.5
   - speakerName: Everyone
     dialogueText: Yes Captain!
-    voiceClip: {fileID: 8300000, guid: 7a067cbe95286b54c853afb9db9d1a70, type: 3}
+    voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
     autoAdvance: 1
@@ -910,7 +922,7 @@ MonoBehaviour:
   - speakerName: Casey
     dialogueText: Okay, it's dark. Like, REALLY dark. can't see my hand in front
       of my face.
-    voiceClip: {fileID: 8300000, guid: 004adde9237f82f439627c63494e3cee, type: 3}
+    voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
     autoAdvance: 1
@@ -921,8 +933,8 @@ MonoBehaviour:
     useRedFlash: 0
     flashIntensity: 0.5
   - speakerName: Carter
-    dialogueText: Give me a second... trying the echolocation...
-    voiceClip: {fileID: 8300000, guid: bd5e561a577cd5e419c98c8e7abefb22, type: 3}
+    dialogueText: Give me a second... gonna test the scanner.
+    voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
     autoAdvance: 1
@@ -934,7 +946,7 @@ MonoBehaviour:
     flashIntensity: 0.5
   - speakerName: Trish
     dialogueText: How's it looking out there?
-    voiceClip: {fileID: 8300000, guid: bafe720a90525974aa02a2841a69215b, type: 3}
+    voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
     autoAdvance: 1
@@ -946,7 +958,7 @@ MonoBehaviour:
     flashIntensity: 0.5
   - speakerName: Carter
     dialogueText: Still dark Captain. I can't turn on the sun.
-    voiceClip: {fileID: 8300000, guid: f731a9cb36394e8498b1d47609d54e1d, type: 3}
+    voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
     autoAdvance: 1
@@ -958,7 +970,7 @@ MonoBehaviour:
     flashIntensity: 0.5
   - speakerName: Trish
     dialogueText: SHHHH. Listen
-    voiceClip: {fileID: 8300000, guid: 0e3ec3ab0996a65469b338ab44792cb3, type: 3}
+    voiceClip: {fileID: 0}
     soundEffect: {fileID: 8300000, guid: 2743450c72166a04b94452c699818f0d, type: 3}
     customTextSpeed: 0
     autoAdvance: 1
@@ -970,7 +982,7 @@ MonoBehaviour:
     flashIntensity: 0.5
   - speakerName: Casey
     dialogueText: 'Oh my God. We''re in a horror movie. '
-    voiceClip: {fileID: 8300000, guid: 56746de8321fd4f4781f2c08a6595ffb, type: 3}
+    voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
     autoAdvance: 1
@@ -982,7 +994,7 @@ MonoBehaviour:
     flashIntensity: 0.5
   - speakerName: Casey
     dialogueText: Completely dark, ship crashed, we navigate through sound!
-    voiceClip: {fileID: 8300000, guid: 56746de8321fd4f4781f2c08a6595ffb, type: 3}
+    voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
     autoAdvance: 1
@@ -993,19 +1005,7 @@ MonoBehaviour:
     useRedFlash: 0
     flashIntensity: 0.5
   - speakerName: Casey
-    dialogueText: Please let it be the horror movie where we all live!
-    voiceClip: {fileID: 8300000, guid: 56746de8321fd4f4781f2c08a6595ffb, type: 3}
-    soundEffect: {fileID: 0}
-    customTextSpeed: 0
-    autoAdvance: 1
-    autoAdvanceDelay: 1
-    useScreenShake: 0
-    shakeIntensity: 10
-    shakeDuration: 0.5
-    useRedFlash: 0
-    flashIntensity: 0.5
-  - speakerName: Casey
-    dialogueText: I'm gonna hide in the ship until help arri-
+    dialogueText: And since it was {PLAYER}'s birthday he's gonna be the solo survivor!
     voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
@@ -1017,7 +1017,19 @@ MonoBehaviour:
     useRedFlash: 0
     flashIntensity: 0.5
   - speakerName: Casey
-    dialogueText: "*SCREAMING* GET IT OFF! GET IT OFF M\u2014"
+    dialogueText: I'm gonna hide in the ship until help arrives
+    voiceClip: {fileID: 0}
+    soundEffect: {fileID: 0}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 0
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Casey
+    dialogueText: "GET IT OFF! GET IT OFF M\u2014"
     voiceClip: {fileID: 0}
     soundEffect: {fileID: 8300000, guid: 772244e7c1ba34c4e82bcea2b0d1d214, type: 3}
     customTextSpeed: 0
@@ -1028,22 +1040,10 @@ MonoBehaviour:
     shakeDuration: 0.5
     useRedFlash: 0
     flashIntensity: 0.5
-  - speakerName: Carter
-    dialogueText: BRING IT ONNNNN! RUN, {PLAYER}!
-    voiceClip: {fileID: 8300000, guid: 7a067cbe95286b54c853afb9db9d1a70, type: 3}
-    soundEffect: {fileID: 8300000, guid: 92533640e2df33d449e958a08aa7ae40, type: 3}
-    customTextSpeed: 0
-    autoAdvance: 1
-    autoAdvanceDelay: 1
-    useScreenShake: 1
-    shakeIntensity: 10
-    shakeDuration: 0.5
-    useRedFlash: 0
-    flashIntensity: 0.5
   - speakerName: Trish
-    dialogueText: Casey?!? CASEY?!? EVERYONE GET RUN! I'M GONNA HELP CASEY!
+    dialogueText: Casey?!? CASEY?!? EVERYONE GET TO THE SHIP! I'M GONNA HELP CASEY!
     voiceClip: {fileID: 0}
-    soundEffect: {fileID: 8300000, guid: 92533640e2df33d449e958a08aa7ae40, type: 3}
+    soundEffect: {fileID: 0}
     customTextSpeed: 0
     autoAdvance: 1
     autoAdvanceDelay: 1
@@ -1056,6 +1056,18 @@ MonoBehaviour:
     dialogueText: I'M COMING CASEY!
     voiceClip: {fileID: 0}
     soundEffect: {fileID: 8300000, guid: b33d7e2e777ad3e4dbcb31bfacdd6b51, type: 3}
+    customTextSpeed: 0
+    autoAdvance: 1
+    autoAdvanceDelay: 1
+    useScreenShake: 1
+    shakeIntensity: 10
+    shakeDuration: 0.5
+    useRedFlash: 0
+    flashIntensity: 0.5
+  - speakerName: Shotgun
+    dialogueText: 
+    voiceClip: {fileID: 0}
+    soundEffect: {fileID: 8300000, guid: 92533640e2df33d449e958a08aa7ae40, type: 3}
     customTextSpeed: 0
     autoAdvance: 1
     autoAdvanceDelay: 1
@@ -3080,7 +3092,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.0006713867, y: -430}
+  m_AnchoredPosition: {x: -0.0007324219, y: -430}
   m_SizeDelta: {x: 989.09, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1274843917
