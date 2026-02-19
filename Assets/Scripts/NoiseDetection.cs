@@ -1,28 +1,43 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class NoiseDetection : MonoBehaviour
 {
     [Header("Detection Settings")]
     public float currentNoise = 0f;
     public float maxNoise = 10f;
-    public float noiseDecayRate = 1f; // Noise decreases per second when crouching
+    public float noiseDecayRate = 1f;
 
     [Header("Movement Noise")]
-    public float movementNoisePerUnit = 4f; // 1 noise per 0.25 units = 4 per unit
-    public float crouchNoiseMultiplier = 0.3f; // Reduce noise when crouching
+    public float movementNoisePerUnit = 4f;
+    public float crouchNoiseMultiplier = 0.3f;
 
     [Header("Ability Noise")]
     public float echolocationNoise = 8f;
-    public float sonicScreamNoise = 10f; // Instant max detection
+    public float sonicScreamNoise = 10f;
 
     [Header("UI - Noise Meter")]
-    public Image noiseMeterFill; // The fill bar
-    public Image noiseMeterBackground; // Background bar
-    public Color lowNoiseColor = Color.green; // Safe
-    public Color mediumNoiseColor = Color.yellow; // Caution
-    public Color highNoiseColor = Color.red; // Danger
-    public Text noiseText; // Optional: Shows "3/10" or "DANGER"
+    public Image noiseMeterFill;
+    public Image noiseMeterBackground;
+    public Color lowNoiseColor = Color.green;
+    public Color mediumNoiseColor = Color.yellow;
+    public Color highNoiseColor = Color.red;
+    public Text noiseText;
+
+    [Header("Tutorial Warning (One-Time)")]
+    public GameObject warningPanel;
+    public TextMeshProUGUI warningText;
+    public string warningMessage = "CONTINUOUS NOISE WILL ATTRACT RESONATES TO YOUR LOCATION";
+    public float warningDisplayTime = 3f;
+    private bool hasShownWarningEver = false; // Only shows once per game session
+
+    [Header("Spawn Thresholds")]
+    public float yellowThreshold = 6.6f;
+    public float redThreshold = 8f;
+
+    [Header("Monster Spawning")]
+    public NoiseMonsterSpawner monsterSpawner;
 
     [Header("References")]
     public FirstPersonController playerController;
@@ -30,11 +45,26 @@ public class NoiseDetection : MonoBehaviour
 
     private Vector3 lastPosition;
     private bool isCrouching = false;
+    private float lastSpawnTime = 0f;
+    private float spawnCooldown = 5f;
 
     void Start()
     {
         lastPosition = transform.position;
         UpdateNoiseUI();
+
+        if (warningPanel != null)
+        {
+            warningPanel.SetActive(false);
+        }
+
+        if (monsterSpawner == null)
+        {
+            monsterSpawner = FindObjectOfType<NoiseMonsterSpawner>();
+        }
+
+        // Load if warning has been shown before
+        hasShownWarningEver = PlayerPrefs.GetInt("NoiseWarningShown", 0) == 1;
     }
 
     void Update()
@@ -62,6 +92,9 @@ public class NoiseDetection : MonoBehaviour
 
         // Update UI
         UpdateNoiseUI();
+
+        // Check thresholds
+        CheckNoiseThresholds();
 
         // Broadcast noise to nearby enemies
         BroadcastNoise();
@@ -96,35 +129,91 @@ public class NoiseDetection : MonoBehaviour
         isCrouching = crouching;
     }
 
+    void CheckNoiseThresholds()
+    {
+        // Yellow threshold - Show warning (ONLY ONCE EVER)
+        if (currentNoise >= yellowThreshold && !hasShownWarningEver)
+        {
+            ShowWarning();
+            hasShownWarningEver = true;
+
+            // Save that warning has been shown
+            PlayerPrefs.SetInt("NoiseWarningShown", 1);
+            PlayerPrefs.Save();
+        }
+
+        // Red threshold - Spawn monsters
+        if (currentNoise >= redThreshold && Time.time >= lastSpawnTime + spawnCooldown)
+        {
+            SpawnMonsterFromNoise();
+            lastSpawnTime = Time.time;
+        }
+    }
+
+    void ShowWarning()
+    {
+        if (warningPanel != null && warningText != null)
+        {
+            warningPanel.SetActive(true);
+            warningText.text = warningMessage;
+
+            StartCoroutine(HideWarningAfterDelay());
+        }
+
+        Debug.Log("TUTORIAL: Noise attracting Resonates! (This message will only show once)");
+    }
+
+    System.Collections.IEnumerator HideWarningAfterDelay()
+    {
+        yield return new WaitForSeconds(warningDisplayTime);
+
+        if (warningPanel != null)
+        {
+            warningPanel.SetActive(false);
+        }
+    }
+
+    void SpawnMonsterFromNoise()
+    {
+        if (monsterSpawner != null)
+        {
+            monsterSpawner.SpawnMonsterNearPlayer();
+            Debug.Log("RED ALERT: Monster spawned due to noise!");
+        }
+    }
+
     void UpdateNoiseUI()
     {
         if (noiseMeterFill != null)
         {
-            // Update fill amount (0 to 1)
             noiseMeterFill.fillAmount = currentNoise / maxNoise;
 
             // Change color based on noise level
-            if (currentNoise < maxNoise * 0.33f) // 0-3.3
+            if (currentNoise < yellowThreshold)
             {
                 noiseMeterFill.color = lowNoiseColor;
             }
-            else if (currentNoise < maxNoise * 0.66f) // 3.3-6.6
+            else if (currentNoise < redThreshold)
             {
                 noiseMeterFill.color = mediumNoiseColor;
             }
-            else // 6.6-10
+            else
             {
                 noiseMeterFill.color = highNoiseColor;
             }
         }
 
-        // Optional: Update text
         if (noiseText != null)
         {
-            if (currentNoise >= maxNoise * 0.8f)
+            if (currentNoise >= redThreshold)
             {
                 noiseText.text = "DANGER!";
                 noiseText.color = highNoiseColor;
+            }
+            else if (currentNoise >= yellowThreshold)
+            {
+                noiseText.text = "CAUTION";
+                noiseText.color = mediumNoiseColor;
             }
             else
             {
@@ -136,10 +225,8 @@ public class NoiseDetection : MonoBehaviour
 
     void BroadcastNoise()
     {
-        // Find all Resonates in range and alert them based on noise level
         ResonateAI[] resonates = FindObjectsOfType<ResonateAI>();
-
-        float detectionRadius = currentNoise * 5f; // Scale detection radius with noise
+        float detectionRadius = currentNoise * 5f;
 
         foreach (ResonateAI resonate in resonates)
         {
@@ -162,15 +249,22 @@ public class NoiseDetection : MonoBehaviour
         }
     }
 
-    // Call this from your terrain scanner
     public void NotifyEcholocationUsed()
     {
         OnEcholocationUsed();
     }
 
-    // Call this from your sonic scream ability
     public void NotifySonicScreamUsed()
     {
         OnSonicScreamUsed();
+    }
+
+    // Optional: Reset tutorial for testing
+    public void ResetTutorialWarning()
+    {
+        hasShownWarningEver = false;
+        PlayerPrefs.SetInt("NoiseWarningShown", 0);
+        PlayerPrefs.Save();
+        Debug.Log("Tutorial warning reset - will show again");
     }
 }

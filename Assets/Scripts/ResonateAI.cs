@@ -15,12 +15,17 @@ public class ResonateAI : MonoBehaviour
     public float fleeSpeed = 8f;
 
     [Header("Detection")]
-    public float hearingThreshold = 5f; // Start investigating at noise level 5
-    public float chaseThreshold = 8f; // Start full chase at noise level 8
+    public float hearingThreshold = 5f;
+    public float chaseThreshold = 8f;
     public float maxHearingDistance = 30f;
 
     [Header("Kill Settings")]
     public float killRange = 2f;
+
+    [Header("Patrol Behavior")]
+    public bool isPatrolling = true;
+    public float patrolRadius = 15f;
+    private Vector3 patrolCenter;
 
     private enum State { Idle, Investigating, Chasing, Fleeing }
     private State currentState = State.Idle;
@@ -40,6 +45,7 @@ public class ResonateAI : MonoBehaviour
         }
 
         agent.speed = wanderSpeed;
+        patrolCenter = transform.position;
     }
 
     void Update()
@@ -51,8 +57,11 @@ public class ResonateAI : MonoBehaviour
         switch (currentState)
         {
             case State.Idle:
-                // Wander randomly
-                if (!agent.hasPath || agent.remainingDistance < 0.5f)
+                if (isPatrolling)
+                {
+                    Patrol();
+                }
+                else
                 {
                     Wander();
                 }
@@ -81,6 +90,11 @@ public class ResonateAI : MonoBehaviour
 
             case State.Fleeing:
                 // Fleeing handled by coroutine
+                // Check if reached flee destination
+                if (agent.remainingDistance < 1f)
+                {
+                    Debug.Log("Resonate reached flee destination");
+                }
                 break;
         }
     }
@@ -131,27 +145,59 @@ public class ResonateAI : MonoBehaviour
 
     public void Flee(Vector3 screamOrigin, float fleeDistance)
     {
+        Debug.Log($"Resonate.Flee called! From {screamOrigin}, distance {fleeDistance}");
+
         currentState = State.Fleeing;
         currentAlertLevel = 0f;
 
-        // Calculate flee direction
+        // Calculate flee direction (away from scream)
         Vector3 fleeDirection = (transform.position - screamOrigin).normalized;
         Vector3 fleeTarget = transform.position + fleeDirection * fleeDistance;
 
         agent.speed = fleeSpeed;
-        agent.SetDestination(fleeTarget);
 
-        Debug.Log("Resonate is fleeing!");
+        // Try to find valid NavMesh position
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(fleeTarget, out hit, fleeDistance, NavMesh.AllAreas))
+        {
+            agent.SetDestination(hit.position);
+            Debug.Log($"Resonate fleeing to {hit.position}!");
+        }
+        else
+        {
+            // If can't find valid position, just run in opposite direction
+            agent.SetDestination(fleeTarget);
+            Debug.Log($"Resonate fleeing (no NavMesh) to {fleeTarget}!");
+        }
 
         StartCoroutine(CalmDownAfterSeconds(5f));
     }
 
     IEnumerator CalmDownAfterSeconds(float seconds)
     {
+        Debug.Log($"Resonate will calm down in {seconds} seconds");
         yield return new WaitForSeconds(seconds);
+
         currentState = State.Idle;
         currentAlertLevel = 0f;
         agent.speed = wanderSpeed;
+
+        Debug.Log("Resonate calmed down");
+    }
+
+    void Patrol()
+    {
+        if (!agent.hasPath || agent.remainingDistance < 1f)
+        {
+            Vector3 randomPoint = patrolCenter + Random.insideUnitSphere * patrolRadius;
+            randomPoint.y = patrolCenter.y;
+
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(randomPoint, out hit, patrolRadius, NavMesh.AllAreas))
+            {
+                agent.SetDestination(hit.position);
+            }
+        }
     }
 
     void Wander()
@@ -170,11 +216,18 @@ public class ResonateAI : MonoBehaviour
     {
         Debug.Log("PLAYER KILLED!");
 
-        // Add your death logic here
-        // Example: Reload scene, show death screen, etc.
-        UnityEngine.SceneManagement.SceneManager.LoadScene(
-            UnityEngine.SceneManagement.SceneManager.GetActiveScene().name
-        );
+        PlayerDeath playerDeath = target.GetComponent<PlayerDeath>();
+        if (playerDeath != null)
+        {
+            playerDeath.Kill();
+        }
+        else
+        {
+            // Fallback: reload scene if no PlayerDeath script
+            UnityEngine.SceneManagement.SceneManager.LoadScene(
+                UnityEngine.SceneManagement.SceneManager.GetActiveScene().name
+            );
+        }
     }
 
     // For backwards compatibility with echo waves
@@ -183,7 +236,7 @@ public class ResonateAI : MonoBehaviour
         float dist = Vector3.Distance(transform.position, waveOrigin);
         if (dist <= waveRadius)
         {
-            HearNoise(waveOrigin, 8f); // Treat as high noise
+            HearNoise(waveOrigin, 8f);
         }
     }
 
@@ -199,6 +252,15 @@ public class ResonateAI : MonoBehaviour
         {
             Gizmos.color = Color.red;
             Gizmos.DrawLine(transform.position, target.position);
+        }
+
+        if (currentState == State.Fleeing)
+        {
+            Gizmos.color = Color.blue;
+            if (agent != null && agent.hasPath)
+            {
+                Gizmos.DrawLine(transform.position, agent.destination);
+            }
         }
     }
 }

@@ -64,7 +64,7 @@ public class PauseManager : MonoBehaviour
     public void Pause()
     {
         isPaused = true;
-        Time.timeScale = 0.1f; // Freeze game
+        Time.timeScale = 0.0001f; // Freeze game
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 

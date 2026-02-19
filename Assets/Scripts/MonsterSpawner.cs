@@ -1,26 +1,28 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class AdvancedMonsterSpawner : MonoBehaviour
+public class NoiseMonsterSpawner : MonoBehaviour
 {
     [Header("Monster Settings")]
     public GameObject monsterPrefab;
-    public int minMonsters = 5;
-    public int maxMonsters = 15;
 
-    [Header("Spawn Zones")]
-    public Transform[] spawnZones; // Assign empty GameObjects around your map
-    public float spawnZoneRadius = 30f;
+    [Header("Spawn Settings")]
+    public float minSpawnDistance = 20f;
+    public float maxSpawnDistance = 30f;
+    public int monstersPerSpawn = 1; // How many spawn per red threshold
 
-    [Header("Spawn Rules")]
-    public float minDistanceFromPlayer = 20f;
-    public float minDistanceBetweenMonsters = 10f;
+    [Header("Despawn Settings")]
+    public float despawnDistance = 100f;
+    public float despawnCheckInterval = 2f; // Check every 2 seconds
+
+    [Header("Ground Detection")]
     public LayerMask groundLayer;
 
     [Header("Player")]
     public Transform player;
 
-    private List<GameObject> spawnedMonsters = new List<GameObject>();
+    private List<GameObject> activeMonsters = new List<GameObject>();
+    private float nextDespawnCheck = 0f;
 
     void Start()
     {
@@ -28,77 +30,115 @@ public class AdvancedMonsterSpawner : MonoBehaviour
         {
             player = GameObject.FindGameObjectWithTag("Player").transform;
         }
-
-        SpawnMonsters();
     }
 
-    public void SpawnMonsters()
+    void Update()
     {
-        int monsterCount = Random.Range(minMonsters, maxMonsters + 1);
+        // Clean up null references
+        activeMonsters.RemoveAll(monster => monster == null);
 
-        for (int i = 0; i < monsterCount; i++)
+        // Periodically check for monsters to despawn
+        if (Time.time >= nextDespawnCheck)
         {
-            // Pick random spawn zone
-            Transform zone = spawnZones[Random.Range(0, spawnZones.Length)];
+            CheckForDespawn();
+            nextDespawnCheck = Time.time + despawnCheckInterval;
+        }
+    }
 
-            // Try to spawn in that zone
-            Vector3 spawnPos = GetRandomPositionInZone(zone);
+    public void SpawnMonsterNearPlayer()
+    {
+        for (int i = 0; i < monstersPerSpawn; i++)
+        {
+            Vector3 spawnPos = GetSpawnPositionNearPlayer();
 
-            if (IsValidSpawnPosition(spawnPos))
+            if (spawnPos != Vector3.zero)
             {
                 GameObject monster = Instantiate(monsterPrefab, spawnPos, Quaternion.identity);
-                spawnedMonsters.Add(monster);
+                activeMonsters.Add(monster);
+
+                // Make monster immediately aware of player
+                ResonateAI ai = monster.GetComponent<ResonateAI>();
+                if (ai != null)
+                {
+                    ai.HearNoise(player.position, 10f); // Max noise
+                }
+
+                Debug.Log($"Monster spawned at {spawnPos} due to noise. Total active: {activeMonsters.Count}");
             }
         }
-
-        Debug.Log($"Spawned {spawnedMonsters.Count} monsters across {spawnZones.Length} zones");
     }
 
-    Vector3 GetRandomPositionInZone(Transform zone)
+    Vector3 GetSpawnPositionNearPlayer()
     {
-        Vector2 randomCircle = Random.insideUnitCircle * spawnZoneRadius;
-        Vector3 randomPos = zone.position + new Vector3(randomCircle.x, 50f, randomCircle.y);
+        int maxAttempts = 20;
 
-        RaycastHit hit;
-        if (Physics.Raycast(randomPos, Vector3.down, out hit, 100f, groundLayer))
+        for (int i = 0; i < maxAttempts; i++)
         {
-            return hit.point + Vector3.up * 0.5f;
-        }
+            // Random angle around player
+            float angle = Random.Range(0f, 360f) * Mathf.Deg2Rad;
+            float distance = Random.Range(minSpawnDistance, maxSpawnDistance);
 
-        return zone.position;
-    }
+            Vector3 offset = new Vector3(
+                Mathf.Cos(angle) * distance,
+                0,
+                Mathf.Sin(angle) * distance
+            );
 
-    bool IsValidSpawnPosition(Vector3 position)
-    {
-        // Check player distance
-        if (player != null && Vector3.Distance(position, player.position) < minDistanceFromPlayer)
-        {
-            return false;
-        }
+            Vector3 spawnPos = player.position + offset;
 
-        // Check other monsters
-        foreach (GameObject monster in spawnedMonsters)
-        {
-            if (monster != null && Vector3.Distance(position, monster.transform.position) < minDistanceBetweenMonsters)
+            // Raycast down to find ground
+            RaycastHit hit;
+            if (Physics.Raycast(spawnPos + Vector3.up * 50f, Vector3.down, out hit, 100f, groundLayer))
             {
-                return false;
+                return hit.point + Vector3.up * 0.5f;
             }
         }
 
-        return true;
+        Debug.LogWarning("Could not find valid spawn position near player");
+        return Vector3.zero;
     }
 
-    void OnDrawGizmosSelected()
+    void CheckForDespawn()
     {
-        if (spawnZones == null) return;
+        List<GameObject> toDespawn = new List<GameObject>();
 
-        Gizmos.color = Color.cyan;
-        foreach (Transform zone in spawnZones)
+        foreach (GameObject monster in activeMonsters)
         {
-            if (zone != null)
+            if (monster == null) continue;
+
+            float distance = Vector3.Distance(player.position, monster.transform.position);
+
+            if (distance > despawnDistance)
             {
-                Gizmos.DrawWireSphere(zone.position, spawnZoneRadius);
+                toDespawn.Add(monster);
             }
         }
+
+        // Despawn far monsters
+        foreach (GameObject monster in toDespawn)
+        {
+            activeMonsters.Remove(monster);
+            Destroy(monster);
+            Debug.Log($"Monster despawned (too far). Remaining: {activeMonsters.Count}");
+        }
+    }
+
+    public int GetActiveMonsterCount()
+    {
+        return activeMonsters.Count;
+    }
+
+    // Optional: Force despawn all
+    public void DespawnAllMonsters()
+    {
+        foreach (GameObject monster in activeMonsters)
+        {
+            if (monster != null)
+            {
+                Destroy(monster);
+            }
+        }
+        activeMonsters.Clear();
+        Debug.Log("All monsters despawned");
     }
 }
