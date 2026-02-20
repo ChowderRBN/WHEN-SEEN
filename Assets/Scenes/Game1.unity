@@ -493,7 +493,7 @@ MonoBehaviour:
     useRedFlash: 0
     flashIntensity: 0.5
   - speakerName: '{PLAYER}'
-    dialogueText: "Thank you all! But, You didn\u2019t have to\u2014"
+    dialogueText: Cake in the morning? You didn't have too.
     voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
@@ -505,7 +505,7 @@ MonoBehaviour:
     useRedFlash: 1
     flashIntensity: 0.5
   - speakerName: Trish
-    dialogueText: Yeah. We did.
+    dialogueText: Yes we did. Casey wouldn't shut up about it.
     voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
@@ -541,7 +541,7 @@ MonoBehaviour:
     useRedFlash: 0
     flashIntensity: 0.5
   - speakerName: '{PLAYER}'
-    dialogueText: Best birthday I've had.
+    dialogueText: Hehe. Fatty.
     voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
@@ -663,7 +663,7 @@ MonoBehaviour:
   - speakerName: SHIP AI
     dialogueText: 'ALERT Spatial anomaly detected. Distance: 200 kilometers and closing.'
     voiceClip: {fileID: 0}
-    soundEffect: {fileID: 0}
+    soundEffect: {fileID: 8300000, guid: 75446a74f7b8f124fa41770c52580ab6, type: 3}
     customTextSpeed: 0
     autoAdvance: 1
     autoAdvanceDelay: 1
@@ -675,7 +675,7 @@ MonoBehaviour:
   - speakerName: Trish
     dialogueText: What? That can't be right. There's nothing on the charts?
     voiceClip: {fileID: 0}
-    soundEffect: {fileID: 0}
+    soundEffect: {fileID: 8300000, guid: 75446a74f7b8f124fa41770c52580ab6, type: 3}
     customTextSpeed: 0
     autoAdvance: 1
     autoAdvanceDelay: 1
@@ -688,7 +688,7 @@ MonoBehaviour:
     dialogueText: WARNING Gravitational distortion increasing. Recommend immediate
       course correction.
     voiceClip: {fileID: 0}
-    soundEffect: {fileID: 0}
+    soundEffect: {fileID: 8300000, guid: 75446a74f7b8f124fa41770c52580ab6, type: 3}
     customTextSpeed: 0
     autoAdvance: 1
     autoAdvanceDelay: 1
@@ -700,7 +700,7 @@ MonoBehaviour:
   - speakerName: Trish
     dialogueText: Everyone to stations! NOW!
     voiceClip: {fileID: 0}
-    soundEffect: {fileID: 0}
+    soundEffect: {fileID: 8300000, guid: 75446a74f7b8f124fa41770c52580ab6, type: 3}
     customTextSpeed: 0
     autoAdvance: 1
     autoAdvanceDelay: 1
@@ -713,7 +713,7 @@ MonoBehaviour:
     dialogueText: 'CRITICAL Wormhole event detected. Destination: Unknown. Impact
       in ten seconds.'
     voiceClip: {fileID: 0}
-    soundEffect: {fileID: 0}
+    soundEffect: {fileID: 8300000, guid: 75446a74f7b8f124fa41770c52580ab6, type: 3}
     customTextSpeed: 0
     autoAdvance: 1
     autoAdvanceDelay: 1
@@ -725,7 +725,7 @@ MonoBehaviour:
   - speakerName: Trish
     dialogueText: Carter get us out of here!
     voiceClip: {fileID: 0}
-    soundEffect: {fileID: 0}
+    soundEffect: {fileID: 8300000, guid: 75446a74f7b8f124fa41770c52580ab6, type: 3}
     customTextSpeed: 0
     autoAdvance: 1
     autoAdvanceDelay: 1
@@ -737,7 +737,7 @@ MonoBehaviour:
   - speakerName: Carter
     dialogueText: I'm trying! It's pulling us in!
     voiceClip: {fileID: 0}
-    soundEffect: {fileID: 0}
+    soundEffect: {fileID: 8300000, guid: 75446a74f7b8f124fa41770c52580ab6, type: 3}
     customTextSpeed: 0
     autoAdvance: 1
     autoAdvanceDelay: 1
@@ -749,7 +749,7 @@ MonoBehaviour:
   - speakerName: Casey
     dialogueText: It's been an honor serving!
     voiceClip: {fileID: 0}
-    soundEffect: {fileID: 0}
+    soundEffect: {fileID: 8300000, guid: 75446a74f7b8f124fa41770c52580ab6, type: 3}
     customTextSpeed: 0
     autoAdvance: 1
     autoAdvanceDelay: 1
@@ -783,7 +783,7 @@ MonoBehaviour:
     useRedFlash: 0
     flashIntensity: 0.5
   - speakerName: Casey
-    dialogueText: Define 'Okay'. Also what happened to our lights?
+    dialogueText: Define 'Okay'. Also, did I go blind or are our lights out?
     voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
@@ -795,7 +795,7 @@ MonoBehaviour:
     useRedFlash: 0
     flashIntensity: 0.5
   - speakerName: Trish
-    dialogueText: I'm not sure. Do you know where  we crashed? Any readings?
+    dialogueText: The lights are out. Do you know where we crashed? Any readings?
     voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
