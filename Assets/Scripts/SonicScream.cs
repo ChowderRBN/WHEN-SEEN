@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
 
 public class PlayerSonicScream : MonoBehaviour
 {
@@ -12,12 +11,13 @@ public class PlayerSonicScream : MonoBehaviour
     public int maxScreams = 2;
     public float cooldown = 60f;
     public float fleeDistance = 50f; // How far enemies flee
+    public float spawnBlockDuration = 5f; // Prevent spawns for 5 seconds
 
     [Header("Noise Detection")]
     public NoiseDetection noiseDetection;
 
-    [Header("Enemies")]
-    public List<ResonateAI> resonates = new();
+    [Header("Spawner")]
+    public NoiseMonsterSpawner spawner; // Reference to your spawn manager
 
     private int screams;
 
@@ -36,9 +36,11 @@ public class PlayerSonicScream : MonoBehaviour
                 source.PlayOneShot(clip);
             }
 
-            // Make all resonates flee
-            foreach (var r in resonates)
+            // Make all enemies with the tag "Enemy" flee
+            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+            foreach (var enemyObj in enemies)
             {
+                ResonateAI r = enemyObj.GetComponent<ResonateAI>();
                 if (r != null)
                 {
                     r.Flee(transform.position, fleeDistance);
@@ -49,6 +51,12 @@ public class PlayerSonicScream : MonoBehaviour
             if (noiseDetection != null)
             {
                 noiseDetection.NotifySonicScreamUsed();
+            }
+
+            // Prevent new monsters from spawning for a few seconds
+            if (spawner != null)
+            {
+                spawner.BlockSpawning(spawnBlockDuration);
             }
 
             screams--;

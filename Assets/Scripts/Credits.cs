@@ -8,7 +8,7 @@ public class Credits : MonoBehaviour
     void Start()
     {
         creditsText.text =
-            "When Seen\n\n" +
+            "The Perception Paradox\n\n" +
             "Created By\n" +
             "ChowderRBN\n\n" +
             "—\n\n" +

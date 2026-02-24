@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 public class NoiseMonsterSpawner : MonoBehaviour
 {
@@ -24,6 +25,8 @@ public class NoiseMonsterSpawner : MonoBehaviour
     private List<GameObject> activeMonsters = new List<GameObject>();
     private float nextDespawnCheck = 0f;
 
+    private bool canSpawn = true; // Flag to block spawning
+
     void Start()
     {
         if (player == null)
@@ -47,6 +50,8 @@ public class NoiseMonsterSpawner : MonoBehaviour
 
     public void SpawnMonsterNearPlayer()
     {
+        if (!canSpawn) return; // Do nothing if spawning is blocked
+
         for (int i = 0; i < monstersPerSpawn; i++)
         {
             Vector3 spawnPos = GetSpawnPositionNearPlayer();
@@ -68,13 +73,25 @@ public class NoiseMonsterSpawner : MonoBehaviour
         }
     }
 
+    public void BlockSpawning(float duration)
+    {
+        if (!canSpawn) return; // Already blocked
+        StartCoroutine(BlockSpawnCoroutine(duration));
+    }
+
+    private IEnumerator BlockSpawnCoroutine(float duration)
+    {
+        canSpawn = false;
+        yield return new WaitForSeconds(duration);
+        canSpawn = true;
+    }
+
     Vector3 GetSpawnPositionNearPlayer()
     {
         int maxAttempts = 20;
 
         for (int i = 0; i < maxAttempts; i++)
         {
-            // Random angle around player
             float angle = Random.Range(0f, 360f) * Mathf.Deg2Rad;
             float distance = Random.Range(minSpawnDistance, maxSpawnDistance);
 
@@ -114,7 +131,6 @@ public class NoiseMonsterSpawner : MonoBehaviour
             }
         }
 
-        // Despawn far monsters
         foreach (GameObject monster in toDespawn)
         {
             activeMonsters.Remove(monster);
@@ -128,7 +144,6 @@ public class NoiseMonsterSpawner : MonoBehaviour
         return activeMonsters.Count;
     }
 
-    // Optional: Force despawn all
     public void DespawnAllMonsters()
     {
         foreach (GameObject monster in activeMonsters)

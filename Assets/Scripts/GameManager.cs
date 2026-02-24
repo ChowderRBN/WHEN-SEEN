@@ -58,19 +58,16 @@ public class GameManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // When the game scene (Game2) loads after loading a save
         if (scene.name == gameScene && isLoadingFromSave)
         {
             StartCoroutine(LoadPlayerAfterDelay());
         }
-        // When game scene (Game2) loads from new game (after cutscene)
         else if (scene.name == gameScene && !isLoadingFromSave)
         {
             FindPlayerInScene();
             hasSeenIntroCutscene = true;
             isPlayingGame = true;
         }
-        // When cutscene scene (Game1) loads
         else if (scene.name == cutsceneScene)
         {
             isPlayingGame = false;
@@ -88,13 +85,13 @@ public class GameManager : MonoBehaviour
 
     IEnumerator LoadPlayerAfterDelay()
     {
-        // Wait for scene to fully load
         yield return new WaitForEndOfFrame();
 
         FindPlayerInScene();
         yield return new WaitForEndOfFrame();
 
         LoadPlayerPosition();
+        RestorePlayerState(); // updated version
 
         isLoadingFromSave = false;
         isPlayingGame = true;
@@ -102,7 +99,6 @@ public class GameManager : MonoBehaviour
 
     void FindPlayerInScene()
     {
-        // Reset player reference when loading new scene
         player = null;
         playerController = null;
 
@@ -111,7 +107,6 @@ public class GameManager : MonoBehaviour
         {
             playerController = player.GetComponent<FirstPersonController>();
 
-            // Update inventory with saved cores
             NulliumInventory inventory = player.GetComponent<NulliumInventory>();
             if (inventory != null)
             {
@@ -138,18 +133,15 @@ public class GameManager : MonoBehaviour
         Debug.Log($"Target position: {playerPosition}");
         Debug.Log($"Target rotation: {playerRotation.eulerAngles}");
 
-        // Disable CharacterController
         CharacterController cc = player.GetComponent<CharacterController>();
         if (cc != null)
         {
             cc.enabled = false;
         }
 
-        // Set position and rotation
         player.transform.position = playerPosition;
         player.transform.rotation = playerRotation;
 
-        // Re-enable CharacterController
         if (cc != null)
         {
             cc.enabled = true;
@@ -159,22 +151,57 @@ public class GameManager : MonoBehaviour
         Debug.Log($"Player rotation: {player.transform.rotation.eulerAngles}");
     }
 
+    // ===================== NEW RestorePlayerState =====================
+    void RestorePlayerState()
+    {
+        if (player == null)
+        {
+            Debug.LogError("Cannot restore state - player is null!");
+            return;
+        }
+
+        Debug.Log("=== RESTORING PLAYER STATE ===");
+
+        // Reset noise detection
+        NoiseDetection noiseDetection = player.GetComponent<NoiseDetection>();
+        if (noiseDetection != null)
+        {
+            noiseDetection.currentNoise = 0f;
+            noiseDetection.SetCrouching(false);
+            Debug.Log("Noise reset to 0");
+        }
+
+        // Ensure player controller is enabled
+        if (playerController != null)
+        {
+            playerController.enabled = true;
+            Debug.Log("Player controller enabled");
+        }
+
+        // Unpause game
+        Time.timeScale = 1f;
+
+        // Lock cursor
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
+        Debug.Log("Player state restored!");
+    }
+    // ================================================================
+
     void Update()
     {
-        // Track play time
         if (isPlayingGame && currentSaveSlot != -1)
         {
             playTime += Time.deltaTime;
         }
 
-        // Update player position for saving (ONLY when in game scene)
         if (player != null && isPlayingGame)
         {
             playerPosition = player.transform.position;
             playerRotation = player.transform.rotation;
         }
 
-        // Quick save with F5
         if (Input.GetKeyDown(KeyCode.F5) && currentSaveSlot != -1 && isPlayingGame)
         {
             SaveGame();
@@ -249,7 +276,6 @@ public class GameManager : MonoBehaviour
             hasSeenIntroCutscene = data.hasSeenIntroCutscene;
             nulliumCores = data.nulliumCores;
 
-            // Handle null or missing collectedCoreIDs
             if (data.collectedCoreIDs != null)
             {
                 collectedCoreIDs = new List<string>(data.collectedCoreIDs);
@@ -280,7 +306,6 @@ public class GameManager : MonoBehaviour
         SaveGame();
     }
 
-    // Core collection tracking
     public void MarkCoreCollected(string coreID)
     {
         if (!collectedCoreIDs.Contains(coreID))

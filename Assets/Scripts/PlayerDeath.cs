@@ -129,15 +129,15 @@ public class PlayerDeath : MonoBehaviour
         {
             if (Input.anyKeyDown)
             {
-                RestartLevel();
+                LoadMenu();
                 yield break;
             }
             timer += Time.deltaTime;
             yield return null;
         }
 
-        // Auto-restart after 5 seconds
-        RestartLevel();
+        // Auto-load menu after 5 seconds
+        LoadMenu();
     }
 
     IEnumerator FadeToBlack()
@@ -159,9 +159,9 @@ public class PlayerDeath : MonoBehaviour
         fadePanel.color = color;
     }
 
-    void RestartLevel()
+    void LoadMenu()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene("Menu");
     }
 
     void OnDrawGizmosSelected()
