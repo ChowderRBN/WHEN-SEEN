@@ -1,17 +1,17 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ScrollingCredits : MonoBehaviour
 {
     public RectTransform creditsTransform;
-    public GameObject creditsPanel;     // Panel that holds the credits
-    public GameObject mainMenuPanel;    // Main menu panel to re-enable
+    public GameObject creditsPanel;
+    public GameObject mainMenuPanel;
     public float scrollSpeed = 50f;
-    public float endYPosition = 800f;   // Position where credits end
-    public float startYPosition = -500f; // Starting position (off-screen at bottom)
+    public float endYPosition = 800f;
+    public float startYPosition = -500f;
 
     void OnEnable()
     {
-        // Reset credits position when panel is enabled
         ResetCredits();
     }
 
@@ -24,8 +24,8 @@ public class ScrollingCredits : MonoBehaviour
             EndCredits();
         }
 
-        // Optional: Press ESC to go back
-        if (Input.GetKeyDown(KeyCode.Escape))
+        // New Input System replacement for Input.GetKeyDown(KeyCode.Escape)
+        if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
         {
             BackToMainMenu();
         }
@@ -45,7 +45,6 @@ public class ScrollingCredits : MonoBehaviour
 
     void ResetCredits()
     {
-        // Reset to starting position (off-screen)
         creditsTransform.anchoredPosition = new Vector2(
             creditsTransform.anchoredPosition.x,
             startYPosition

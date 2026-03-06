@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class PlayerDeath : MonoBehaviour
 {
@@ -127,7 +128,9 @@ public class PlayerDeath : MonoBehaviour
         float timer = 0f;
         while (timer < 5f)
         {
-            if (Input.anyKeyDown)
+            // NEW INPUT SYSTEM: use Keyboard.current or Mouse.current instead of Input.anyKeyDown
+            if (Keyboard.current != null && Keyboard.current.anyKey.wasPressedThisFrame ||
+                Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
             {
                 LoadMenu();
                 yield break;

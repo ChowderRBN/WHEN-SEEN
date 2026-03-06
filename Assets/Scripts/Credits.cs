@@ -15,11 +15,6 @@ public class Credits : MonoBehaviour
             "Mine\n" +
             "Gregory Seguru\n\n" +
             "—\n\n" +
-            "Environment Models\n" +
-            "Evgenia\n\n" +
-            "Asset Pack:\n" +
-            "Lowpoly Piece of Nature\n\n" +
-            "—\n\n" +
             "Audio\n" +
             "Horror Elements\n" +
             "By Anthon\n\n" +

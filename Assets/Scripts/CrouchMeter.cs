@@ -1,48 +1,62 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerCrouchMeter : MonoBehaviour
 {
     [Header("Crouch Settings")]
-    public FirstPersonController controller;
-    public float maxTime = 10f;
-    public float recoveryRate = 2f;
+    public float crouchHeight = 1f;
+    public float standHeight = 2f;
+    public float crouchSpeed = 5f;
 
-    [Header("Noise Detection")]
+    [Header("References")]
+    public CharacterController controller;
     public NoiseDetection noiseDetection;
 
-    private float meter;
+    private bool isCrouching = false;
+    private InputActionAsset inputActions;
 
-    void Start()
-    {
-        meter = maxTime;
-    }
 
     void Update()
     {
-        if (controller.IsCrouching)
+        UpdateCrouchAnimation();
+    }
+
+    void StartCrouch()
+    {
+        isCrouching = true;
+        if (noiseDetection != null)
         {
-            meter -= Time.deltaTime;
-
-            // Notify noise system that player is crouching
-            if (noiseDetection != null)
-            {
-                noiseDetection.SetCrouching(true);
-            }
-
-            if (meter <= 0f)
-            {
-                controller.ForceStand();
-            }
-        }
-        else
-        {
-            meter = Mathf.Min(meter + recoveryRate * Time.deltaTime, maxTime);
-
-            // Notify noise system that player is not crouching
-            if (noiseDetection != null)
-            {
-                noiseDetection.SetCrouching(false);
-            }
+            noiseDetection.SetCrouching(true);
         }
     }
+
+    void StopCrouch()
+    {
+        isCrouching = false;
+        if (noiseDetection != null)
+        {
+            noiseDetection.SetCrouching(false);
+        }
+    }
+
+    void UpdateCrouchAnimation()
+    {
+        float targetHeight = isCrouching ? crouchHeight : standHeight;
+        controller.height = Mathf.Lerp(controller.height, targetHeight, Time.deltaTime * crouchSpeed);
+    }
+
+    public void OnCrouch(InputValue value)
+    {
+        bool crouchPressed = value.isPressed;
+        if (crouchPressed && !isCrouching)
+        {
+            StartCrouch();
+        }
+        else if (!crouchPressed && isCrouching)
+        {
+            StopCrouch();
+        }
+    }
+
 }
+

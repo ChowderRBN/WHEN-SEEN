@@ -1,102 +1,146 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(CharacterController))]
 public class FirstPersonController : MonoBehaviour
 {
-    [Header("Crouch Settings")]
-    public float crouchHeight = 1f;
-    public float standingHeight = 2f;
-    public float crouchTransitionSpeed = 5f;
+    [Header("References")]
+    public Camera playerCamera;
+    public CharacterController controller;
 
-    [Header("Mouse Look")]
-    public Transform playerCamera;
-    public float baseSensitivity = 100f; // Base sensitivity (you can adjust this)
-    private float mouseSensitivity; // Actual sensitivity used (loaded from settings)
-    private float xRotation = 0f;
+    [Header("Movement")]
+    public float walkSpeed = 5f;
+    public float sprintSpeed = 8f;
+    public float jumpForce = 5f;
+    public float gravity = -9.81f;
 
-    [Header("Movement Settings")]
-    public float walkSpeed = 2f;
-    public float runSpeed = 5f;
+    [Header("Look")]
+    public float lookSensitivity = 2f;
+    public float maxLookAngle = 90f;
+
+    private Vector2 moveInput;
+    private Vector2 lookInput;
+    private Vector3 velocity;
     private float currentSpeed;
+    private float speedMultiplier = 1f;
+    private float verticalRotation = 0f;
 
-    private CharacterController controller;
-    private bool isCrouching = false;
+    private InputAction moveAction;
+    private InputAction lookAction;
+    private InputAction jumpAction;
+    private InputAction sprintAction;
 
-    public bool IsCrouching => isCrouching;
+    [Header("Input")]
+    public InputActionAsset inputActionsAsset;
 
     void Start()
     {
-        controller = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         currentSpeed = walkSpeed;
 
-        // Load sensitivity from PlayerPrefs
-        LoadSensitivity();
+        // Load sensitivity from settings
+        if (PlayerPrefs.HasKey("Sensitivity"))
+        {
+            lookSensitivity = PlayerPrefs.GetFloat("Sensitivity");
+        }
+
+        // Setup input actions
+        if (inputActionsAsset != null)
+        {
+            var playerMap = inputActionsAsset.FindActionMap("Player");
+            moveAction = playerMap.FindAction("Move");
+            lookAction = playerMap.FindAction("Look");
+            jumpAction = playerMap.FindAction("Jump");
+            sprintAction = playerMap.FindAction("Sprint");
+        }
+    }
+
+    void OnEnable()
+    {
+        if (moveAction != null) moveAction.Enable();
+        if (lookAction != null) lookAction.Enable();
+        if (jumpAction != null) jumpAction.Enable();
+        if (sprintAction != null) sprintAction.Enable();
+    }
+
+    void OnDisable()
+    {
+        if (moveAction != null) moveAction.Disable();
+        if (lookAction != null) lookAction.Disable();
+        if (jumpAction != null) jumpAction.Disable();
+        if (sprintAction != null) sprintAction.Disable();
     }
 
     void Update()
     {
-        LookAround();
-        HandleCrouch();
         HandleMovement();
-    }
-
-    void LookAround()
-    {
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
-
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
-
-        playerCamera.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        transform.Rotate(Vector3.up * mouseX);
-    }
-
-    void HandleCrouch()
-    {
-        if (Input.GetKeyDown(KeyCode.LeftControl))
-            isCrouching = !isCrouching;
-
-        float targetHeight = isCrouching ? crouchHeight : standingHeight;
-        controller.height = Mathf.Lerp(controller.height, targetHeight, Time.deltaTime * crouchTransitionSpeed);
-
-        Vector3 camPos = playerCamera.localPosition;
-        camPos.y = Mathf.Lerp(camPos.y, isCrouching ? crouchHeight - 0.1f : standingHeight - 0.4f,
-                              Time.deltaTime * crouchTransitionSpeed);
-        playerCamera.localPosition = camPos;
+        HandleLook();
     }
 
     void HandleMovement()
     {
-        float moveZ = Input.GetAxis("Vertical");
-        float moveX = Input.GetAxis("Horizontal");
+        // Get input
+        if (moveAction != null)
+            moveInput = moveAction.ReadValue<Vector2>();
 
-        Vector3 move = transform.right * moveX + transform.forward * moveZ;
-        move.y = - 2.81f; // Simple gravity
+        bool sprintPressed = sprintAction != null && sprintAction.IsPressed();
+        bool jumpPressed = jumpAction != null && jumpAction.triggered;
+
+        // Calculate speed
+        float targetSpeed = sprintPressed ? sprintSpeed : walkSpeed;
+        currentSpeed = targetSpeed * speedMultiplier;
+
+        // Move
+        Vector3 move = transform.right * moveInput.x + transform.forward * moveInput.y;
         controller.Move(move * currentSpeed * Time.deltaTime);
+
+        // Jump
+        if (jumpPressed && controller.isGrounded)
+        {
+            velocity.y = Mathf.Sqrt(jumpForce * -2f * gravity);
+        }
+
+        // Gravity
+        velocity.y += gravity * Time.deltaTime;
+        controller.Move(velocity * Time.deltaTime);
+
+        if (controller.isGrounded && velocity.y < 0)
+        {
+            velocity.y = -2f;
+        }
     }
 
-    // Load sensitivity from PlayerPrefs
-    void LoadSensitivity()
+    void HandleLook()
     {
-        // Get saved sensitivity (default 2.0 if not set)
-        float savedSensitivity = PlayerPrefs.GetFloat("Sensitivity", 2.0f);
+        if (lookAction != null)
+            lookInput = lookAction.ReadValue<Vector2>();
 
-        // Apply to mouse sensitivity
-        mouseSensitivity = baseSensitivity * savedSensitivity;
+        // Horizontal rotation
+        transform.Rotate(Vector3.up * lookInput.x * lookSensitivity);
 
-        Debug.Log("Mouse sensitivity loaded: " + mouseSensitivity + " (Base: " + baseSensitivity + " x Multiplier: " + savedSensitivity + ")");
+        // Vertical rotation
+        verticalRotation -= lookInput.y * lookSensitivity;
+        verticalRotation = Mathf.Clamp(verticalRotation, -maxLookAngle, maxLookAngle);
+        playerCamera.transform.localRotation = Quaternion.Euler(verticalRotation, 0, 0);
     }
 
-    // Call this to update sensitivity without restarting
+    // Called from PauseManager when sensitivity changes
     public void UpdateSensitivity()
     {
-        LoadSensitivity();
+        if (PlayerPrefs.HasKey("Sensitivity"))
+        {
+            lookSensitivity = PlayerPrefs.GetFloat("Sensitivity");
+            Debug.Log($"Sensitivity updated to: {lookSensitivity}");
+        }
     }
 
-    public void SetSpeedMultiplier(float multiplier) => currentSpeed = runSpeed * multiplier;
-    public void ResetSpeed() => currentSpeed = walkSpeed;
-    public void ForceStand() => isCrouching = false;
+    public void SetSpeedMultiplier(float multiplier)
+    {
+        speedMultiplier = multiplier;
+    }
+
+    public void ResetSpeed()
+    {
+        speedMultiplier = 1f;
+    }
 }

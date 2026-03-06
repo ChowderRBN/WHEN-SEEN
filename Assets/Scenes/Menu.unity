@@ -3565,7 +3565,15 @@ MonoBehaviour:
   playTime: 0
   hasSeenIntroCutscene: 0
   nulliumCores: 0
-  collectedCoreIDs: []
+  collectedCoreIDs:
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   playerName: Survivor
   cutsceneScene: Game1
   gameScene: Game2
@@ -5250,9 +5258,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f722e77f40e6572459808b6c717a69a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TerrainScanner
-  TerrainScannerPrefab: {fileID: 2506941607934164900, guid: 7b84cdc4aeb986f4da4f06b4aca604c8, type: 3}
-  duration: 3
-  size: 500
+  particlePrefab: {fileID: 0}
+  echoRadius: 50
+  echoSpeed: 10
+  audioSource: {fileID: 0}
+  echoSound: {fileID: 0}
   noiseDetection: {fileID: 0}
 --- !u!4 &1176646320
 Transform:

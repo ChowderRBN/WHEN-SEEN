@@ -6,7 +6,7 @@ using System.Collections;
 public class ResonateAI : MonoBehaviour
 {
     [Header("References")]
-    public Transform target;
+    private Transform target;
     private NavMeshAgent agent;
 
     [Header("Movement")]
@@ -36,21 +36,32 @@ public class ResonateAI : MonoBehaviour
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-
-        // Find player
-        if (target == null)
-        {
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
-            if (player != null) target = player.transform;
-        }
-
+        FindPlayer();
         agent.speed = wanderSpeed;
         patrolCenter = transform.position;
     }
 
+    void FindPlayer()
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            target = player.transform;
+        }
+        else
+        {
+            Debug.LogWarning("ResonateAI: No GameObject with tag 'Player' found!");
+        }
+    }
+
     void Update()
     {
-        if (target == null) return;
+        // If target is lost, try to re-find the player
+        if (target == null)
+        {
+            FindPlayer();
+            return;
+        }
 
         float distanceToPlayer = Vector3.Distance(transform.position, target.position);
 
@@ -58,43 +69,29 @@ public class ResonateAI : MonoBehaviour
         {
             case State.Idle:
                 if (isPatrolling)
-                {
                     Patrol();
-                }
                 else
-                {
                     Wander();
-                }
                 break;
 
             case State.Investigating:
-                // Move to last heard noise position
                 if (agent.remainingDistance < 1f)
                 {
-                    // Reached investigation point, go back to idle
                     currentState = State.Idle;
                     currentAlertLevel = 0f;
                 }
                 break;
 
             case State.Chasing:
-                // Chase player directly
                 agent.SetDestination(target.position);
 
-                // Kill player if in range
                 if (distanceToPlayer <= killRange)
-                {
                     KillPlayer();
-                }
                 break;
 
             case State.Fleeing:
-                // Fleeing handled by coroutine
-                // Check if reached flee destination
                 if (agent.remainingDistance < 1f)
-                {
                     Debug.Log("Resonate reached flee destination");
-                }
                 break;
         }
     }
@@ -103,25 +100,17 @@ public class ResonateAI : MonoBehaviour
     {
         float distance = Vector3.Distance(transform.position, noiseOrigin);
 
-        // Ignore if too far
         if (distance > maxHearingDistance) return;
 
-        // Distance affects perceived noise
         float perceivedNoise = noiseLevel * (1f - (distance / maxHearingDistance));
         currentAlertLevel = Mathf.Max(currentAlertLevel, perceivedNoise);
 
-        if (currentState == State.Fleeing) return; // Don't interrupt fleeing
+        if (currentState == State.Fleeing) return;
 
         if (currentAlertLevel >= chaseThreshold)
-        {
-            // High noise - start chasing
             StartChasing();
-        }
         else if (currentAlertLevel >= hearingThreshold)
-        {
-            // Medium noise - investigate
             StartInvestigating(noiseOrigin);
-        }
     }
 
     void StartInvestigating(Vector3 position)
@@ -136,6 +125,8 @@ public class ResonateAI : MonoBehaviour
 
     void StartChasing()
     {
+        if (target == null) return;
+
         currentState = State.Chasing;
         agent.speed = chaseSpeed;
         agent.SetDestination(target.position);
@@ -150,13 +141,11 @@ public class ResonateAI : MonoBehaviour
         currentState = State.Fleeing;
         currentAlertLevel = 0f;
 
-        // Calculate flee direction (away from scream)
         Vector3 fleeDirection = (transform.position - screamOrigin).normalized;
         Vector3 fleeTarget = transform.position + fleeDirection * fleeDistance;
 
         agent.speed = fleeSpeed;
 
-        // Try to find valid NavMesh position
         NavMeshHit hit;
         if (NavMesh.SamplePosition(fleeTarget, out hit, fleeDistance, NavMesh.AllAreas))
         {
@@ -165,7 +154,6 @@ public class ResonateAI : MonoBehaviour
         }
         else
         {
-            // If can't find valid position, just run in opposite direction
             agent.SetDestination(fleeTarget);
             Debug.Log($"Resonate fleeing (no NavMesh) to {fleeTarget}!");
         }
@@ -194,9 +182,7 @@ public class ResonateAI : MonoBehaviour
 
             NavMeshHit hit;
             if (NavMesh.SamplePosition(randomPoint, out hit, patrolRadius, NavMesh.AllAreas))
-            {
                 agent.SetDestination(hit.position);
-            }
         }
     }
 
@@ -207,9 +193,7 @@ public class ResonateAI : MonoBehaviour
 
         NavMeshHit hit;
         if (NavMesh.SamplePosition(randomDirection, out hit, 10f, NavMesh.AllAreas))
-        {
             agent.SetDestination(hit.position);
-        }
     }
 
     void KillPlayer()
@@ -223,21 +207,17 @@ public class ResonateAI : MonoBehaviour
         }
         else
         {
-            // Fallback: reload scene if no PlayerDeath script
             UnityEngine.SceneManagement.SceneManager.LoadScene(
                 UnityEngine.SceneManagement.SceneManager.GetActiveScene().name
             );
         }
     }
 
-    // For backwards compatibility with echo waves
     public void Alert(Vector3 waveOrigin, float waveRadius)
     {
         float dist = Vector3.Distance(transform.position, waveOrigin);
         if (dist <= waveRadius)
-        {
             HearNoise(waveOrigin, 8f);
-        }
     }
 
     void OnDrawGizmosSelected()
@@ -258,9 +238,7 @@ public class ResonateAI : MonoBehaviour
         {
             Gizmos.color = Color.blue;
             if (agent != null && agent.hasPath)
-            {
                 Gizmos.DrawLine(transform.position, agent.destination);
-            }
         }
     }
 }

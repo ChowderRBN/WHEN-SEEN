@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class CutsceneManager : MonoBehaviour
 {
@@ -44,13 +45,9 @@ public class CutsceneManager : MonoBehaviour
 
     void Start()
     {
-        // Hide cutscene panel at start
         if (cutscenePanel != null)
-        {
             cutscenePanel.SetActive(false);
-        }
 
-        // Make sure fade panel is black at start
         if (fadePanel != null)
         {
             Color color = fadePanel.color;
@@ -63,19 +60,13 @@ public class CutsceneManager : MonoBehaviour
 
     IEnumerator PlayCutscene()
     {
-        // Get player name FIRST
         yield return StartCoroutine(GetPlayerName());
 
-        // Show cutscene panel
         if (cutscenePanel != null)
-        {
             cutscenePanel.SetActive(true);
-        }
 
-        // Fade in from black
         yield return StartCoroutine(FadeFromBlack(1f));
 
-        // Start ambient sound
         if (ambientDarkness != null && musicSource != null)
         {
             musicSource.loop = true;
@@ -84,21 +75,13 @@ public class CutsceneManager : MonoBehaviour
             musicSource.Play();
         }
 
-        // Start dialogue
         yield return StartCoroutine(PlayDialogue());
-
-        // Fade to black
         yield return StartCoroutine(FadeToBlack(2f));
 
-        // Save player name
         if (GameManager.Instance != null)
-        {
             GameManager.Instance.playerName = playerName;
-        }
         else
-        {
             PlayerPrefs.SetString("PlayerName", playerName);
-        }
 
         SceneManager.LoadScene(nextSceneName);
     }
@@ -107,16 +90,11 @@ public class CutsceneManager : MonoBehaviour
     {
         Debug.Log("Showing name input panel...");
 
-        // Show name input panel
         if (nameInputPanel != null)
-        {
             nameInputPanel.SetActive(true);
-        }
 
         if (namePromptText != null)
-        {
             namePromptText.text = "ENTER YOUR NAME";
-        }
 
         if (nameInputField != null)
         {
@@ -125,14 +103,16 @@ public class CutsceneManager : MonoBehaviour
             nameInputField.ActivateInputField();
         }
 
-        // Reset flag
         nameConfirmed = false;
 
-        // Wait for player to confirm name
         while (!nameConfirmed)
         {
-            // Also allow Enter key to confirm
-            if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && ValidateName())
+            // New Input System: check Enter or Numpad Enter
+            bool enterPressed = Keyboard.current != null &&
+                (Keyboard.current.enterKey.wasPressedThisFrame ||
+                 Keyboard.current.numpadEnterKey.wasPressedThisFrame);
+
+            if (enterPressed && ValidateName())
             {
                 nameConfirmed = true;
                 Debug.Log("Name confirmed via Enter key!");
@@ -140,26 +120,16 @@ public class CutsceneManager : MonoBehaviour
             yield return null;
         }
 
-        // Get the entered name
-        if (nameInputField != null && !string.IsNullOrEmpty(nameInputField.text.Trim()))
-        {
-            playerName = nameInputField.text.Trim();
-        }
-        else
-        {
-            playerName = defaultPlayerName;
-        }
+        playerName = (nameInputField != null && !string.IsNullOrEmpty(nameInputField.text.Trim()))
+            ? nameInputField.text.Trim()
+            : defaultPlayerName;
 
         Debug.Log($"Player name set to: {playerName}");
 
-        // Hide name input panel
         if (nameInputPanel != null)
-        {
             nameInputPanel.SetActive(false);
-        }
     }
 
-    // CALL THIS FROM THE BUTTON'S OnClick()
     public void OnConfirmNameClicked()
     {
         Debug.Log("Confirm button clicked!");
@@ -178,15 +148,10 @@ public class CutsceneManager : MonoBehaviour
     bool ValidateName()
     {
         if (nameInputField != null && !string.IsNullOrEmpty(nameInputField.text.Trim()))
-        {
             return true;
-        }
 
-        // Flash input field if empty
         if (nameInputField != null)
-        {
             StartCoroutine(FlashInputField());
-        }
 
         return false;
     }
@@ -215,42 +180,27 @@ public class CutsceneManager : MonoBehaviour
             DialogueLine line = dialogueLines[currentLineIndex];
 
             if (line.voiceClip != null && voiceSource != null)
-            {
                 voiceSource.PlayOneShot(line.voiceClip);
-            }
 
             if (line.soundEffect != null && sfxSource != null)
-            {
                 sfxSource.PlayOneShot(line.soundEffect);
-            }
 
             if (line.useScreenShake)
-            {
                 StartCoroutine(ScreenShake(line.shakeIntensity, line.shakeDuration));
-            }
 
             if (line.useRedFlash)
-            {
                 StartCoroutine(RedFlash(line.flashIntensity));
-            }
 
             if (speakerNameText != null)
-            {
                 speakerNameText.text = line.speakerName.Replace("{PLAYER}", playerName);
-            }
 
             string processedDialogue = line.dialogueText.Replace("{PLAYER}", playerName);
-
             yield return StartCoroutine(TypeText(processedDialogue, line.customTextSpeed > 0 ? line.customTextSpeed : textSpeed));
 
             if (line.autoAdvance)
-            {
                 yield return new WaitForSeconds(line.autoAdvanceDelay);
-            }
             else
-            {
                 yield return StartCoroutine(WaitForInput());
-            }
 
             yield return new WaitForSeconds(0.2f);
         }
@@ -279,36 +229,44 @@ public class CutsceneManager : MonoBehaviour
 
     IEnumerator WaitForInput()
     {
-        while (!Input.GetKeyDown(KeyCode.Space) && !Input.GetKeyDown(KeyCode.Return) && !Input.GetMouseButtonDown(0))
+        while (true)
         {
+            if (Keyboard.current != null &&
+                (Keyboard.current.spaceKey.wasPressedThisFrame ||
+                 Keyboard.current.enterKey.wasPressedThisFrame))
+                yield break;
+
+            if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
+                yield break;
+
             yield return null;
         }
     }
 
     void Update()
     {
-        if (isTyping && (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0)))
-        {
-            skipTyping = true;
-        }
+        if (Keyboard.current == null) return;
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        // Skip typing animation
+        bool advancePressed = Keyboard.current.spaceKey.wasPressedThisFrame ||
+                              Keyboard.current.enterKey.wasPressedThisFrame ||
+                              (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame);
+
+        if (isTyping && advancePressed)
+            skipTyping = true;
+
+        // Skip cutscene entirely
+        if (Keyboard.current.escapeKey.wasPressedThisFrame)
         {
             StopAllCoroutines();
 
             if (string.IsNullOrEmpty(playerName))
-            {
                 playerName = defaultPlayerName;
-            }
 
             if (GameManager.Instance != null)
-            {
                 GameManager.Instance.playerName = playerName;
-            }
             else
-            {
                 PlayerPrefs.SetString("PlayerName", playerName);
-            }
 
             SceneManager.LoadScene(nextSceneName);
         }
@@ -396,9 +354,7 @@ public class CutsceneManager : MonoBehaviour
         {
             float x = Random.Range(-intensity, intensity);
             float y = Random.Range(-intensity, intensity);
-
             cutscenePanel.transform.localPosition = new Vector3(x, y, originalPos.z);
-
             elapsed += Time.deltaTime;
             yield return null;
         }

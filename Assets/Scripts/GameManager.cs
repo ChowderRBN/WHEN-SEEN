@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
@@ -58,16 +59,28 @@ public class GameManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == gameScene && isLoadingFromSave)
+        // When menu scene loads, unlock cursor
+        if (scene.name == "Menu")
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            Time.timeScale = 1f;
+            isPlayingGame = false;
+            Debug.Log("Menu loaded - cursor unlocked");
+        }
+        // When the game scene (Game2) loads after loading a save
+        else if (scene.name == gameScene && isLoadingFromSave)
         {
             StartCoroutine(LoadPlayerAfterDelay());
         }
+        // When game scene (Game2) loads from new game (after cutscene)
         else if (scene.name == gameScene && !isLoadingFromSave)
         {
             FindPlayerInScene();
             hasSeenIntroCutscene = true;
             isPlayingGame = true;
         }
+        // When cutscene scene (Game1) loads
         else if (scene.name == cutsceneScene)
         {
             isPlayingGame = false;
@@ -202,7 +215,7 @@ public class GameManager : MonoBehaviour
             playerRotation = player.transform.rotation;
         }
 
-        if (Input.GetKeyDown(KeyCode.F5) && currentSaveSlot != -1 && isPlayingGame)
+        if (Keyboard.current.f5Key.wasPressedThisFrame && currentSaveSlot != -1 && isPlayingGame)
         {
             SaveGame();
         }

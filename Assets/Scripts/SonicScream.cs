@@ -1,7 +1,8 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using System.Collections;
 
-public class PlayerSonicScream : MonoBehaviour
+public class SonicScream : MonoBehaviour
 {
     [Header("Audio")]
     public AudioSource source;
@@ -10,63 +11,113 @@ public class PlayerSonicScream : MonoBehaviour
     [Header("Scream Settings")]
     public int maxScreams = 2;
     public float cooldown = 60f;
-    public float fleeDistance = 50f; // How far enemies flee
-    public float spawnBlockDuration = 5f; // Prevent spawns for 5 seconds
+    public float fleeDistance = 50f;
+    public float spawnBlockDuration = 5f;
 
     [Header("Noise Detection")]
     public NoiseDetection noiseDetection;
 
     [Header("Spawner")]
-    public NoiseMonsterSpawner spawner; // Reference to your spawn manager
+    public NoiseMonsterSpawner spawner;
+
+    [Header("Adrenaline")]
+    public PlayerAdrenaline adrenaline;
+
+    [Header("Input")]
+    public InputActionAsset inputActionsAsset;
 
     private int screams;
+    private InputAction sonicScreamAction;
 
     void Start()
     {
         screams = maxScreams;
+
+        if (noiseDetection == null)
+            noiseDetection = GetComponent<NoiseDetection>();
+
+        if (adrenaline == null)
+            adrenaline = GetComponent<PlayerAdrenaline>();
+
+        if (spawner == null)
+            spawner = FindObjectOfType<NoiseMonsterSpawner>();
+
+        if (inputActionsAsset != null)
+        {
+            sonicScreamAction = inputActionsAsset.FindActionMap("Player").FindAction("SonicScream");
+        }
     }
 
-    void Update()
+    void OnEnable()
     {
-        if (Input.GetKeyDown(KeyCode.Q) && screams > 0)
+        if (sonicScreamAction != null)
         {
-            // Play scream sound
-            if (source != null && clip != null)
-            {
-                source.PlayOneShot(clip);
-            }
-
-            // Make all enemies with the tag "Enemy" flee
-            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-            foreach (var enemyObj in enemies)
-            {
-                ResonateAI r = enemyObj.GetComponent<ResonateAI>();
-                if (r != null)
-                {
-                    r.Flee(transform.position, fleeDistance);
-                }
-            }
-
-            // Notify noise detection system
-            if (noiseDetection != null)
-            {
-                noiseDetection.NotifySonicScreamUsed();
-            }
-
-            // Prevent new monsters from spawning for a few seconds
-            if (spawner != null)
-            {
-                spawner.BlockSpawning(spawnBlockDuration);
-            }
-
-            screams--;
-            StartCoroutine(Recharge());
+            sonicScreamAction.Enable();
+            sonicScreamAction.performed += HandleSonicScream;
         }
+    }
+
+    void OnDisable()
+    {
+        if (sonicScreamAction != null)
+        {
+            sonicScreamAction.performed -= HandleSonicScream;
+            sonicScreamAction.Disable();
+        }
+    }
+
+    void HandleSonicScream(InputAction.CallbackContext context)
+    {
+        if (screams > 0)
+        {
+            UseSonicScream();
+        }
+    }
+
+    void UseSonicScream()
+    {
+        Debug.Log("SONIC SCREAM USED!");
+
+        if (source != null && clip != null)
+        {
+            source.PlayOneShot(clip);
+        }
+
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        int enemiesAffected = 0;
+
+        foreach (GameObject enemyObj in enemies)
+        {
+            ResonateAI resonate = enemyObj.GetComponent<ResonateAI>();
+            if (resonate != null)
+            {
+                resonate.Flee(transform.position, fleeDistance);
+                enemiesAffected++;
+            }
+        }
+
+        Debug.Log($"Sonic Scream affected {enemiesAffected} enemies");
+
+        if (adrenaline != null)
+            adrenaline.TriggerAdrenaline();
+
+        if (noiseDetection != null)
+            noiseDetection.NotifySonicScreamUsed();
+
+        if (spawner != null)
+            spawner.BlockSpawning(spawnBlockDuration);
+
+        screams--;
+        StartCoroutine(Recharge());
     }
 
     IEnumerator Recharge()
     {
         yield return new WaitForSeconds(cooldown);
         screams = Mathf.Min(screams + 1, maxScreams);
+        Debug.Log($"Sonic Scream recharged! ({screams}/{maxScreams})");
     }
+
+    public int GetCurrentScreams() => screams;
+    public int GetMaxScreams() => maxScreams;
 }

@@ -10,11 +10,11 @@ public class NoiseMonsterSpawner : MonoBehaviour
     [Header("Spawn Settings")]
     public float minSpawnDistance = 20f;
     public float maxSpawnDistance = 30f;
-    public int monstersPerSpawn = 1; // How many spawn per red threshold
+    public int monstersPerSpawn = 1;
 
     [Header("Despawn Settings")]
     public float despawnDistance = 100f;
-    public float despawnCheckInterval = 2f; // Check every 2 seconds
+    public float despawnCheckInterval = 2f;
 
     [Header("Ground Detection")]
     public LayerMask groundLayer;
@@ -22,10 +22,12 @@ public class NoiseMonsterSpawner : MonoBehaviour
     [Header("Player")]
     public Transform player;
 
+    [Header("Spawn Blocking")]
+    private bool spawnBlocked = false;
+    private float spawnBlockEndTime = 0f;
+
     private List<GameObject> activeMonsters = new List<GameObject>();
     private float nextDespawnCheck = 0f;
-
-    private bool canSpawn = true; // Flag to block spawning
 
     void Start()
     {
@@ -37,8 +39,15 @@ public class NoiseMonsterSpawner : MonoBehaviour
 
     void Update()
     {
-        // Clean up null references
+        // Clean up destroyed monsters
         activeMonsters.RemoveAll(monster => monster == null);
+
+        // Check if spawn blocking is over
+        if (spawnBlocked && Time.time >= spawnBlockEndTime)
+        {
+            spawnBlocked = false;
+            Debug.Log("Spawn blocking ended");
+        }
 
         // Periodically check for monsters to despawn
         if (Time.time >= nextDespawnCheck)
@@ -50,7 +59,12 @@ public class NoiseMonsterSpawner : MonoBehaviour
 
     public void SpawnMonsterNearPlayer()
     {
-        if (!canSpawn) return; // Do nothing if spawning is blocked
+        // Don't spawn if blocked
+        if (spawnBlocked)
+        {
+            Debug.Log("Spawning blocked - skipping spawn");
+            return;
+        }
 
         for (int i = 0; i < monstersPerSpawn; i++)
         {
@@ -65,7 +79,7 @@ public class NoiseMonsterSpawner : MonoBehaviour
                 ResonateAI ai = monster.GetComponent<ResonateAI>();
                 if (ai != null)
                 {
-                    ai.HearNoise(player.position, 10f); // Max noise
+                    ai.HearNoise(player.position, 10f);
                 }
 
                 Debug.Log($"Monster spawned at {spawnPos} due to noise. Total active: {activeMonsters.Count}");
@@ -75,15 +89,9 @@ public class NoiseMonsterSpawner : MonoBehaviour
 
     public void BlockSpawning(float duration)
     {
-        if (!canSpawn) return; // Already blocked
-        StartCoroutine(BlockSpawnCoroutine(duration));
-    }
-
-    private IEnumerator BlockSpawnCoroutine(float duration)
-    {
-        canSpawn = false;
-        yield return new WaitForSeconds(duration);
-        canSpawn = true;
+        spawnBlocked = true;
+        spawnBlockEndTime = Time.time + duration;
+        Debug.Log($"Spawning blocked for {duration} seconds");
     }
 
     Vector3 GetSpawnPositionNearPlayer()

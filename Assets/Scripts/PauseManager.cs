@@ -1,8 +1,9 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 using TMPro;
 
 public class PauseManager : MonoBehaviour
@@ -23,61 +24,100 @@ public class PauseManager : MonoBehaviour
 
     private bool isPaused = false;
 
+    private Vector3 frozenPlayerPosition;
+    private Quaternion frozenPlayerRotation;
+    private GameObject cachedPlayer;
+
     void Awake()
     {
         if (Instance == null)
-        {
             Instance = this;
-        }
         else
-        {
             Destroy(gameObject);
-        }
     }
 
     void Start()
     {
-        // Hide all panels at start
         if (pauseMenuPanel != null) pauseMenuPanel.SetActive(false);
         if (settingsPanel != null) settingsPanel.SetActive(false);
-
-        // Load settings
         LoadSettings();
     }
 
     void Update()
     {
-        // Press ESC to toggle pause
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
         {
             if (isPaused)
-            {
                 Resume();
-            }
             else
-            {
                 Pause();
-            }
         }
     }
 
     public void Pause()
     {
         isPaused = true;
-        Time.timeScale = 0.0001f; // Freeze game
+
+        // Find and freeze player in place
+        cachedPlayer = GameObject.FindGameObjectWithTag("Player");
+        if (cachedPlayer != null)
+        {
+            frozenPlayerPosition = cachedPlayer.transform.position;
+            frozenPlayerRotation = cachedPlayer.transform.rotation;
+
+            // Zero out rigidbody physics if present
+            Rigidbody rb = cachedPlayer.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.linearVelocity = Vector3.zero;
+                rb.angularVelocity = Vector3.zero;
+                rb.isKinematic = true;
+            }
+
+            // Disable all player scripts so inputs don't move them
+            MonoBehaviour[] scripts = cachedPlayer.GetComponents<MonoBehaviour>();
+            foreach (MonoBehaviour script in scripts)
+            {
+                if (script != null && script != this)
+                    script.enabled = false;
+            }
+        }
+
+        Time.timeScale = 0f;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-
         ShowPanel(pauseMenuPanel);
     }
 
     public void Resume()
     {
         isPaused = false;
-        Time.timeScale = 1f; // Unfreeze game
+
+        if (cachedPlayer != null)
+        {
+            // Snap player back to exact frozen position/rotation
+            cachedPlayer.transform.position = frozenPlayerPosition;
+            cachedPlayer.transform.rotation = frozenPlayerRotation;
+
+            // Re-enable rigidbody
+            Rigidbody rb = cachedPlayer.GetComponent<Rigidbody>();
+            if (rb != null)
+                rb.isKinematic = false;
+
+            // Re-enable all player scripts
+            MonoBehaviour[] scripts = cachedPlayer.GetComponents<MonoBehaviour>();
+            foreach (MonoBehaviour script in scripts)
+            {
+                if (script != null)
+                    script.enabled = true;
+            }
+
+            cachedPlayer = null;
+        }
+
+        Time.timeScale = 1f;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-
         HideAllPanels();
     }
 
@@ -87,12 +127,9 @@ public class PauseManager : MonoBehaviour
 
         if (GameManager.Instance != null)
         {
-            // Update player position before saving
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             if (player != null)
-            {
                 GameManager.Instance.playerPosition = player.transform.position;
-            }
 
             GameManager.Instance.SaveGame();
             Debug.Log("Game Saved!");
@@ -115,8 +152,8 @@ public class PauseManager : MonoBehaviour
     public void QuitToMainMenu()
     {
         PlayButtonClick();
-        Time.timeScale = 1f; // Restore time
-        SceneManager.LoadScene("MainMenu"); // Your main menu scene name
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("MainMenu");
     }
 
     void ShowPanel(GameObject panelToShow)
@@ -144,12 +181,9 @@ public class PauseManager : MonoBehaviour
         PlayerPrefs.SetFloat("Sensitivity", sensitivity);
         Debug.Log("Sensitivity set to: " + sensitivity);
 
-        // Update player sensitivity in real-time
         FirstPersonController player = FindObjectOfType<FirstPersonController>();
         if (player != null)
-        {
             player.UpdateSensitivity();
-        }
     }
 
     public void ApplySettings()
@@ -161,13 +195,11 @@ public class PauseManager : MonoBehaviour
 
     void LoadSettings()
     {
-        // Disable listeners temporarily
         if (volumeSlider != null)
             volumeSlider.onValueChanged.RemoveAllListeners();
         if (sensitivitySlider != null)
             sensitivitySlider.onValueChanged.RemoveAllListeners();
 
-        // Load volume
         if (PlayerPrefs.HasKey("Volume"))
         {
             float volume = PlayerPrefs.GetFloat("Volume");
@@ -180,7 +212,6 @@ public class PauseManager : MonoBehaviour
             AudioListener.volume = 0.75f;
         }
 
-        // Load sensitivity
         if (PlayerPrefs.HasKey("Sensitivity"))
         {
             float sensitivity = PlayerPrefs.GetFloat("Sensitivity");
@@ -191,7 +222,6 @@ public class PauseManager : MonoBehaviour
             if (sensitivitySlider != null) sensitivitySlider.value = 2.0f;
         }
 
-        // Re-add listeners
         if (volumeSlider != null)
             volumeSlider.onValueChanged.AddListener(SetVolume);
         if (sensitivitySlider != null)
@@ -201,8 +231,6 @@ public class PauseManager : MonoBehaviour
     void PlayButtonClick()
     {
         if (audioSource != null && buttonClickSound != null)
-        {
             audioSource.PlayOneShot(buttonClickSound);
-        }
     }
 }

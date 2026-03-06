@@ -1,46 +1,60 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class TerrainScanner : MonoBehaviour
 {
-    public GameObject TerrainScannerPrefab;
-    public float duration = 10;
-    public float size = 500;
+    [Header("Echolocation Settings")]
+    public GameObject particlePrefab;
+    public float echoRadius = 50f;
+    public float echoSpeed = 10f;
 
-    [Header("Noise Detection")]
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip echoSound;
+
+    [Header("Noise")]
     public NoiseDetection noiseDetection;
 
-    void Update()
+    private InputActionAsset inputActions;
+
+    void Awake()
     {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            SpawnTerrainScanner();
-        }
+        inputActions = new InputActionAsset();
+    }
+
+    void OnEnable()
+    {
+        //inputActions.Enable();
+        //inputActions.Echolocation.performed += OnEcholocation;
+    }
+
+    void OnDisable()
+    {
+        //inputActions.Disable();
+        //inputActions.Player.Echolocation.performed -= OnEcholocation;
+    }
+
+    void OnEcholocation(InputValue context)
+    {
+        SpawnTerrainScanner();
     }
 
     public void SpawnTerrainScanner()
     {
-        GameObject terrainScanner = Instantiate(TerrainScannerPrefab, gameObject.transform.position, Quaternion.identity) as GameObject;
-        ParticleSystem terrainScannerPS = terrainScanner.transform.GetChild(0).GetComponent<ParticleSystem>();
-
-        if (terrainScannerPS != null)
+        if (particlePrefab != null)
         {
-            var main = terrainScannerPS.main;
-            main.startLifetime = duration;
-            main.startSize = size;
-        }
-        else
-        {
-            Debug.LogWarning("The first child of the TerrainScannerPrefab does not have a Particle System component.");
+            GameObject echo = Instantiate(particlePrefab, transform.position, Quaternion.identity);
+            Destroy(echo, 5f);
         }
 
-        // Notify noise system that echolocation was used
+        if (audioSource != null && echoSound != null)
+        {
+            audioSource.PlayOneShot(echoSound);
+        }
+
         if (noiseDetection != null)
         {
             noiseDetection.NotifyEcholocationUsed();
         }
-
-        Destroy(terrainScanner, duration + 1);
     }
 }
