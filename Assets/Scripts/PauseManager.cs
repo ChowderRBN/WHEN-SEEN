@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 using TMPro;
+using Unity.VisualScripting;
+using UnityEngine.EventSystems;
 
 public class PauseManager : MonoBehaviour
 {
@@ -17,6 +19,7 @@ public class PauseManager : MonoBehaviour
     [Header("Settings UI")]
     public Slider volumeSlider;
     public Slider sensitivitySlider;
+    public GameObject settings;
 
     [Header("Audio")]
     public AudioSource audioSource;
@@ -45,14 +48,25 @@ public class PauseManager : MonoBehaviour
 
     void Update()
     {
-        if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
+        /*if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
         {
             if (isPaused)
                 Resume();
             else
                 Pause();
-        }
+        }*/
     }
+
+    public void OnPause(InputValue input)
+    {
+        isPaused = !isPaused;
+        if (isPaused == false)
+            Resume();
+        else
+            Pause();
+        Debug.Log("Pause button pressed. isPaused: " + isPaused);
+    }
+
 
     public void Pause()
     {
@@ -74,12 +88,16 @@ public class PauseManager : MonoBehaviour
                 rb.isKinematic = true;
             }
 
-            // Disable all player scripts so inputs don't move them
+            // Disable all player scripts except PlayerInput and PauseManager
             MonoBehaviour[] scripts = cachedPlayer.GetComponents<MonoBehaviour>();
             foreach (MonoBehaviour script in scripts)
             {
-                if (script != null && script != this)
+                if (script != null
+                    && !(script is PauseManager)
+                    && !(script is PlayerInput))
+                {
                     script.enabled = false;
+                }
             }
         }
 
@@ -87,6 +105,7 @@ public class PauseManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         ShowPanel(pauseMenuPanel);
+        EventSystem.current.SetSelectedGameObject(settings);
     }
 
     public void Resume()

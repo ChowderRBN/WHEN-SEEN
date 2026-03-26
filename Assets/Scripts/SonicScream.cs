@@ -28,6 +28,7 @@ public class SonicScream : MonoBehaviour
 
     private int screams;
     private InputAction sonicScreamAction;
+    private bool canScream = true;
 
     void Start()
     {
@@ -42,34 +43,15 @@ public class SonicScream : MonoBehaviour
         if (spawner == null)
             spawner = FindObjectOfType<NoiseMonsterSpawner>();
 
-        if (inputActionsAsset != null)
-        {
-            sonicScreamAction = inputActionsAsset.FindActionMap("Player").FindAction("SonicScream");
-        }
     }
 
-    void OnEnable()
-    {
-        if (sonicScreamAction != null)
-        {
-            sonicScreamAction.Enable();
-            sonicScreamAction.performed += HandleSonicScream;
-        }
-    }
+   
 
-    void OnDisable()
+    public void OnSonicScream(InputValue context)
     {
-        if (sonicScreamAction != null)
+        if (screams > 0 && canScream)
         {
-            sonicScreamAction.performed -= HandleSonicScream;
-            sonicScreamAction.Disable();
-        }
-    }
-
-    void HandleSonicScream(InputAction.CallbackContext context)
-    {
-        if (screams > 0)
-        {
+            canScream = false;
             UseSonicScream();
         }
     }
@@ -79,9 +61,7 @@ public class SonicScream : MonoBehaviour
         Debug.Log("SONIC SCREAM USED!");
 
         if (source != null && clip != null)
-        {
             source.PlayOneShot(clip);
-        }
 
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         int enemiesAffected = 0;
@@ -115,6 +95,7 @@ public class SonicScream : MonoBehaviour
     {
         yield return new WaitForSeconds(cooldown);
         screams = Mathf.Min(screams + 1, maxScreams);
+        canScream = true;
         Debug.Log($"Sonic Scream recharged! ({screams}/{maxScreams})");
     }
 

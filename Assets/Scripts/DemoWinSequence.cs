@@ -1,8 +1,9 @@
 using System.Collections;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class DemoWinSequence : MonoBehaviour
 {
@@ -12,8 +13,8 @@ public class DemoWinSequence : MonoBehaviour
 
     [Header("UI")]
     public GameObject winPanel;
-    public RectTransform creditsContainer; // Container that scrolls
-    public RectTransform viewport;         // ADD: viewport for bounds checking
+    public RectTransform creditsContainer;
+    public RectTransform viewport;
     public TextMeshProUGUI creditsText;
     public TextMeshProUGUI thankYouText;
     public TextMeshProUGUI skipText;
@@ -93,20 +94,17 @@ Stay tuned for the full release!";
 
     void Update()
     {
-        // Win condition
         if (!hasWon && inventory != null && inventory.GetCoreCount() >= coresNeededToWin)
         {
             hasWon = true;
             StartCoroutine(PlayWinSequence());
         }
 
-        // Scroll credits safely
         if (isScrolling && creditsContainer != null)
         {
             creditsContainer.anchoredPosition +=
                 Vector2.up * scrollSpeed * Time.deltaTime;
 
-            // Reliable end check (no magic numbers)
             if (IsCreditsOffScreen())
             {
                 Debug.Log("Credits finished scrolling");
@@ -115,8 +113,7 @@ Stay tuned for the full release!";
             }
         }
 
-        // Skip
-        if (canSkip && Input.anyKeyDown)
+        if (canSkip && Keyboard.current != null && Keyboard.current.anyKey.wasPressedThisFrame)
         {
             StopAllCoroutines();
             isScrolling = false;
@@ -159,7 +156,6 @@ Stay tuned for the full release!";
         if (skipText != null)
             skipText.text = "Press any key to skip";
 
-        // Preserve X (important)
         if (creditsContainer != null)
         {
             creditsContainer.anchoredPosition =

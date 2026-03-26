@@ -30,7 +30,7 @@ public class NoiseDetection : MonoBehaviour
     public TextMeshProUGUI warningText;
     public string warningMessage = "CONTINUOUS NOISE WILL ATTRACT RESONATES TO YOUR LOCATION";
     public float warningDisplayTime = 3f;
-    private bool hasShownWarningEver = false; // Only shows once per game session
+    private bool hasShownWarningEver = false;
 
     [Header("Spawn Thresholds")]
     public float yellowThreshold = 6.6f;
@@ -54,49 +54,30 @@ public class NoiseDetection : MonoBehaviour
         UpdateNoiseUI();
 
         if (warningPanel != null)
-        {
             warningPanel.SetActive(false);
-        }
 
         if (monsterSpawner == null)
-        {
             monsterSpawner = FindObjectOfType<NoiseMonsterSpawner>();
-        }
 
-        // Load if warning has been shown before
         hasShownWarningEver = PlayerPrefs.GetInt("NoiseWarningShown", 0) == 1;
     }
 
     void Update()
     {
-        // Calculate movement noise
         float distanceMoved = Vector3.Distance(transform.position, lastPosition);
 
         if (distanceMoved > 0.01f)
         {
             float noiseGenerated = distanceMoved * movementNoisePerUnit;
-
-            if (isCrouching)
-            {
-                noiseGenerated *= crouchNoiseMultiplier;
-            }
-
+            if (isCrouching) noiseGenerated *= crouchNoiseMultiplier;
             AddNoise(noiseGenerated);
         }
 
-        // Decay noise when crouching and still
         if (isCrouching && distanceMoved < 0.01f)
-        {
             DecreaseNoise(noiseDecayRate * Time.deltaTime);
-        }
 
-        // Update UI
         UpdateNoiseUI();
-
-        // Check thresholds
         CheckNoiseThresholds();
-
-        // Broadcast noise to nearby enemies
         BroadcastNoise();
 
         lastPosition = transform.position;
@@ -131,18 +112,14 @@ public class NoiseDetection : MonoBehaviour
 
     void CheckNoiseThresholds()
     {
-        // Yellow threshold - Show warning (ONLY ONCE EVER)
         if (currentNoise >= yellowThreshold && !hasShownWarningEver)
         {
             ShowWarning();
             hasShownWarningEver = true;
-
-            // Save that warning has been shown
             PlayerPrefs.SetInt("NoiseWarningShown", 1);
             PlayerPrefs.Save();
         }
 
-        // Red threshold - Spawn monsters
         if (currentNoise >= redThreshold && Time.time >= lastSpawnTime + spawnCooldown)
         {
             SpawnMonsterFromNoise();
@@ -156,7 +133,6 @@ public class NoiseDetection : MonoBehaviour
         {
             warningPanel.SetActive(true);
             warningText.text = warningMessage;
-
             StartCoroutine(HideWarningAfterDelay());
         }
 
@@ -166,11 +142,8 @@ public class NoiseDetection : MonoBehaviour
     System.Collections.IEnumerator HideWarningAfterDelay()
     {
         yield return new WaitForSeconds(warningDisplayTime);
-
         if (warningPanel != null)
-        {
             warningPanel.SetActive(false);
-        }
     }
 
     void SpawnMonsterFromNoise()
@@ -188,19 +161,12 @@ public class NoiseDetection : MonoBehaviour
         {
             noiseMeterFill.fillAmount = currentNoise / maxNoise;
 
-            // Change color based on noise level
             if (currentNoise < yellowThreshold)
-            {
                 noiseMeterFill.color = lowNoiseColor;
-            }
             else if (currentNoise < redThreshold)
-            {
                 noiseMeterFill.color = mediumNoiseColor;
-            }
             else
-            {
                 noiseMeterFill.color = highNoiseColor;
-            }
         }
 
         if (noiseText != null)
@@ -231,35 +197,21 @@ public class NoiseDetection : MonoBehaviour
         foreach (ResonateAI resonate in resonates)
         {
             float distance = Vector3.Distance(transform.position, resonate.transform.position);
-
             if (distance <= detectionRadius)
-            {
                 resonate.HearNoise(transform.position, currentNoise);
-            }
         }
     }
 
     void BroadcastSonicScream()
     {
         ResonateAI[] resonates = FindObjectsOfType<ResonateAI>();
-
         foreach (ResonateAI resonate in resonates)
-        {
             resonate.Flee(transform.position, 50f);
-        }
     }
 
-    public void NotifyEcholocationUsed()
-    {
-        OnEcholocationUsed();
-    }
+    public void NotifyEcholocationUsed() => OnEcholocationUsed();
+    public void NotifySonicScreamUsed() => OnSonicScreamUsed();
 
-    public void NotifySonicScreamUsed()
-    {
-        OnSonicScreamUsed();
-    }
-
-    // Optional: Reset tutorial for testing
     public void ResetTutorialWarning()
     {
         hasShownWarningEver = false;

@@ -15,28 +15,46 @@ public class TerrainScanner : MonoBehaviour
     [Header("Noise")]
     public NoiseDetection noiseDetection;
 
-    private InputActionAsset inputActions;
+    [Header("Input")]
+    public InputActionAsset inputActionsAsset;
 
-    void Awake()
-    {
-        inputActions = new InputActionAsset();
-    }
+    private InputAction echoAction;
+    private bool canEcho = true;
 
     void OnEnable()
     {
-        //inputActions.Enable();
-        //inputActions.Echolocation.performed += OnEcholocation;
+        if (inputActionsAsset != null)
+        {
+            echoAction = inputActionsAsset.FindActionMap("Player").FindAction("Echolocation");
+            if (echoAction != null)
+            {
+                echoAction.performed += HandleEcholocation;
+                echoAction.canceled += HandleEchoReleased;
+                echoAction.Enable();
+            }
+        }
     }
 
     void OnDisable()
     {
-        //inputActions.Disable();
-        //inputActions.Player.Echolocation.performed -= OnEcholocation;
+        if (echoAction != null)
+        {
+            echoAction.performed -= HandleEcholocation;
+            echoAction.canceled -= HandleEchoReleased;
+            echoAction.Disable();
+        }
     }
 
-    void OnEcholocation(InputValue context)
+    private void HandleEcholocation(InputAction.CallbackContext context)
     {
+        if (!canEcho) return;
+        canEcho = false;
         SpawnTerrainScanner();
+    }
+
+    private void HandleEchoReleased(InputAction.CallbackContext context)
+    {
+        canEcho = true;
     }
 
     public void SpawnTerrainScanner()

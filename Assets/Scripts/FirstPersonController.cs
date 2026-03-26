@@ -13,6 +13,12 @@ public class FirstPersonController : MonoBehaviour
     public float jumpForce = 5f;
     public float gravity = -9.81f;
 
+    [Header("Crouch")]
+    public float crouchSpeed = 2.5f;
+    public float crouchHeight = 1f;
+    public float standingHeight = 2f;
+    public float crouchTransitionSpeed = 10f;
+
     [Header("Look")]
     public float lookSensitivity = 2f;
     public float maxLookAngle = 90f;
@@ -23,11 +29,13 @@ public class FirstPersonController : MonoBehaviour
     private float currentSpeed;
     private float speedMultiplier = 1f;
     private float verticalRotation = 0f;
+    private bool isCrouching = false;
 
     private InputAction moveAction;
     private InputAction lookAction;
     private InputAction jumpAction;
     private InputAction sprintAction;
+    private InputAction crouchAction;
 
     [Header("Input")]
     public InputActionAsset inputActionsAsset;
@@ -37,14 +45,11 @@ public class FirstPersonController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         currentSpeed = walkSpeed;
+        standingHeight = controller.height;
 
-        // Load sensitivity from settings
         if (PlayerPrefs.HasKey("Sensitivity"))
-        {
             lookSensitivity = PlayerPrefs.GetFloat("Sensitivity");
-        }
 
-        // Setup input actions
         if (inputActionsAsset != null)
         {
             var playerMap = inputActionsAsset.FindActionMap("Player");
@@ -52,23 +57,26 @@ public class FirstPersonController : MonoBehaviour
             lookAction = playerMap.FindAction("Look");
             jumpAction = playerMap.FindAction("Jump");
             sprintAction = playerMap.FindAction("Sprint");
+            crouchAction = playerMap.FindAction("Crouch");
         }
     }
 
     void OnEnable()
     {
-        if (moveAction != null) moveAction.Enable();
-        if (lookAction != null) lookAction.Enable();
-        if (jumpAction != null) jumpAction.Enable();
-        if (sprintAction != null) sprintAction.Enable();
+        moveAction?.Enable();
+        lookAction?.Enable();
+        jumpAction?.Enable();
+        sprintAction?.Enable();
+        crouchAction?.Enable();
     }
 
     void OnDisable()
     {
-        if (moveAction != null) moveAction.Disable();
-        if (lookAction != null) lookAction.Disable();
-        if (jumpAction != null) jumpAction.Disable();
-        if (sprintAction != null) sprintAction.Disable();
+        moveAction?.Disable();
+        lookAction?.Disable();
+        jumpAction?.Disable();
+        sprintAction?.Disable();
+        crouchAction?.Disable();
     }
 
     void Update()
@@ -79,35 +87,47 @@ public class FirstPersonController : MonoBehaviour
 
     void HandleMovement()
     {
-        // Get input
         if (moveAction != null)
             moveInput = moveAction.ReadValue<Vector2>();
 
         bool sprintPressed = sprintAction != null && sprintAction.IsPressed();
+        bool crouchPressed = crouchAction != null && crouchAction.IsPressed();
         bool jumpPressed = jumpAction != null && jumpAction.triggered;
 
-        // Calculate speed
-        float targetSpeed = sprintPressed ? sprintSpeed : walkSpeed;
+        // Sprint cancels crouch; crouch cancels sprint
+        if (crouchPressed && !sprintPressed)
+        {
+            isCrouching = true;
+        }
+        else
+        {
+            isCrouching = false;
+        }
+
+        // Smoothly adjust controller height
+        float targetHeight = isCrouching ? crouchHeight : standingHeight;
+        controller.height = Mathf.Lerp(controller.height, targetHeight, Time.deltaTime * crouchTransitionSpeed);
+
+        // Set speed: crouching overrides sprint, sprint overrides walk
+        float targetSpeed = isCrouching ? crouchSpeed
+                          : sprintPressed ? sprintSpeed
+                          : walkSpeed;
         currentSpeed = targetSpeed * speedMultiplier;
 
         // Move
         Vector3 move = transform.right * moveInput.x + transform.forward * moveInput.y;
         controller.Move(move * currentSpeed * Time.deltaTime);
 
-        // Jump
-        if (jumpPressed && controller.isGrounded)
-        {
+        // Jump (disabled while crouching)
+        if (jumpPressed && controller.isGrounded && !isCrouching)
             velocity.y = Mathf.Sqrt(jumpForce * -2f * gravity);
-        }
 
         // Gravity
+        if (controller.isGrounded && velocity.y < 0)
+            velocity.y = -2f;
+
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
-
-        if (controller.isGrounded && velocity.y < 0)
-        {
-            velocity.y = -2f;
-        }
     }
 
     void HandleLook()
@@ -115,16 +135,13 @@ public class FirstPersonController : MonoBehaviour
         if (lookAction != null)
             lookInput = lookAction.ReadValue<Vector2>();
 
-        // Horizontal rotation
         transform.Rotate(Vector3.up * lookInput.x * lookSensitivity);
 
-        // Vertical rotation
         verticalRotation -= lookInput.y * lookSensitivity;
         verticalRotation = Mathf.Clamp(verticalRotation, -maxLookAngle, maxLookAngle);
         playerCamera.transform.localRotation = Quaternion.Euler(verticalRotation, 0, 0);
     }
 
-    // Called from PauseManager when sensitivity changes
     public void UpdateSensitivity()
     {
         if (PlayerPrefs.HasKey("Sensitivity"))
@@ -134,13 +151,6 @@ public class FirstPersonController : MonoBehaviour
         }
     }
 
-    public void SetSpeedMultiplier(float multiplier)
-    {
-        speedMultiplier = multiplier;
-    }
-
-    public void ResetSpeed()
-    {
-        speedMultiplier = 1f;
-    }
+    public void SetSpeedMultiplier(float multiplier) => speedMultiplier = multiplier;
+    public void ResetSpeed() => speedMultiplier = 1f;
 }

@@ -1,8 +1,9 @@
 ﻿using System.Collections;
-using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
+using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PostCreditsScene : MonoBehaviour
 {
@@ -14,13 +15,13 @@ public class PostCreditsScene : MonoBehaviour
 
     [Header("Audio Log")]
     public AudioSource voiceSource;
-    public AudioClip[] logClips; // Multiple voice lines
+    public AudioClip[] logClips;
 
     [Header("UI")]
     public Image fadePanel;
     public GameObject subtitlePanel;
     public TextMeshProUGUI subtitleText;
-    public Image staticEffect; // VHS static overlay
+    public Image staticEffect;
 
     [Header("Timing")]
     public float initialDelay = 2f;
@@ -38,30 +39,24 @@ public class PostCreditsScene : MonoBehaviour
 
     void Start()
     {
-        // Setup fade panel
         if (fadePanel != null)
         {
             Color c = fadePanel.color;
-            c.a = 1f; // Start black
+            c.a = 1f;
             fadePanel.color = c;
         }
 
         if (subtitlePanel != null)
-        {
             subtitlePanel.SetActive(false);
-        }
 
         if (staticEffect != null)
-        {
             staticEffect.gameObject.SetActive(false);
-        }
 
         StartCoroutine(PlayPostCreditsSequence());
     }
 
     void Update()
     {
-        // Slow camera dolly forward
         if (isPlaying && mainCamera != null && cameraEndPosition != null)
         {
             mainCamera.transform.position = Vector3.Lerp(
@@ -71,8 +66,7 @@ public class PostCreditsScene : MonoBehaviour
             );
         }
 
-        // Skip with any key
-        if (Input.anyKeyDown && isPlaying)
+        if (isPlaying && Keyboard.current != null && Keyboard.current.anyKey.wasPressedThisFrame)
         {
             StopAllCoroutines();
             ReturnToMenu();
@@ -81,103 +75,68 @@ public class PostCreditsScene : MonoBehaviour
 
     IEnumerator PlayPostCreditsSequence()
     {
-        // Initial black screen
         yield return new WaitForSeconds(initialDelay);
 
-        // Fade in to reveal the massive planet
         yield return StartCoroutine(FadeFromBlack());
 
         isPlaying = true;
 
-        // Wait a moment to let player take in the scale
         yield return new WaitForSeconds(3f);
 
-        // Play audio log with subtitles
         yield return StartCoroutine(PlayAudioLog());
 
-        // Wait a moment
         yield return new WaitForSeconds(2f);
 
-        // Fade to black
         yield return StartCoroutine(FadeToBlack());
 
-        // Return to menu
         ReturnToMenu();
     }
 
     IEnumerator PlayAudioLog()
     {
         if (subtitlePanel != null)
-        {
             subtitlePanel.SetActive(true);
-        }
 
-        // Play each audio clip with subtitle
         for (int i = 0; i < logClips.Length; i++)
         {
             if (logClips[i] != null && voiceSource != null)
             {
-                // Show subtitle
                 if (subtitleText != null && i < subtitles.Length)
-                {
                     subtitleText.text = subtitles[i];
-                }
 
-                // Play voice
                 voiceSource.PlayOneShot(logClips[i]);
 
-                // Wait for clip to finish
                 yield return new WaitForSeconds(logClips[i].length);
-
-                // Brief pause between lines
                 yield return new WaitForSeconds(0.5f);
             }
         }
 
-        // CRITICAL MOMENT - Audio cuts off dramatically
         yield return StartCoroutine(StaticCutoff());
     }
 
     IEnumerator StaticCutoff()
     {
-        // Show static effect
         if (staticEffect != null)
-        {
             staticEffect.gameObject.SetActive(true);
-        }
 
-        // Play static sound if you have one
-        // voiceSource.PlayOneShot(staticSound);
-
-        // Glitch the subtitle
         if (subtitleText != null)
-        {
             subtitleText.text = "█████ ██████ ███ ████████";
-        }
 
-        // Flash static
         for (int i = 0; i < 5; i++)
         {
             if (staticEffect != null)
-            {
                 staticEffect.enabled = !staticEffect.enabled;
-            }
+
             yield return new WaitForSeconds(0.1f);
         }
 
-        // Signal lost
         if (subtitleText != null)
-        {
             subtitleText.text = "[SIGNAL LOST]";
-        }
 
         yield return new WaitForSeconds(2f);
 
-        // Hide subtitles
         if (subtitlePanel != null)
-        {
             subtitlePanel.SetActive(false);
-        }
     }
 
     IEnumerator FadeFromBlack()
