@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -57,6 +58,18 @@ public class TerrainScanner : MonoBehaviour
         canEcho = true;
     }
 
+    public void SonarInput(bool sonarState)
+    {
+               if (sonarState && canEcho)
+        {
+            canEcho = false;
+            SpawnTerrainScanner();
+        }
+        else
+        {
+            canEcho = true;
+        }
+    }
     public void SpawnTerrainScanner()
     {
         if (particlePrefab != null)
@@ -74,5 +87,10 @@ public class TerrainScanner : MonoBehaviour
         {
             noiseDetection.NotifyEcholocationUsed();
         }
+    }
+
+    internal void SonarInput(Vector2 virtualSonarDirection)
+    {
+        throw new NotImplementedException();
     }
 }

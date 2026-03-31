@@ -45,7 +45,14 @@ public class SonicScream : MonoBehaviour
 
     }
 
-   
+   public void ScreamInput ( bool screamState)
+    {
+        if (screams > 0 && canScream)
+        {
+            canScream = false;
+            UseSonicScream();
+        }
+    }
 
     public void OnSonicScream(InputValue context)
     {

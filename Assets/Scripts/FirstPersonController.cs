@@ -85,10 +85,14 @@ public class FirstPersonController : MonoBehaviour
         HandleLook();
     }
 
+    public void MoveInput(Vector2 input) => moveInput = input.normalized;
+
     void HandleMovement()
     {
+#if !UNITY_IOS && !UNITY_ANDROID
         if (moveAction != null)
             moveInput = moveAction.ReadValue<Vector2>();
+#endif
 
         bool sprintPressed = sprintAction != null && sprintAction.IsPressed();
         bool crouchPressed = crouchAction != null && crouchAction.IsPressed();
@@ -130,10 +134,13 @@ public class FirstPersonController : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
     }
 
+    public void LookInput(Vector2 input) => lookInput = input.normalized;
     void HandleLook()
     {
+#if !UNITY_IOS && !UNITY_ANDROID
         if (lookAction != null)
             lookInput = lookAction.ReadValue<Vector2>();
+#endif
 
         transform.Rotate(Vector3.up * lookInput.x * lookSensitivity);
 
