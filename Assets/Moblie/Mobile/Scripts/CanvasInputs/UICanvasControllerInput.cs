@@ -24,9 +24,9 @@ namespace StarterAssets
         {
             sonicScream.ScreamInput(virtualScreamState);
         }
-        public void VirtualSonarInput(Vector2 virtualSonarDirection)
+        public void VirtualSonarInput(bool virtualSonarState)
         {
-                       terrainScanner.SonarInput(virtualSonarDirection);
+            terrainScanner.SonarInput(virtualSonarState);
         }
 
         public void VirtualSprintInput(bool virtualSprintState)

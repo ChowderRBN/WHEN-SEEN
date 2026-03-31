@@ -19,7 +19,7 @@ public class MobileDisableAutoSwitchControls : MonoBehaviour
 #else 
 void Start()
     {
-        DestroyGameObject();
+        Destroy(gameObject);
     }
 #endif
 

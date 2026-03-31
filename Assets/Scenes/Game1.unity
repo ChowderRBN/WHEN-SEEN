@@ -276,7 +276,7 @@ MonoBehaviour:
     useRedFlash: 0
     flashIntensity: 0.05
   - speakerName: '{PLAYER}'
-    dialogueText: "That\u2019s a war crime."
+    dialogueText: What? Ew. We don't even have protein paste!
     voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
@@ -288,7 +288,7 @@ MonoBehaviour:
     useRedFlash: 0
     flashIntensity: 0.5
   - speakerName: Trish
-    dialogueText: Exactly. Move it.
+    dialogueText: Exactly. That's the point.
     voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,8 +6,7 @@ public class TerrainScanner : MonoBehaviour
 {
     [Header("Echolocation Settings")]
     public GameObject particlePrefab;
-    public float echoRadius = 50f;
-    public float echoSpeed = 10f;
+    public float echoLifetime = 5f;
 
     [Header("Audio")]
     public AudioSource audioSource;
@@ -20,77 +19,89 @@ public class TerrainScanner : MonoBehaviour
     public InputActionAsset inputActionsAsset;
 
     private InputAction echoAction;
+
     private bool canEcho = true;
 
-    void OnEnable()
+    void Start()
     {
         if (inputActionsAsset != null)
         {
-            echoAction = inputActionsAsset.FindActionMap("Player").FindAction("Echolocation");
-            if (echoAction != null)
-            {
-                echoAction.performed += HandleEcholocation;
-                echoAction.canceled += HandleEchoReleased;
-                echoAction.Enable();
-            }
+            var playerMap = inputActionsAsset.FindActionMap("Player");
+            echoAction = playerMap.FindAction("Echolocation");
         }
+    }
+
+    void OnEnable()
+    {
+        echoAction?.Enable();
     }
 
     void OnDisable()
     {
-        if (echoAction != null)
+        echoAction?.Disable();
+    }
+
+    void Update()
+    {
+#if !UNITY_IOS && !UNITY_ANDROID
+        if (echoAction != null && echoAction.triggered)
         {
-            echoAction.performed -= HandleEcholocation;
-            echoAction.canceled -= HandleEchoReleased;
-            echoAction.Disable();
+            TryEcho();
+        }
+#endif
+    }
+
+    // MOBILE BUTTON SUPPORT
+    public void SonarInput(bool pressed)
+    {
+        if (pressed)
+        {
+            TryEcho();
         }
     }
 
-    private void HandleEcholocation(InputAction.CallbackContext context)
+    
+    public void SonarInput(Vector2 direction)
     {
-        if (!canEcho) return;
-        canEcho = false;
-        SpawnTerrainScanner();
+        
+        TryEcho();
     }
 
-    private void HandleEchoReleased(InputAction.CallbackContext context)
+    private void TryEcho()
+    {
+        if (!canEcho) return;
+
+        canEcho = false;
+        SpawnTerrainScanner();
+
+        // Small delay to prevent spam
+        Invoke(nameof(ResetEcho), 0.3f);
+    }
+
+    private void ResetEcho()
     {
         canEcho = true;
     }
 
-    public void SonarInput(bool sonarState)
-    {
-               if (sonarState && canEcho)
-        {
-            canEcho = false;
-            SpawnTerrainScanner();
-        }
-        else
-        {
-            canEcho = true;
-        }
-    }
     public void SpawnTerrainScanner()
     {
+        // Spawn visual
         if (particlePrefab != null)
         {
             GameObject echo = Instantiate(particlePrefab, transform.position, Quaternion.identity);
-            Destroy(echo, 5f);
+            Destroy(echo, echoLifetime);
         }
 
+        // Play sound
         if (audioSource != null && echoSound != null)
         {
             audioSource.PlayOneShot(echoSound);
         }
 
+        // Notify AI / noise system
         if (noiseDetection != null)
         {
             noiseDetection.NotifyEcholocationUsed();
         }
-    }
-
-    internal void SonarInput(Vector2 virtualSonarDirection)
-    {
-        throw new NotImplementedException();
     }
 }
