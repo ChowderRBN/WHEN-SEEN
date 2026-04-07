@@ -73,8 +73,16 @@ public class NoiseDetection : MonoBehaviour
             AddNoise(noiseGenerated);
         }
 
-        if (isCrouching && distanceMoved < 0.01f)
+        // Decay noise when crouching, regardless of movement
+        if (isCrouching)
+        {
             DecreaseNoise(noiseDecayRate * Time.deltaTime);
+        }
+        // Decay slowly when standing still
+        else if (distanceMoved < 0.01f)
+        {
+            DecreaseNoise(noiseDecayRate * 0.25f * Time.deltaTime);
+        }
 
         UpdateNoiseUI();
         CheckNoiseThresholds();

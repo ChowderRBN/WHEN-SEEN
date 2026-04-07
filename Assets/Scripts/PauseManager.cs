@@ -4,8 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine.EventSystems;
 
 public class PauseManager : MonoBehaviour
@@ -46,40 +44,38 @@ public class PauseManager : MonoBehaviour
         LoadSettings();
     }
 
-    void Update()
-    {
-        /*if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
-        {
-            if (isPaused)
-                Resume();
-            else
-                Pause();
-        }*/
-    }
-
+    // ===== INPUT SYSTEM (KEYBOARD / CONTROLLER) =====
     public void OnPause(InputValue input)
     {
-        isPaused = !isPaused;
-        if (isPaused == false)
+        if (input.isPressed)
+        {
+            TogglePause(true);
+        }
+    }
+
+    // ===== MOBILE INPUT (LIKE TERRAIN SCANNER) =====
+    public void TogglePause(bool pressed)
+    {
+        if (!pressed) return;
+
+        if (isPaused)
             Resume();
         else
             Pause();
-        Debug.Log("Pause button pressed. isPaused: " + isPaused);
-    }
 
+        Debug.Log("Pause toggled. isPaused: " + isPaused);
+    }
 
     public void Pause()
     {
         isPaused = true;
 
-        // Find and freeze player in place
         cachedPlayer = GameObject.FindGameObjectWithTag("Player");
         if (cachedPlayer != null)
         {
             frozenPlayerPosition = cachedPlayer.transform.position;
             frozenPlayerRotation = cachedPlayer.transform.rotation;
 
-            // Zero out rigidbody physics if present
             Rigidbody rb = cachedPlayer.GetComponent<Rigidbody>();
             if (rb != null)
             {
@@ -88,13 +84,12 @@ public class PauseManager : MonoBehaviour
                 rb.isKinematic = true;
             }
 
-            // Disable all player scripts except PlayerInput and PauseManager
             MonoBehaviour[] scripts = cachedPlayer.GetComponents<MonoBehaviour>();
             foreach (MonoBehaviour script in scripts)
             {
-                if (script != null
-                    && !(script is PauseManager)
-                    && !(script is PlayerInput))
+                if (script != null &&
+                    !(script is PauseManager) &&
+                    !(script is PlayerInput))
                 {
                     script.enabled = false;
                 }
@@ -104,8 +99,11 @@ public class PauseManager : MonoBehaviour
         Time.timeScale = 0f;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+
         ShowPanel(pauseMenuPanel);
-        EventSystem.current.SetSelectedGameObject(settings);
+
+        if (EventSystem.current != null && settings != null)
+            EventSystem.current.SetSelectedGameObject(settings);
     }
 
     public void Resume()
@@ -114,16 +112,13 @@ public class PauseManager : MonoBehaviour
 
         if (cachedPlayer != null)
         {
-            // Snap player back to exact frozen position/rotation
             cachedPlayer.transform.position = frozenPlayerPosition;
             cachedPlayer.transform.rotation = frozenPlayerRotation;
 
-            // Re-enable rigidbody
             Rigidbody rb = cachedPlayer.GetComponent<Rigidbody>();
             if (rb != null)
                 rb.isKinematic = false;
 
-            // Re-enable all player scripts
             MonoBehaviour[] scripts = cachedPlayer.GetComponents<MonoBehaviour>();
             foreach (MonoBehaviour script in scripts)
             {
@@ -137,6 +132,7 @@ public class PauseManager : MonoBehaviour
         Time.timeScale = 1f;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
         HideAllPanels();
     }
 
@@ -199,10 +195,6 @@ public class PauseManager : MonoBehaviour
     {
         PlayerPrefs.SetFloat("Sensitivity", sensitivity);
         Debug.Log("Sensitivity set to: " + sensitivity);
-
-        FirstPersonController player = FindObjectOfType<FirstPersonController>();
-        if (player != null)
-            player.UpdateSensitivity();
     }
 
     public void ApplySettings()
@@ -219,27 +211,12 @@ public class PauseManager : MonoBehaviour
         if (sensitivitySlider != null)
             sensitivitySlider.onValueChanged.RemoveAllListeners();
 
-        if (PlayerPrefs.HasKey("Volume"))
-        {
-            float volume = PlayerPrefs.GetFloat("Volume");
-            if (volumeSlider != null) volumeSlider.value = volume;
-            AudioListener.volume = volume;
-        }
-        else
-        {
-            if (volumeSlider != null) volumeSlider.value = 0.75f;
-            AudioListener.volume = 0.75f;
-        }
+        float volume = PlayerPrefs.GetFloat("Volume", 0.75f);
+        if (volumeSlider != null) volumeSlider.value = volume;
+        AudioListener.volume = volume;
 
-        if (PlayerPrefs.HasKey("Sensitivity"))
-        {
-            float sensitivity = PlayerPrefs.GetFloat("Sensitivity");
-            if (sensitivitySlider != null) sensitivitySlider.value = sensitivity;
-        }
-        else
-        {
-            if (sensitivitySlider != null) sensitivitySlider.value = 2.0f;
-        }
+        float sensitivity = PlayerPrefs.GetFloat("Sensitivity", 2.0f);
+        if (sensitivitySlider != null) sensitivitySlider.value = sensitivity;
 
         if (volumeSlider != null)
             volumeSlider.onValueChanged.AddListener(SetVolume);

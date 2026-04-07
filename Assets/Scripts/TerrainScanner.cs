@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class TerrainScanner : MonoBehaviour
@@ -19,7 +18,6 @@ public class TerrainScanner : MonoBehaviour
     public InputActionAsset inputActionsAsset;
 
     private InputAction echoAction;
-
     private bool canEcho = true;
 
     void Start()
@@ -51,20 +49,12 @@ public class TerrainScanner : MonoBehaviour
 #endif
     }
 
-    // MOBILE BUTTON SUPPORT
     public void SonarInput(bool pressed)
     {
         if (pressed)
         {
             TryEcho();
         }
-    }
-
-    
-    public void SonarInput(Vector2 direction)
-    {
-        
-        TryEcho();
     }
 
     private void TryEcho()
@@ -74,7 +64,6 @@ public class TerrainScanner : MonoBehaviour
         canEcho = false;
         SpawnTerrainScanner();
 
-        // Small delay to prevent spam
         Invoke(nameof(ResetEcho), 0.3f);
     }
 
@@ -85,20 +74,17 @@ public class TerrainScanner : MonoBehaviour
 
     public void SpawnTerrainScanner()
     {
-        // Spawn visual
         if (particlePrefab != null)
         {
             GameObject echo = Instantiate(particlePrefab, transform.position, Quaternion.identity);
             Destroy(echo, echoLifetime);
         }
 
-        // Play sound
         if (audioSource != null && echoSound != null)
         {
             audioSource.PlayOneShot(echoSound);
         }
 
-        // Notify AI / noise system
         if (noiseDetection != null)
         {
             noiseDetection.NotifyEcholocationUsed();

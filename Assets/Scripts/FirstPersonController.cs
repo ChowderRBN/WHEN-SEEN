@@ -31,6 +31,10 @@ public class FirstPersonController : MonoBehaviour
     private float verticalRotation = 0f;
     private bool isCrouching = false;
 
+    // --- NEW: state bools driven by both hardware input and virtual buttons ---
+    private bool sprintState = false;
+    private bool crouchState = false;
+
     private InputAction moveAction;
     private InputAction lookAction;
     private InputAction jumpAction;
@@ -79,46 +83,57 @@ public class FirstPersonController : MonoBehaviour
         crouchAction?.Disable();
     }
 
+    // -------------------------------------------------------------------------
+    // Public input methods — mirrors ScreamInput pattern
+    // -------------------------------------------------------------------------
+    public void MoveInput(Vector2 input) => moveInput = input.normalized;
+    public void LookInput(Vector2 input) => lookInput = input.normalized;
+
+    /// <summary>Called by UICanvasControllerInput.VirtualSprintInput or a UI button.</summary>
+    public void SprintInput(bool sprintPressed) => sprintState = sprintPressed;
+
+    /// <summary>Called by UICanvasControllerInput.VirtualCrouchInput or a UI button.</summary>
+    public void CrouchInput(bool crouchPressed) => crouchState = crouchPressed;
+
+    // -------------------------------------------------------------------------
+
     void Update()
     {
         HandleMovement();
         HandleLook();
     }
 
-    public void MoveInput(Vector2 input) => moveInput = input.normalized;
-
     void HandleMovement()
     {
 #if !UNITY_IOS && !UNITY_ANDROID
         if (moveAction != null)
             moveInput = moveAction.ReadValue<Vector2>();
+
+        // Merge hardware input INTO the shared state bools so both paths work
+        if (sprintAction != null)
+            sprintState = sprintAction.IsPressed();
+
+        if (crouchAction != null)
+            crouchState = crouchAction.IsPressed();
 #endif
 
-        bool sprintPressed = sprintAction != null && sprintAction.IsPressed();
-        bool crouchPressed = crouchAction != null && crouchAction.IsPressed();
         bool jumpPressed = jumpAction != null && jumpAction.triggered;
 
         // Sprint cancels crouch; crouch cancels sprint
-        if (crouchPressed && !sprintPressed)
-        {
-            isCrouching = true;
-        }
-        else
-        {
-            isCrouching = false;
-        }
+        isCrouching = crouchState && !sprintState;
 
         // Smoothly adjust controller height
         float targetHeight = isCrouching ? crouchHeight : standingHeight;
-        controller.height = Mathf.Lerp(controller.height, targetHeight, Time.deltaTime * crouchTransitionSpeed);
+        controller.height = Mathf.Lerp(controller.height, targetHeight,
+                                       Time.deltaTime * crouchTransitionSpeed);
 
-        // Set speed: crouching overrides sprint, sprint overrides walk
+        // Speed priority: crouching > sprinting > walking
         float targetSpeed = isCrouching ? crouchSpeed
-                          : sprintPressed ? sprintSpeed
+                          : sprintState ? sprintSpeed
                           : walkSpeed;
         currentSpeed = targetSpeed * speedMultiplier;
 
-        // Move
+        // Lateral / forward movement
         Vector3 move = transform.right * moveInput.x + transform.forward * moveInput.y;
         controller.Move(move * currentSpeed * Time.deltaTime);
 
@@ -134,7 +149,6 @@ public class FirstPersonController : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
     }
 
-    public void LookInput(Vector2 input) => lookInput = input.normalized;
     void HandleLook()
     {
 #if !UNITY_IOS && !UNITY_ANDROID
