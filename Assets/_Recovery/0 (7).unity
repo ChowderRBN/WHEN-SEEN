@@ -888,7 +888,7 @@ MonoBehaviour:
     voiceClip: {fileID: 0}
     soundEffect: {fileID: 0}
     customTextSpeed: 0
-    autoAdvance: 1
+    autoAdvance: 0
     autoAdvanceDelay: 2
     useScreenShake: 0
     shakeIntensity: 10
